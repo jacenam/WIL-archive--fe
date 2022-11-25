@@ -1,5 +1,5 @@
 
-<p align="center" style="max-witdh: 80%"><img src="https://ifh.cc/g/51bxD8.png"></p>
+<img src="https://user-images.githubusercontent.com/92138751/204022801-e2246501-fabf-473c-9ed3-9a1ce4ca110f.png" align="center" width="100%">
 
 <br>
 
