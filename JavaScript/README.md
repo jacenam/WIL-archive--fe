@@ -22,7 +22,7 @@
 
 ### JavaScript 기본
 
-- [변수](./JavaScript%20%EA%B8%B0%EB%B3%B8/변수.md)
+- [변수](https://github.com/jacenam/WIL/blob/main/JavaScript/JavaScript%20%EA%B8%B0%EB%B3%B8/%EB%B3%80%EC%88%98.md)
 - [할당]()
 - [표현식과 문(feat. 값, 리터럴)]()
 - [연산자]()
