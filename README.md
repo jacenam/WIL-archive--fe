@@ -4,4 +4,4 @@
 <br>
 
 ## JavaScript
-- [JavaScript 기초]()
+- [JavaScript 기초](https://github.com/jacenam/WIL/tree/main/JavaScript)
