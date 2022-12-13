@@ -7,6 +7,10 @@
 
 <br>
 
+> "CS is not just about programming and working in isolation on your computer, it's really about problem solving" - David J. Malan
+
+<br>
+
 ## 목차
 ### CS 기본
 - [이진법]()
