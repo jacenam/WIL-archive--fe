@@ -3,8 +3,10 @@
 
 <br>
 
-## JavaScript
-- [JavaScript 기초](https://github.com/jacenam/WIL/tree/main/JavaScript)
-
 ## CS
 - [CS 기초](https://github.com/jacenam/WIL-archive/tree/main/CS)
+
+<br>
+
+## JavaScript
+- [JavaScript 기초](https://github.com/jacenam/WIL/tree/main/JavaScript)
