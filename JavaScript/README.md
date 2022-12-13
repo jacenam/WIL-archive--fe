@@ -51,7 +51,7 @@
 
 ### 함수
 
-- [함수란]()
+- [함수란](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/%ED%95%A8%EC%88%98/%ED%95%A8%EC%88%98%EB%9E%80.md)
 - [함수 정의]()
 - [함수 호출]()
 - [참조에 의한 전달과 함수 외부 상태의 변경]()
