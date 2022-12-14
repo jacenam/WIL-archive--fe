@@ -53,8 +53,8 @@
 
 - [함수란](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/%ED%95%A8%EC%88%98/%ED%95%A8%EC%88%98%EB%9E%80.md)
 - [함수 정의](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/%ED%95%A8%EC%88%98/%ED%95%A8%EC%88%98%20%EC%A0%95%EC%9D%98.md)
-- [함수 호출]()
-- [참조에 의한 전달과 함수 외부 상태의 변경]()
+- [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/%ED%95%A8%EC%88%98/%ED%95%A8%EC%88%98%20%ED%98%B8%EC%B6%9C.md)
+- [참조에 의한 전달과 함수 외부 상태의 변경](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/%ED%95%A8%EC%88%98/%EC%B0%B8%EC%A1%B0%EC%97%90%20%EC%9D%98%ED%95%9C%20%EC%A0%84%EB%8B%AC%EA%B3%BC%20%ED%95%A8%EC%88%98%20%EC%99%B8%EB%B6%80%20%EC%83%81%ED%83%9C%EC%9D%98%20%EB%B3%80%EA%B2%BD.md)
 - 다양한 함수의 형태
   - [즉시 실행 함수]()
   - [재귀 함수]()
