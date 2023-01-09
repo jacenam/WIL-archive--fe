@@ -23,7 +23,7 @@
 ### JavaScript 기본
 
 - [변수](https://github.com/jacenam/WIL/blob/main/JavaScript/JavaScript%20%EA%B8%B0%EB%B3%B8/%EB%B3%80%EC%88%98.md)
-- [할당]()
+- [할당](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20%EA%B8%B0%EB%B3%B8/%ED%95%A0%EB%8B%B9.md)
 - [표현식과 문(feat. 값, 리터럴)]()
 - [연산자]()
   - [산술 연산자]()
