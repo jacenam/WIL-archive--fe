@@ -8,5 +8,9 @@
 
 <br>
 
+## 자료구조
+
+<br>
+
 ## JavaScript
 - [JavaScript 기초](https://github.com/jacenam/WIL/tree/main/JavaScript)
