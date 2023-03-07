@@ -18,4 +18,4 @@
 <br>
 
 ## Git
-- [Git 기초](https://github.com/jacenam/WIL-archive/blob/main/Git/%EB%B2%84%EC%A0%84%20%EA%B4%80%EB%A6%AC%20%EC%8B%9C%EC%8A%A4%ED%85%9C(VCS).md)
+- [Git 기초](https://github.com/jacenam/WIL-archive/blob/main/Git/README.md)
