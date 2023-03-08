@@ -7,7 +7,7 @@
 <br>
 
 ## 목차
-- [형상 관리(SCM)/버전 관리 시스템(VCS)이란?](https://github.com/jacenam/WIL-archive/blob/main/Git/%ED%98%95%EC%83%81%EA%B4%80%EB%A6%AC%2C%20%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC%EB%9E%80%3F)
+- [형상 관리(SCM)/버전 관리 시스템(VCS)이란](https://github.com/jacenam/WIL-archive/blob/main/Git/%ED%98%95%EC%83%81%EA%B4%80%EB%A6%AC%2C%20%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC%EB%9E%80%3F)
 - [Git이란?]()
 
 
