@@ -19,3 +19,4 @@
 
 ## Git
 - [Git 기초](https://github.com/jacenam/WIL-archive/blob/main/Git/README.md)
+- [Git OS에서 완전 삭제하기]()
