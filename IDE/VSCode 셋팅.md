@@ -1,0 +1,1 @@
+- [VSCode 디렉토리 구조 보기 방식 변경](https://pygmalion0220.tistory.com/entry/VSCode-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC%ED%8F%B4%EB%8D%94-%EA%B5%AC%EC%A1%B0-%EB%B3%B4%EA%B8%B0-%EB%B0%A9%EC%8B%9D%EC%A0%84%EC%B2%B4-%EB%82%98%EC%97%B4-%EB%B3%80%EA%B2%BD)
