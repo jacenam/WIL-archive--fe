@@ -70,6 +70,15 @@ git checkout 3fcc857
 →  HEAD is now at 3fcc857 first version
 ```
 
+만약 다시 최신 커밋으로 되돌리고자 하면 최신 커밋 ID의 앞 7글자를 붙여 `git checkout 8d608f6`을 사용해도 되지만, 최신 커밋 이력을 나타내는 `-` 명령어를 이용하는게 더욱 편리하다
+
+```bash
+git checkout -
+
+→ Previous HEAD position was 3fcc857 first version
+  Switched to branch 'main'
+```
+
 ### 2-2 git log 옵션
 `git log`는 사용자의 커밋 ID, 작성자(Author), 커밋 시간(Date), 커밋 내용(Commit Message) 등의 내용을 출력한다. 이때 커밋했던 내역이 보여지는 형태를 여러가지 옵션으로 지정할 수 있다. 대표적인 옵션들만 추리자면 아래 내용과 같다: 
 
