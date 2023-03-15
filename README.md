@@ -5,6 +5,7 @@
 
 ## CS
 - [CS 기초](https://github.com/jacenam/WIL-archive/tree/main/CS)
+- [절대경로와 상대경로]()
 
 <br>
 
