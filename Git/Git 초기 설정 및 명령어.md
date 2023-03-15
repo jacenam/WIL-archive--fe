@@ -144,7 +144,7 @@ git init
 → Reinitialized existing Git repository in /Users/jace/Desktop/local/.git/
 ```
 
-여기서 주의해야 할점은 지정한 디렉토리를 `.git` 로컬 저장소로 초기화해준다 하더라도 실제 `local` 폴더(디렉토리) 내부에는 `.git` 저장소가 보이지 않을 것이다. 이는 특정 시스템 및 백업 파일을 표시하지 않기 때문인데, `shift` + `command` + `.` 단축키를 누르면 숨겨진 파일 혹은 폴더를 표시할 수 있다
+여기서 주의해야 할점은 지정한 디렉토리를 `.git` 로컬 저장소로 초기화해준다 하더라도 실제 `local` 폴더(디렉토리) 내부에는 `.git` 저장소가 보이지 않을 것이다. 이는 특정 시스템 및 백업 파일을 표시하지 않기 때문인데, `shift + command + .` 단축키를 누르면 숨겨진 파일 혹은 폴더를 표시할 수 있다
 
 <img src="https://ifh.cc/g/CtmkvJ.gif" style="max-width: 100%" align="center">
 
