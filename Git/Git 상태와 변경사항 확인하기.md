@@ -5,6 +5,8 @@
   - [1-1 상태 확인하기](#1-1-상태-확인하기)
   - [1-2 변경사항 확인하기](#1-2-변경사항-확인하기)
 - [2 커밋 내역 살펴보기](#2-커밋-내역-살펴보기)
+  - [2-1 git log](#2-1-git-log)
+  - [2-2 git log 옵션](#2-2-git-log-)
 
 ***
 
@@ -41,6 +43,8 @@ git diff
 <br>
 
 ## 2 커밋 내역 살펴보기
+
+### 2-1 git log
 `log` 명령어는 최근 커밋한 내역을 출력해주기 때문에 커밋 사항들을 조회할 수 있다. 
 
 ```bash
@@ -65,6 +69,27 @@ git checkout 3fcc857
 
 →  HEAD is now at 3fcc857 first version
 ```
+
+### 2-2 git log 옵션
+`git log`는 사용자의 커밋 ID, 작성자(Author), 커밋 시간(Date), 커밋 내용(Commit Message) 등의 내용을 출력한다. 이때 커밋했던 내역이 보여지는 형태를 여러가지 옵션으로 지정할 수 있다. 대표적인 옵션들만 추리자면 아래 내용과 같다: 
+
+-  `git log --pretty`: 간단명료하게 커밋 이력을 요약해서 출력한다
+    
+    ```bash
+    git log --pretty
+    
+    → commit 3fcc857803e44458c545933d49e1deb4ca17b1ff (HEAD) | Author: jacenam <jace.nams@gmail.com>
+    ```
+- `git log --oneline`: 커밋 이력을 한 줄로 요약해서 출력한다
+    
+    ```bash
+    git log --oneline
+    
+    → 3fcc857 (HEAD) first version
+    ```
+- `git log --graph`: 커밋 이력을 그래프로 나타낸다. 여러 브랜치가 존재할 때 유용한 옵션이다. 위 옵션들과 결합해서 `git log --graph --pretty=oneline`처럼 동시에 사용하면 더 편리하게 간결한 커밋 이력을 확인할 수 있다
+
+> 이 외에도 `short`, `medium`, `full`, `fuller`, `reference`, `email` 등 다양한 옵션들이 있다. 모두 암기할 필요는 없으니 필요에 따라 [Git 공식문서](https://git-scm.com/docs/pretty-formats)를 참고하자
 
 <br>
 
