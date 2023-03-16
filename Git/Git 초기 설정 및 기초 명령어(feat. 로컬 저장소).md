@@ -1,4 +1,4 @@
-<img src="https://ifh.cc/g/KcTXZ9.png" style="max-width: 100%" align="center">
+<img src="https://ifh.cc/g/8XyFo3.png" style="max-width: 100%" align="center">
 
 ### 목차
 
