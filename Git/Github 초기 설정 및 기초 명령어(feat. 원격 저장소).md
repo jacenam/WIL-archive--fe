@@ -123,6 +123,18 @@ git clone https://github.com/jacenam/WIL-archive.git .
 
 ```bash
 git pull origin main
+
+→ remote: Enumerating objects: 7, done.
+  remote: Counting objects: 100% (7/7), done.
+  remote: Compressing objects: 100% (4/4), done.
+  remote: Total 4 (delta 3), reused 0 (delta 0), pack-reused 0
+  Unpacking objects: 100% (4/4), 1.11 KiB | 227.00 KiB/s, done.
+  From https://github.com/jacenam/WIL-archive
+  * branch            main       -> FETCH_HEAD
+   d5a4a4c..edfe420  main       -> origin/main
+  Updating d5a4a4c..edfe420
+  Fast-forward
+  1 file changed, 10 insertions(+), 8 deletions(-)
 ```
 
 > `git pull origin main`에서 `origin`은 코드(파일)가 보관된 원격 저장소를 의미하며 `main`은 변경사항을 `pull`할 원격 저장소의 브랜치를 의미한다. 예를 들어, 만약 `main`이 아닌 `jace`라는 브랜치의 코드를 로컬 저장소로 `pull`하고 싶다면 `git pull origin jace`의 명령어를 사용하면 된다
