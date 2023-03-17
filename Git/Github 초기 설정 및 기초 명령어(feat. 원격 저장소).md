@@ -10,9 +10,9 @@
 <br>
 
 ## 1 Github 원격 저장소 생성 및 연동하기
-앞서 Git으로 버전 관리할 [로컬 저장소](https://github.com/jacenam/WIL-archive/blob/main/Git/Git%20%EC%B4%88%EA%B8%B0%20%EC%84%A4%EC%A0%95%20%EB%B0%8F%20%EA%B8%B0%EC%B4%88%20%EB%AA%85%EB%A0%B9%EC%96%B4(feat.%20%EB%A1%9C%EC%BB%AC%20%EC%A0%80%EC%9E%A5%EC%86%8C).md#4-%EB%A1%9C%EC%BB%AC-%EC%A0%80%EC%9E%A5%EC%86%8C-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%BB%A4%EB%B0%8B)에 대해 살펴봤다. 로컬 저장소에서도 작업물에 대한 버전 관리를 할 수 있지만 다른 개발자와 협업하려면 Git 호스팅 서비스인 Github에 원격 저장소(Remote Repository)를 생성하고 로컬 저장소와 동기화해야 한다. Github에서 레파지토리와 하위 파일들을 직접 생성하는 법은 간단하니 터미널에서 파일을 생성하고 Github에 업로드(동기화)하는 방법을 살펴볼 예정이다
+앞서 Git으로 버전 관리할 [로컬 저장소](https://github.com/jacenam/WIL-archive/blob/main/Git/Git%20%EC%B4%88%EA%B8%B0%20%EC%84%A4%EC%A0%95%20%EB%B0%8F%20%EA%B8%B0%EC%B4%88%20%EB%AA%85%EB%A0%B9%EC%96%B4(feat.%20%EB%A1%9C%EC%BB%AC%20%EC%A0%80%EC%9E%A5%EC%86%8C).md#4-%EB%A1%9C%EC%BB%AC-%EC%A0%80%EC%9E%A5%EC%86%8C-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%BB%A4%EB%B0%8B)에 대해 살펴봤다. 로컬 저장소에서도 작업물에 대한 버전 관리를 할 수 있지만 다른 개발자와 협업하려면 Git 호스팅 서비스인 Github에 원격 저장소(Remote Repository)를 생성하고 로컬 저장소와 동기화해야 한다. Github에서 원격 저장소와 하위 파일들을 직접 생성하는 법은 간단하니 터미널에서 파일을 생성하고 Github에 업로드(동기화)하는 방법을 살펴볼 예정이다
 
-1. **[원격 저장소에서]** 먼저 Github에서 `README.md` 마크다운 파일 없이 새로운 레파지토리를 생성한다(레파지토리 이름: `practice`)
+1. **[원격 저장소에서]** 먼저 Github에서 `README.md` 마크다운 파일 없이 새로운 원격 저장소를 생성한다(원격 저장소 이름: `practice`)
 
 2. **[로컬 환경에서]** 터미널 경로 설정을 `Desktop`으로 변경한 뒤 앞서 언급했던 [`mkdir` 명령어](https://github.com/jacenam/WIL-archive/blob/main/Git/Git%20%EC%B4%88%EA%B8%B0%20%EC%84%A4%EC%A0%95%20%EB%B0%8F%20%EA%B8%B0%EC%B4%88%20%EB%AA%85%EB%A0%B9%EC%96%B4(feat.%20%EB%A1%9C%EC%BB%AC%20%EC%A0%80%EC%9E%A5%EC%86%8C).md#4-%EB%A1%9C%EC%BB%AC-%EC%A0%80%EC%9E%A5%EC%86%8C-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%BB%A4%EB%B0%8B)를 통해 폴더를 생성한다. 그리고 터미널 경로를 다시 `practice` 폴더로 지정한다
 
@@ -55,7 +55,7 @@
       create mode 100644 README.md
     ```
     
-6. 브랜치를 `main`으로 지정하고 `practice` 로컬 저장소와 Github의 `practice` 레파지토리를 연동한다(브랜치에 대한 자세한 내용은 [여기]()를 참고하자)
+6. 브랜치를 `main`으로 지정하고 `practice` 로컬 저장소와 Github의 `practice` 원경 저장소를 연동한다(브랜치에 대한 자세한 내용은 [여기]()를 참고하자)
 
     ```bash 
     git branch -M main
@@ -65,7 +65,7 @@
     
     > `git branch -M main`은 메인 브랜치로 이동하라는 명령어다. 여기서 `M`은 'move'의 약자다
 
-7. 로컬 저장소와 레파지토리의 연동이 완료되면 로컬 저장소(로컬 브랜치)의 커밋 내용을 원격 저장소(원격 브랜치)로 동기화 시켜준다(`push` 명령어와 로컬/원격 브랜치에 대한 내용은 [여기]()를 참고하자)
+7. 로컬 저장소와 원격 저장소의 연동이 완료되면 로컬 저장소(로컬 브랜치)의 커밋 내용을 원격 저장소(원격 브랜치)로 동기화 시켜준다(`push` 명령어와 로컬/원격 브랜치에 대한 내용은 [여기]()를 참고하자)
 
     ```bash
     git push -u origin main
@@ -85,11 +85,11 @@
 
 ## 2 Github 원격 저장소에서 로컬 저장소로 내려받기
 ### 2-1 git clone
-레파지토리의 코드와 파일 버전(최신/구) 전체를 동일하게 로컬 저장소(컴퓨터)로 내려받는 작업을 클론(clone)이라 부른다
+원격 저장소의 코드와 파일 버전(최신/구) 전체를 동일하게 로컬 저장소(컴퓨터)로 내려받는 작업을 클론(clone)이라 부른다
 
 <img src="https://ifh.cc/g/jOkDO5.jpg" style="max-width: 100%" align="center">
 
-현재까지 작성했던 개인 Github 레파지토리 `WIL-archive`를 로컬로 클론해보고자 한다
+현재까지 작성했던 개인 Github 원격 저장소 `WIL-archive`를 로컬로 클론해보고자 한다
 
 ```bash 
 cd ~/Desktop
@@ -107,7 +107,7 @@ git clone https://github.com/jacenam/WIL-archive.git .
   Resolving deltas: 100% (183/183), done.
 ```
 
-클론 시 주의해야 할 점은 `git clone 클론할 레파지토리의 HTTPS 주소` 명령어 형태에서 맨 뒤에 ` .`을 추가해줘야 한다 
+클론 시 주의해야 할 점은 `git clone 클론할 원격 저장소의 HTTPS 주소` 명령어 형태에서 맨 뒤에 ` .`을 추가해줘야 한다 
 
 <img src="https://ifh.cc/g/Fcfl59.png" style="max-width: 100%" align="center">
 
@@ -116,7 +116,7 @@ git clone https://github.com/jacenam/WIL-archive.git .
 <img src="https://ifh.cc/g/DpzsRn.png" style="max-width: 100%" align="center">
 
 ### 2-2 git pull
-만약 레파지토리에서 업데이트된 변경사항은 있지만 로컬 저장소에는 해당 변경사항이 존재하지 않는다면 어떻게 동기화할 수 있을까? `pull` 명령어를 통해 로컬 저장소에 업데이트되지 않은 변경사항만 가져올 수 있다. 이는 팀 협업 시 타인이 레파지토리로 업데이트한 변경사항을 나의 로컬 저장소로 동기화할 때도 사용된다
+만약 원경 저장소에서 업데이트된 변경사항은 있지만 로컬 저장소에는 해당 변경사항이 존재하지 않는다면 어떻게 동기화할 수 있을까? `pull` 명령어를 통해 로컬 저장소에 업데이트되지 않은 변경사항만 가져올 수 있다. 이는 팀 협업 시 타인이 원격 저장소로 업데이트한 변경사항을 나의 로컬 저장소로 동기화할 때도 사용된다
 
 
 <img src="https://ifh.cc/g/lr8dN3.jpg" style="max-width: 100%" align="center">
@@ -124,6 +124,8 @@ git clone https://github.com/jacenam/WIL-archive.git .
 ```bash
 git pull origin main
 ```
+
+> `git pull origin main`에서 `origin`은 코드(파일)가 보관된 원격 저장소를 의미하며 `main`은 변경사항을 `pull`할 원격 저장소의 브랜치를 의미한다. 예를 들어, 만약 `main`이 아닌 `jace`라는 브랜치의 코드를 로컬 저장소로 `pull`하고 싶다면 `git pull origin jace`의 명령어를 사용하면 된다
 
 <br>
 
