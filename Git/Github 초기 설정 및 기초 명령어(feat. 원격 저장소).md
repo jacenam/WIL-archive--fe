@@ -85,7 +85,11 @@
 
 ## 2 Github 원격 저장소에서 로컬 저장소로 내려받기
 ### 2-1 git clone
-레파지토리의 코드와 파일 버전(최신/구) 전체를 동일하게 로컬 저장소(컴퓨터)로 내려받는 작업을 클론(clone)이라 부른다. 현재까지 작성했던 개인 Github 레파지토리 `WIL-archive`를 로컬로 클론해보고자 한다
+레파지토리의 코드와 파일 버전(최신/구) 전체를 동일하게 로컬 저장소(컴퓨터)로 내려받는 작업을 클론(clone)이라 부른다
+
+<img src="https://ifh.cc/g/jOkDO5.jpg" style="max-width: 100%" align="center">
+
+현재까지 작성했던 개인 Github 레파지토리 `WIL-archive`를 로컬로 클론해보고자 한다
 
 ```bash 
 cd ~/Desktop
@@ -112,4 +116,20 @@ git clone https://github.com/jacenam/WIL-archive.git .
 <img src="https://ifh.cc/g/DpzsRn.png" style="max-width: 100%" align="center">
 
 ### 2-2 git pull
+만약 레파지토리에서 업데이트된 변경사항은 있지만 로컬 저장소에는 해당 변경사항이 존재하지 않는다면 어떻게 동기화할 수 있을까? `pull` 명령어를 통해 로컬 저장소에 업데이트되지 않은 변경사항만 가져올 수 있다. 이는 팀 협업 시 타인이 레파지토리로 업데이트한 변경사항을 나의 로컬 저장소로 동기화할 때도 사용된다
 
+
+<img src="https://ifh.cc/g/lr8dN3.jpg" style="max-width: 100%" align="center">
+
+```bash
+git pull origin main
+```
+
+<br>
+
+***
+
+### 참고
+- [Git 공식문서](https://git-scm.com/docs)
+- [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)
+- [알아서 잘 딱 깔끔하고 센스있게 정리하는 Github 핵심 개념](https://m.yes24.com/Goods/Detail/108203273)
