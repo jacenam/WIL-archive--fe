@@ -62,7 +62,7 @@ git log
 
     first version
 ```
-조회한 내역을 토대로 이전 커밋했던 상태로 파일의 버전을 되돌릴 수도 있다. `git checkout 커밋 ID 앞 7자리`의 형태로 원하는 버전의 ID를 입력해 파일을 되돌리는 것이다
+조회한 내역을 토대로 이전 커밋했던 상태로 파일의 버전을 되돌릴 수도 있다. `git checkout [커밋 ID 앞 7자리]`의 형태로 원하는 버전의 ID를 입력해 파일을 되돌리는 것이다
 
 ```bash
 git checkout 3fcc857
@@ -83,14 +83,14 @@ git checkout -
 `git log`는 사용자의 커밋 ID, 작성자(Author), 커밋 시간(Date), 커밋 내용(Commit Message) 등의 내용을 출력한다. 이때 커밋했던 내역이 보여지는 형태를 여러가지 옵션으로 지정할 수 있다. 대표적인 옵션들만 추리자면 아래 내용과 같다: 
 
 -  `git log --pretty`: 간단명료하게 커밋 이력을 요약해서 출력한다
-    
+   
     ```bash
     git log --pretty
     
     → commit 3fcc857803e44458c545933d49e1deb4ca17b1ff (HEAD) | Author: jacenam <jace.nams@gmail.com>
     ```
 - `git log --oneline`: 커밋 이력을 한 줄로 요약해서 출력한다
-    
+  
     ```bash
     git log --oneline
     

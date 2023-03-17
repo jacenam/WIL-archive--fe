@@ -26,7 +26,7 @@
 
 3. `practice` 폴더에 `touch` 명령어 혹은 `echo` 명령어를 통해 `README.md` 파일을 생성한다
 
-    > [`touch` 명령어](https://github.com/jacenam/WIL-archive/blob/main/Git/Git%20%EC%B4%88%EA%B8%B0%20%EC%84%A4%EC%A0%95%20%EB%B0%8F%20%EA%B8%B0%EC%B4%88%20%EB%AA%85%EB%A0%B9%EC%96%B4(feat.%20%EB%A1%9C%EC%BB%AC%20%EC%A0%80%EC%9E%A5%EC%86%8C).md#4-2-%EB%A1%9C%EC%BB%AC-%EC%A0%80%EC%9E%A5%EC%86%8C%EC%97%90-%EC%BB%A4%EB%B0%8B%ED%95%98%EA%B8%B0)는 지정한 경로에 파일을 생성해준다. `echo` 명령어는 `echo "# 파일에 작성할 내용" >> 생성할 파일 이름과 형식`의 형태로 지정한 경로에 파일을 생성해주고 `"# ~~~~"`에 지정한 내용을 생성할 파일에 작성해준다
+    > [`touch` 명령어](https://github.com/jacenam/WIL-archive/blob/main/Git/Git%20%EC%B4%88%EA%B8%B0%20%EC%84%A4%EC%A0%95%20%EB%B0%8F%20%EA%B8%B0%EC%B4%88%20%EB%AA%85%EB%A0%B9%EC%96%B4(feat.%20%EB%A1%9C%EC%BB%AC%20%EC%A0%80%EC%9E%A5%EC%86%8C).md#4-2-%EB%A1%9C%EC%BB%AC-%EC%A0%80%EC%9E%A5%EC%86%8C%EC%97%90-%EC%BB%A4%EB%B0%8B%ED%95%98%EA%B8%B0)는 지정한 경로에 파일을 생성해준다. `echo` 명령어는 `echo "# [파일에 작성할 내용]" >> [생성할 파일 이름과 형식]`의 형태로 지정한 경로에 파일을 생성해주고 `"# ~~~~"`에 지정한 내용을 생성할 파일에 작성해준다
 
     ```bash 
     touch README.md
@@ -42,7 +42,7 @@
     git init
     
     → Initialized empty Git repository in /Users/jace/Desktop/practice/.git/
-    ```    
+    ```
 
 5. `practice` 로컬 저장소 내 `README.md` 파일을 스테이지에 올리고 커밋을 한다
 
@@ -108,7 +108,7 @@ git clone https://github.com/jacenam/WIL-archive.git .
   Resolving deltas: 100% (183/183), done.
 ```
 
-클론 시 주의해야 할 점은 `git clone 클론할 원격 저장소의 HTTPS 주소` 명령어 형태에서 맨 뒤에 ` .`을 추가해줘야 한다 
+클론 시 주의해야 할 점은 `git clone [클론할 원격 저장소의 HTTPS 주소]` 명령어 형태에서 맨 뒤에 ` .`을 추가해줘야 한다 
 
 <img src="https://ifh.cc/g/Fcfl59.png" style="max-width: 100%" align="center">
 
@@ -116,7 +116,12 @@ git clone https://github.com/jacenam/WIL-archive.git .
 
 <img src="https://ifh.cc/g/DpzsRn.png" style="max-width: 100%" align="center">
 
+>  만약 특정 브랜치만 클론하고 싶다면 `git clone -b [브랜치 이름] [해당 저장소 URL]`의 형태로 명령어를 입력하면 된다
+
+
+
 ### 2-2 git pull
+
 만약 원경 저장소에서 업데이트된 변경사항은 있지만 로컬 저장소에는 해당 변경사항이 존재하지 않는다면 어떻게 동기화할 수 있을까? `pull` 명령어를 통해 로컬 저장소에 업데이트되지 않은 변경사항만 가져올 수 있다. 이는 팀 협업 시 타인이 원격 저장소로 업데이트한 변경사항을 나의 로컬 저장소로 동기화할 때도 사용된다
 
 
