@@ -85,4 +85,31 @@
 
 ## 2 Github 원격 저장소에서 로컬 저장소로 내려받기
 ### 2-1 git clone
-레파지토리의 코드와 파일 버전(최신/구) 전체를 로컬 저장소(컴퓨터)로 내려받는 작업을 클론(clone)이라 부른다. 
+레파지토리의 코드와 파일 버전(최신/구) 전체를 동일하게 로컬 저장소(컴퓨터)로 내려받는 작업을 클론(clone)이라 부른다. 현재까지 작성했던 개인 Github 레파지토리 `WIL-archive`를 로컬로 클론해보고자 한다
+
+```bash 
+cd ~/Desktop
+mkdir WIL-archive
+cd WIL-archive
+
+git clone https://github.com/jacenam/WIL-archive.git .
+
+→ Cloning into '.'...
+  remote: Enumerating objects: 487, done.
+  remote: Counting objects: 100% (316/316), done.
+  remote: Compressing objects: 100% (249/249), done.
+  remote: Total 487 (delta 153), reused 173 (delta 64), pack-reused 171
+  Receiving objects: 100% (487/487), 145.69 KiB | 909.00 KiB/s, done.
+  Resolving deltas: 100% (183/183), done.
+```
+
+클론 시 주의해야 할 점은 `git clone 클론할 레파지토리의 HTTPS 주소` 명령어 형태에서 맨 뒤에 ` .`을 추가해줘야 한다 
+
+<img src="https://ifh.cc/g/Fcfl59.png" style="max-width: 100%" align="center">
+
+` .`을 맨 뒤에 추가하지 않을 시 로컬 저장소로 사용할 폴더에 새로운 `WIL-archive` 폴더를 하나 더 생성하게 된다. 이러면 폴더 구조가 더 복잡해지기 때문에 항상 ` .`을 맨 뒤에 추가하자
+
+<img src="https://ifh.cc/g/DpzsRn.png" style="max-width: 100%" align="center">
+
+### 2-2 git pull
+
