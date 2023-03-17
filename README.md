@@ -20,7 +20,7 @@
 
 ## Git
 - [형상 관리(SCM)/버전 관리 시스템(VCS)이란](https://github.com/jacenam/WIL-archive/blob/main/Git/%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC%EB%9E%80.md)
-- [bash, zsh 그리고 shell(feat.CLI]()
+- [bash, zsh 그리고 shell(feat.CLI)]()
 - **Git 기초**
   - [Git 초기 설정 및 기초 명령어(feat. 로컬 저장소)](https://github.com/jacenam/WIL-archive/blob/main/Git/Git%20%EC%B4%88%EA%B8%B0%20%EC%84%A4%EC%A0%95%20%EB%B0%8F%20%EA%B8%B0%EC%B4%88%20%EB%AA%85%EB%A0%B9%EC%96%B4(feat.%20%EB%A1%9C%EC%BB%AC%20%EC%A0%80%EC%9E%A5%EC%86%8C).md)
   - [Git 상태와 변경사항 확인하기](https://github.com/jacenam/WIL-archive/blob/main/Git/Git%20%EC%83%81%ED%83%9C%EC%99%80%20%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD%20%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0.md)
