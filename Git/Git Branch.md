@@ -340,11 +340,11 @@ content 3      content 3
                content 6
 ```
 
-(1)<u>이처럼 `main` 브랜치의 변경사항이 `feature/1` 브랜치에서의 변경사항에 모두 동일하게 포함되며</u> (2) <u>`feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 없다면</u>, 두 브랜치를 merge 했을 때 최신 커밋의 형태를 그대로 가져가는 것이 Fast-forward 형태의 merge다
+(1)이처럼 `main` 브랜치의 변경사항이 `feature/1` 브랜치에서의 변경사항에 모두 동일하게 포함되며 (2) `feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 없다면, 두 브랜치를 merge 했을 때 최신 커밋의 형태를 그대로 가져가는 것이 Fast-forward 형태의 merge가 이뤄진다
 
 <img src="https://ifh.cc/g/1MVtbl.jpg" style="max-width: 100%" align="center" >
 
-<u>브랜치를 merge 할 때는 Incoming(들어오는) 브랜치를 Receiving(받는) 브랜치에 merge 하는 것</u>이다. 즉, merge를 받는 `main` 브랜치 기준에서 `merge` 명령어를 실행해야 한다
+브랜치를 merge 할 때는 Incoming(들어오는) 브랜치를 Receiving(받는) 브랜치에 merge 하는 것이다. 즉, merge를 받는 `main` 브랜치 기준에서 `merge` 명령어를 실행해야 한다
 
 ```bash
 git switch main
