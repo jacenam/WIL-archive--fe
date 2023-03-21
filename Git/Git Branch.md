@@ -20,7 +20,6 @@
 - [6 브랜치 병합하기](#6-브랜치-병합하기)
   - [6-1 Fast-forward Merge](#6-1-Fast-forward-Merge)
   - [6-2 Merge Commit](#6-2-Merge-Commit)
-  - [6-3 Conflict](#6-3-Conflict)
 
 
 ***
@@ -340,7 +339,7 @@ content 3      content 3
                content 6
 ```
 
-(1)이처럼 `main` 브랜치의 변경사항이 `feature/1` 브랜치에서의 변경사항에 모두 동일하게 포함되며 (2) `feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 없다면, 두 브랜치를 merge 했을 때 최신 커밋의 형태를 그대로 가져가는 Fast-forward 형태의 merge가 이뤄진다
+(1)이처럼 `main` 브랜치의 변경사항이 `feature/1` 브랜치에서의 변경사항에 모두 동일하게 포함되며 (2) `feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 없다면, 두 브랜치를 merge 했을 때 최신 커밋의 형태를 그대로 가져가는 Fast-forward 형태의 merge가 이뤄진다. 이때, fast-forward merge는 모든 커밋의 히스토리(내역)를 그대로 유지하는 형태다. 즉, 두 브랜치를 merge 했어도 커밋은 여섯 번으로 유지된다([merge commit과는 다르다](#6-2-Merge-Commit))
 
 <img src="https://ifh.cc/g/1MVtbl.jpg" style="max-width: 100%" align="center" >
 
@@ -360,21 +359,47 @@ git log --oneline
   67c904b A commit
 ```
 
-
-
-
-
 ### 6-2 Merge Commit
 
-### 6-X Conflict
+Merge commit은 `main` 브랜치에서 `feature/1` 브랜치를 분기한 이후 `main` 브랜치에 추가적인 커밋이 있다면, 두 브랜치의 커밋 이력(변경사항) 전체를 하나로 병합하여 새로운 커밋을 생성하는 형태의 merge다. 아래 예제를 살펴보자: 
 
+아래 로그와 같이 `main` 브랜치에서 세 번(`A`, `B`, `C`)의 커밋, 새로운 `feature/1`이라는 브랜치를 생성해 여기에 추가적으로 두 번(`D`, `E`) 커밋, 그리고 마지막으로 다시 `main` 브랜치에서 한 번(`F`)의 커밋이 이뤄졌다
 
+```bash
+git log --oneline 
 
+→ 2fb0d9f (HEAD -> main) F commit
+  d064ed3 (feature/1) E commit
+  361b0b5 D commit
+  03bd59d C commit
+  196b8ed B commit
+  8979dec A commit
+```
 
+현재 로그 상태를 아래 그림과 같이 나타낼 수 있다: 
 
-<br>
+<img src="https://ifh.cc/g/CKVXJ2.png" style="max-width: 100%" align="center">
 
+이처럼 `feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 있다면, 두 브랜치를 merge 했을 때 분기 시점으로 추가된 `feature/1`와 `main` 브랜치의 커밋들을 모두 하나로 합치는 형태의 merge가 이뤄진다. 이때, 아래 그림과 같이 Merge commit은 명칭의 의미답게 merge 시 하나의 새로운 커밋을 생성하게 된다:
 
+<img src="https://ifh.cc/g/vlRh1Y.jpg" style="max-width: 100%" align="center">
+
+즉, 두 브랜치를 merge 했을 때 하나의 merge commit이 추가되어 예제에서는 총 일곱 번의 커밋 이력이 존재하게 된다. 그리고 Fast-forward merge와 동일하게, merge commit 또한 Incoming 브랜치를 Receiving 브랜치에 merge 하는 것이다
+
+```bash
+git switch main
+git merge feature/1
+
+git log --oneline
+
+→ c6783d5 (HEAD -> main) G commit: main & feature/1 branch merged
+  2fb0d9f F commit
+  d064ed3 (feature/1) E commit
+  361b0b5 D commit
+  03bd59d C commit
+  196b8ed B commit
+  8979dec A commit
+```
 
 <br>
 
@@ -383,7 +408,13 @@ git log --oneline
 ### 참고
 
 - [Git 공식문서](https://git-scm.com/docs)
-- [W3docs - Git](https://www.w3docs.com/learn-git/introduction4.html)
+- [W3docs - Git Merge](https://www.w3docs.com/learn-git/git-merge.html)
 - [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)
 - [알아서 잘 딱 깔끔하고 센스있게 정리하는 Github 핵심 개념](https://m.yes24.com/Goods/Detail/108203273)
 - [라인 편집기 모드를 vi로 적용하기](https://knight76.tistory.com/entry/%EB%9D%BC%EC%9D%B8-%ED%8E%B8%EC%A7%91%EA%B8%B0-%EB%AA%A8%EB%93%9C%EB%A5%BC-vi%EB%A1%9C-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-set-o-vi)
+- [git merge 한 번에 정리하기: Fast Forward Merge, Commit Merge, Conflict Merge](https://kotlinworld.com/277)
+- [Git Merge(feat. Github)](https://bcp0109.tistory.com/373)
+- [Git Merge 종류](https://velog.io/@injoon2019/Git-Merge-%EC%A2%85%EB%A5%98)
+- [Git Merge(fast-forward, 3-way, squash, rebase)](https://minoolian.github.io/tech/Merge.html)
+- [Git의 다양한 브랜치 병합 방법(Merge, Squash, & Merge, Rebase & Merge)](https://hudi.blog/git-merge-squash-rebase/)
+
