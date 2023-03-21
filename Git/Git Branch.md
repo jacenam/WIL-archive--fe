@@ -340,7 +340,7 @@ content 3      content 3
                content 6
 ```
 
-(1)이처럼 `main` 브랜치의 변경사항이 `feature/1` 브랜치에서의 변경사항에 모두 동일하게 포함되며 (2) `feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 없다면, 두 브랜치를 merge 했을 때 최신 커밋의 형태를 그대로 가져가는 것이 Fast-forward 형태의 merge가 이뤄진다
+(1)이처럼 `main` 브랜치의 변경사항이 `feature/1` 브랜치에서의 변경사항에 모두 동일하게 포함되며 (2) `feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 없다면, 두 브랜치를 merge 했을 때 최신 커밋의 형태를 그대로 가져가는 Fast-forward 형태의 merge가 이뤄진다
 
 <img src="https://ifh.cc/g/1MVtbl.jpg" style="max-width: 100%" align="center" >
 
