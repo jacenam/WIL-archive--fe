@@ -18,7 +18,9 @@
   - [5-2 브랜치 복구하기](#5-2-브랜치-복구하기)
 
 - [6 브랜치 병합하기](#6-브랜치-병합하기)
-  - 
+  - [6-1 Fast-forward Merge](#6-1-Fast-forward-Merge)
+  - [6-2 Merge Commit](#6-2-Merge-Commit)
+  - [6-3 Conflict](#6-3-Conflict)
 
 
 ***
@@ -29,13 +31,13 @@
 
 브랜치는 Git을 활용해 협업할 때 가장 핵심적인 개념 중 하나다. 작업물(코드)의 버전 관리를 여러 사람이 함께한다면 한 명의 작업이 끝날때까지 기다리고 그 다음 사람이 작업하는 것은 비효율적일 것이다. Git에서는 오류나 충돌 없이 독립적인 공간에서 여러 기능들을 별도로 동시에 작업하고 이를 다시 하나의 결과물로 합칠 수 있도록 하는 기능들이 마련되어 있다. 이를 브랜치(Branch)와 머지(Merge)라고 부른다. 먼저 브랜치를 살펴보자: 
 
-Git에서는 기본적으로 설정되어 있는 브랜치가 존재한다. 바로 `main` 브랜치다(`master`라고 부르기도 하는데 인권 관련의 어휘라는 이유로 `main`이라 부른다). 작업물의 버전 관리 줄기(브랜치) 중 가장 크고 기본적인 줄기라고 생각하면 된다. 만약 혼자서 작업한다면 `main` 브랜치 하나로 버전 관리가 가능하다
+Git에서는 기본적으로 설정되어 있는 브랜치가 존재한다. 바로 `main` 브랜치다(`master`라고 부르기도 하는데 인권 관련의 어휘라는 이유로 `main`이라 부른다). 만약 혼자서 작업한다면 `main` 브랜치 하나로 버전 관리가 가능하다
 
-<img src="https://ifh.cc/g/w4gofh.png" style="max-width: 100%" align="center">
+<img src="https://ifh.cc/g/KLf2BP.png" style="max-width: 100%" align="center">
 
 그러나 만약 작업자가 한 명이 아니라 여러 명이며 동시에 각각의 작업이 필요한 경우, `main` 브랜치에서 서브 브랜치를 추가하여 `main` 브랜치에서의 작업은 유지하되 추가 버전의 작업을 수행할 수 있게 된다. 이후 필요에 의해 각자의 작업물을 하나로 모을 수도 있고, 작업물을 합치지 않고 팀원 B의 브랜치를 삭제하여 `main` 브랜치의 버전 관리 그대로 유지할 수도 있게 된다
 
-<img src="https://ifh.cc/g/5hoxmt.jpg" style="max-width: 100%" align="center">
+<img src="https://ifh.cc/g/xlAcqp.jpg" style="max-width: 100%" align="center">
 
 <br>
 
@@ -50,16 +52,16 @@ git log
   Author: jacenam <jace.nams@gmail.com>
   Date:   Wed Mar 15 19:22:46 2023 +0900
 
-    README.md 파일에 내용 추가
+    second commit
 
   commit 3fcc857803e44458c545933d49e1deb4ca17b1ff
   Author: jacenam <jace.nams@gmail.com>
   Date:   Wed Mar 15 14:57:59 2023 +0900
 
-    first version
+    first commit
 ```
 
-<img src="https://ifh.cc/g/WHc8wz.png" style="max-width: 100%" align="center">
+<img src="https://ifh.cc/g/QaSpJx.png" style="max-width: 100%" align="center">
 
 앞서 언급한 `checkout` 명령어를 통해 이전 커밋했던 상태로 파일 버전을 되돌리면 `HEAD`는 되돌린 버전으로 변경된다
 
@@ -69,33 +71,9 @@ git checkout 3fcc857
 →  HEAD is now at 3fcc857 first version
 ```
 
-<img src="https://ifh.cc/g/Tz9Pp8.png" style="max-width: 100%" align="center">
+<img src="https://ifh.cc/g/GLxdhA.png" style="max-width: 100%" align="center">
 
-아직 살펴본 명령어와 내용은 아니지만, 만약 브랜치를 변경하게 되면 `HEAD`는 어디를 가리키게 될까? `main` 브랜치 이 외에 `practice2 `가 존재하며 브랜치 기준이 `practice2` 브랜치로 변경되었다고 가정하자. 이때 `log` 옵션으로 `HEAD`가 어디를 가리키는지 확인해보면 `HEAD -> practice2, main`으로 `HEAD`는 현재 `practice2` 브랜치를 가리키고 있다
-
-```bash
-git log
-
-→ commit 8d608f67fac92c63d1cdcbb4bf827a6ba960c9ab (HEAD -> practice2, main)
-  Author: jacenam <jace.nams@gmail.com>
-  Date:   Wed Mar 15 19:22:46 2023 +0900
-
-    README.md 파일에 내용 추가
-
-  commit 3fcc857803e44458c545933d49e1deb4ca17b1ff
-  Author: jacenam <jace.nams@gmail.com>
-  Date:   Wed Mar 15 14:57:59 2023 +0900
-
-    first version
-```
-
-<img src="https://ifh.cc/g/rBYwl9.jpg" style="max-width: 100%" align="center">
-
-포인터(`HEAD`)는 현재 브랜치와 커밋을 가리키기 때문에 Git에서  중요한 개념이다. 브랜치를 생성, 변경, 복원할 때  `HEAD`를 기준으로 모든 명령이 이뤄지기 때문이다.
-
-
-
-
+포인터(`HEAD`)는 현재 브랜치와 커밋을 가리키기 때문에 Git에서  중요한 개념이다. 브랜치를 생성, 변경, 복원할 때  `HEAD`를 기준으로 모든 명령이 이뤄지기 때문이다
 
 <br>
 
@@ -116,7 +94,7 @@ git branch
 브랜치를 현재의 `HEAD` 시점에서 새로 생성하려면 `git branch [브랜치 이름]`의 형태로 명령어를 입력하면 된다
 
 ```bash
-git branch practice2
+git branch feature/1
 ```
 
 ### 3-3 브랜치 이동하기
@@ -126,7 +104,7 @@ git branch practice2
 > 기존에는 브랜치를 변경하기 위해서 `git checkout [브랜치 이름]` 형태의 명령어를 사용했다. 그러나 `checkout` 명령어에 너무 많은 기능들이 몰려있어 Git 2.23.0 버전부터는 `checkout` 명령어를 `switch`, `restore`로 각각의 기능에 맞게 명령어를 분리했다
 
 ```bash
-git switch practice2
+git switch feature/2
 ```
 
 만약 브랜치를 새로 생성하면서 바로 `HEAD`를 변경하고자 하면 `git switch -c 브랜치 이름`의 형태로 명령어를 입력하면 된다
@@ -134,28 +112,28 @@ git switch practice2
 > `git switch -c [브랜치 이름]` 명령어에서 `-c`는 'create'의 약자다
 
 ```bash
-git switch -c practice3
+git switch -c feature/3
 ```
 
 ### 3-4 모든 브랜치 상태 확인하기
 
-위 3-1~3-3 작업을 완료하면 브랜치는 총 3개(`main`, `practice2`, `practice3`)가 생성된다. 이때 `git log` 명령어로 브랜치별 상황을 참고하려 하면 `HEAD` 기준의 브랜치 1개 그리고 `main` 브랜치 1개, 총 2개의 브랜치의 로그만 출력된다(`HEAD` 기준은 `practice2` 브랜치다)
+위 3-1~3-3 작업을 완료하면 브랜치는 총 3개(`main`, `feature/1`, `feature/2`)가 생성된다. 이때 `git log` 명령어로 브랜치별 상황을 참고하려 하면 `HEAD` 기준의 브랜치 1개 그리고 `main` 브랜치 1개, 총 2개의 브랜치의 로그만 출력된다(`HEAD` 기준은 `feature/1` 브랜치다)
 
 ```bash
-git switch practice2
+git switch feature/1
 git log
 
 → commit 1a8e4ab23fc0675f0437a76d4284b43292d5fb1a (HEAD -> practice2)
   Author: jacenam <jace.nams@gmail.com>
   Date:   Fri Mar 17 15:38:35 2023 +0900
 
-    Have updated README.txt for practice2 branch
+    second commit
 
   commit 328309682cc4c95af8341403e7b794436fe3f61d (main)
   Author: jacenam <jace.nams@gmail.com>
   Date:   Fri Mar 17 15:37:25 2023 +0900
 
-    Have updated README.md for main branch
+    first commit
 ```
 
 따라서 모든 브랜치(현재 총 3개)의 로그를 한번에 출력하기 위해서는 아래 명령어를 활용하면 된다. 모든 브랜치의 로그가 한 줄로 요약되어 그래프가 추가된 상태로 로그가 출력된다
@@ -163,10 +141,10 @@ git log
 ```bash
 git log --all --decorate --oneline --graph
 
-→ * 6f0c227 (practice3) Have updated index.html for practice3 branch
-  | * 1a8e4ab (HEAD -> practice2) Have updated README.txt for practice2 branch
+→ * 6f0c227 (feature/2) third commit
+  | * 1a8e4ab (HEAD -> feature/1) second commit
   |/  
-  * 3283096 (main) Have updated README.md for main branch
+  * 3283096 (main) first commit
 ```
 
 <br>
@@ -187,8 +165,8 @@ git log --all --decorate --oneline --graph
 
    ```bash
    cd ~/Desktop
-   mkdir practice_folder
-   cd practice_folder
+   mkdir git_folder
+   cd git_folder
    
    git init
    echo "# good morning" >> README.md
@@ -283,9 +261,9 @@ git status
  `git branch -D [삭제할 브랜치 이름]` 형태의 명령어를 입력하면 브랜치 삭제가 가능하다
 
 ```bash
-git branch -D practice
+git branch -D feature/1
 
-→ Deleted branch practice (was c3900cd).
+→ Deleted branch feature/1 (was c3900cd).
 
 git branch 
 
@@ -301,8 +279,8 @@ git branch
 ```bash
 git reflog
 
-→ c3900cd (HEAD -> main) HEAD@{0}: checkout: moving from practice to main
-  c3900cd (HEAD -> main) HEAD@{1}: checkout: moving from main to practice
+→ c3900cd (HEAD -> main) HEAD@{0}: checkout: moving from feature/1 to main
+  c3900cd (HEAD -> main) HEAD@{1}: checkout: moving from main to feature/1
   c3900cd (HEAD -> main) HEAD@{2}: commit (initial): restore practice
 ```
 
@@ -311,88 +289,84 @@ git reflog
 > `git switch -c [삭제한 브랜치 이름] [커밋 해시값] ` 명령어는 `git checkout -b [삭제한 브랜치 이름] [커밋 해시값]` 명령어와 동일하다. `git checkout -b`에서 `b`는 'branch'를 의미한다. `--branch`와 같은 의미다
 
 ```bash
-git switch -c practice c3900cd
+git switch -c feature/1 c3900cd
 
-→ Switched to a new branch 'practice'
+→ Switched to a new branch 'feature/1'
 
 git branch
 
 → main
-  * practice
+  * feature/1
 ```
 
-
+<br>
 
 ## 6 브랜치 병합하기
 
-브랜치 병합은 브랜치별로 나누어서 작업했던 결과물을 하나의 브랜치로 병합(Merge)시켜주는 것이다. 단순히 하나의 브랜치로 합치는 것은 아니고, 각각의 브랜치에 대한 합집합을 구해서 합치는 것이다. 만약 머지가 정상적으로 이뤄지지 않을 시 충돌(Conflict)가 발생할 수 있으므로 브랜치 간 머지에 대해서 조심히 다뤄야 한다. Git 브랜치 병합은 대표적으로 3가지 형태가 있다: 
-
-- Fast-forward(빨리 감기)
-- Merge Commit(병합 커밋)
-- Conflict(충돌)
+브랜치 병합은 기본적으로 브랜치 두 개를 하나로 병합하는 것이다. 브랜치별로 나누어서 작업했던 결과물을 하나의 브랜치로 병합(Merge)시켜주는 것이다. 단순히 하나의 브랜치로 합치는 것은 아니고, 각각의 브랜치에 대한 합집합을 구해서 합치는 것이다. 만약 merge가 정상적으로 이뤄지지 않을 시 충돌(Conflict)가 발생할 수 있으므로 브랜치 간 merge에 대해서 조심히 다뤄야 한다
 
 ### 6-1 Fast-forward Merge
 
-Fast-forward Merge(빨리 감기 병합)은 가장 기본적인 merge 형태다. 현재 브랜치(현재 `HEAD`)를 기준으로 대상 브랜치의 최근 커밋 내역까지 병합하는 merge다. 예제를 살펴보자: 
+Fast-forward Merge(빨리 감기 병합)은 가장 기본적인 merge 형태다. `main` 브랜치에서 `feature/1` 브랜치를 분기한 이후 `main` 브랜치에 추가적인 커밋이 없다면 `feature/1` 브랜치의 커밋 이력(변경 사항)을 `main` 브랜치에 그대로 merge 할 수 있다. 아래 예제를 살펴보자: 
 
-아래 로그와 같이 `main` 브랜치에 두 번의 커밋을 하고 새로운 `new-branch`라는 브랜치를 생성해 여기에 세 번째 커밋을 했으며 현재 `HEAD`는 `new-branch` 브랜치를 가리키고 있다
+아래 로그와 같이 `main` 브랜치에 세 번(`A`, `B`, `C`)의 커밋을 하고 새로운 `feature/1`이라는 브랜치를 생성해 여기에 추가적으 세 번(`D`, `E`, `F`)의 커밋이 이뤄졌다
 
 ```bash
 git log --oneline
 
-→ 8f5892f (HEAD -> new-branch) third commit at new-branch
-  6df6650 (main) second commit at main branch
-  d96c296 first commit
+→ f21bdef (HEAD -> feature/1) F commit
+  4f22469 E commit
+  549b242 D commit
+  e7c2ddf (main) C commit
+  2255c06 B commit
+  67c904b A commit
 ```
 
-또한, 아래 그림과 같이 `main` 브랜치에서의 커밋 내용은 모두 `new-branch`의 세 번째 커밋 내용에 포함된다(줄의 위치도 동일)
+현재 로그 상태를 아래 그림과 같이 나타낼 수 있다: 
+
+<img src="https://ifh.cc/g/7AroDB.jpg" style="max-width: 100%" align="center" >
+
+`C` 커밋과 `F` 커밋의 변경사항을 살펴보면 아래와 같다:
+
+```bash
+README.md 파일의 변경사항:
+
+C              F 
+content 1      content 1
+content 2      content 2
+content 3      content 3
+               content 4
+               content 5
+               content 6
+```
+
+(1)<u>이처럼 `main` 브랜치의 변경사항이 `feature/1` 브랜치에서의 변경사항에 모두 동일하게 포함되며</u> (2) <u>`feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 없다면</u>, 두 브랜치를 merge 했을 때 최신 커밋의 형태를 그대로 가져가는 것이 Fast-forward 형태의 merge다
+
+<img src="https://ifh.cc/g/1MVtbl.jpg" style="max-width: 100%" align="center" >
+
+<u>브랜치를 merge 할 때는 Incoming(들어오는) 브랜치를 Receiving(받는) 브랜치에 merge 하는 것</u>이다. 즉, merge를 받는 `main` 브랜치 기준에서 `merge` 명령어를 실행해야 한다
+
+```bash
+git switch main
+git merge feature/1
+
+git log --oneline
+
+→ f21bdef (HEAD -> main, feature/1) F commit
+  4f22469 E commit
+  549b242 D commit
+  e7c2ddf C commit
+  2255c06 B commit
+  67c904b A commit
+```
 
 
 
 
-
-<img src="https://ifh.cc/g/R0gcgD.jpg" style="max-width: 100%" align="center">
-
-자세히 살펴보면 `new-branch` 브랜치의 세 번째 커밋에는 `good morning`, `공백 줄`, `hello world`라는 내용이 `main` 브랜치의 두 번째 커밋에 추가된 형태다. 이런 형태일 때 `new-branch` 브랜치를 `main` 브랜치에 병합시키는 것이 Fast-forward merge다. 즉, 두 브랜치를 합친 결과물이 가장 최근 커밋의 내용과 동일할 때 브랜치를 병합할 시 Fast-forward의 형태로 merge가 실행된다. 병합의 순서는: 
-
-1. 현재의 브랜치 `HEAD`를 파악한다
-
-   ```bash
-   git log --oneline
-   
-   → 8f5892f (HEAD -> new-branch) third commit at new-branch
-     6df6650 (main) second commit at main branch
-     d96c296 first commit
-   ```
-
-2. 병합 대상 브랜치(병합시킬 브랜치를 의미하며 현재는 `new-branch` 브랜치다)가 아닌 브랜치로 `HEAD`를 변경한다
-
-   ```bash
-   git switch main
-   git log --oneline
-   
-   → 6df6650 (HEAD -> main) second commit at main branch
-     d96c296 first commit
-   ```
-
-3. `git merge [병합 대상 브랜치]`의 형태로 명령어를 입력한다
-
-   ```bash
-   git merge new-branch
-   git log --oneline
-   
-   → 8f5892f (HEAD -> main, new-branch) third commit at new-branch
-     6df6650 second commit at main branch
-     d96c296 first commit
-   ```
-
-그럼 아래 그림과 같이 `new-branch` 브랜치가 `main` 브랜치를 기준으로 Fast-forward merge된 것을 확인할 수 있다
-
-<img src="https://ifh.cc/g/7BsOGV.jpg" style="max-width: 100%" align="center">
 
 ### 6-2 Merge Commit
 
-
+### 6-X Conflict
 
 
 
@@ -409,6 +383,7 @@ git log --oneline
 ### 참고
 
 - [Git 공식문서](https://git-scm.com/docs)
+- [W3docs - Git](https://www.w3docs.com/learn-git/introduction4.html)
 - [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)
 - [알아서 잘 딱 깔끔하고 센스있게 정리하는 Github 핵심 개념](https://m.yes24.com/Goods/Detail/108203273)
 - [라인 편집기 모드를 vi로 적용하기](https://knight76.tistory.com/entry/%EB%9D%BC%EC%9D%B8-%ED%8E%B8%EC%A7%91%EA%B8%B0-%EB%AA%A8%EB%93%9C%EB%A5%BC-vi%EB%A1%9C-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-set-o-vi)
