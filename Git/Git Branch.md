@@ -537,10 +537,10 @@ git log --oneline
 
 → e46e64f (HEAD -> feature/1) D commit(feature/1): feature/1 & main rebase merged
   73f35c0 C commit(feature/1): feature/1 & main rebase merged
-	24ac9d7 (main) F commit(main)
-	f61a420 E commit(main)
-	e8320f9 B commit(main)
-	fa48bb1 A commit(main)
+  24ac9d7 (main) F commit(main)
+  f61a420 E commit(main)
+  e8320f9 B commit(main)
+  fa48bb1 A commit(main)
 ```
 
 위 로그를 아래 그림과 같이 나타낼 수 있다. `feature/1` 브랜치를 기준으로 `main` 브랜치를 rebase한 경우 `main` 브랜치의 커밋 내역이 먼저 오고(`A` → `B` → `E` → `F`), base는 `F` 커밋으로 새로 설정되어 새로운 base 뒤에 `feature/1` 브랜치의 커밋 내역인 `C`와 `D`가 오는 것이다
