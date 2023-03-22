@@ -453,7 +453,7 @@ git merge --squash feature/1
 
 'Rebase'의 사전적 의미는 '새로운 기준을 설정하다'이다. 버전 관리 측면에서의 `rebase`는 base를 다시(re) 지정한다는 의미의 명령어다. 아래 예제를 살펴보자:
 
-현재까지 특정 브랜치를 기준으로 새로운 브랜치(`feature/1`)가 분기되는 예시들을 살펴봤었다. 이때 `feature/1` 브랜치가 분기된 시점 이후 커밋 이력(`C`, `D`)의 base은 `main` 브랜치의 `B` 커밋이다
+현재까지 특정 브랜치를 기준으로 새로운 브랜치(`feature/1`)가 분기되는 예시들을 살펴봤었다. 이때 `feature/1` 브랜치가 분기된 시점 이후 커밋 이력(`C`, `D`)의 base는 `main` 브랜치의 `B` 커밋이다
 
 <img src="https://ifh.cc/g/LzdjAX.png" style="max-width: 100%" align="center">
 
@@ -495,27 +495,57 @@ git log --oneline
 
 <img src="https://ifh.cc/g/joFZkQ.jpg" style="max-width: 100%" align="center">
 
-그렇다면 만약 `rebase`의 기준이 `main` 브랜치가 아니라 `feature/1`가 된다면 rebase merge의 결과는 어떻게 달라질까? 
+그렇다면 만약 `rebase`의 기준이 `main` 브랜치가 아니라 `feature/1`가 된다면 rebase merge의 결과는 어떻게 달라질까? `feature/1` 브랜치가 `main` 브랜치로부터 분기된 시점 이후 커밋 이력(`C`, `D`)의 base는 `main` 브랜치의 `B` 커밋이다
 
+<img src="https://ifh.cc/g/akvGXw.png" style="max-width: 100%" align="center">
 
+만약  `feature/1` 브랜치를 Receiving 브랜치라 고려했을 때 `main` 브랜치를 Incoming 브랜치로 rebase할 시 base는 `main` 브랜치의 `F` 커밋으로 재설정되며, 새로 설정된 base의 뒤로 `feature/1` 브랜치의 커밋 이력이 merge 된다
 
-https://hudi.blog/git-merge-squash-rebase/ 이 링크 참고
+```bash
+git switch feature/1
+git rebase main
 
-https://minoolian.github.io/tech/Merge.html 이 링크 참고
+→ Auto-merging README.md
+  CONFLICT (content): Merge conflict in README.md
+  error: could not apply 5595620... C commit(feature/1)
+  hint: Resolve all conflicts manually, mark them as resolved with
+  hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+  hint: You can instead skip this commit: run "git rebase --skip".
+  hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+  Could not apply 5595620... C commit(feature/1)
+  
+  git rebase --continue
+  
+→ [detached HEAD 73f35c0] C commit(feature/1): feature/1 & main rebase merged
+  1 file changed, 1 insertion(+)
+  Auto-merging README.md
+  CONFLICT (content): Merge conflict in README.md
+  error: could not apply 931e50c... D commit(feature/1)
+  hint: Resolve all conflicts manually, mark them as resolved with
+  hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+  hint: You can instead skip this commit: run "git rebase --skip".
+  hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+  Could not apply 931e50c... D commit(feature/1)
 
-https://velog.io/@injoon2019/Git-Merge-%EC%A2%85%EB%A5%98 이 링크 참고
+git rebase --continue
+  
+→ [detached HEAD e46e64f] H commit(feature/1): feature/1 & main rebase merged
+	1 file changed, 1 insertion(+)
+	Successfully rebased and updated refs/heads/feature/1
+	
+git log --oneline
 
-https://bcp0109.tistory.com/373 이 링크 참고
+→ e46e64f (HEAD -> feature/1) D commit(feature/1): feature/1 & main rebase merged
+  73f35c0 C commit(feature/1): feature/1 & main rebase merged
+	24ac9d7 (main) F commit(main)
+	f61a420 E commit(main)
+	e8320f9 B commit(main)
+	fa48bb1 A commit(main)
+```
 
-### 6-5 Conflict
+위 로그를 아래 그림과 같이 나타낼 수 있다. `feature/1` 브랜치를 기준으로 `main` 브랜치를 rebase한 경우 `main` 브랜치의 커밋 내역이 먼저 오고(`A` → `B` → `E` → `F`), base는 `F` 커밋으로 새로 설정되어 새로운 base 뒤에 `feature/1` 브랜치의 커밋 내역인 `C`와 `D`가 오는 것이다
 
-merge, rebase 에서 conflict 발생
-
-https://kotlinworld.com/277 여기 링크의 Conflict 부분, [알잘딱깔센 Github Conflict 부분 참고](https://paullabworkspace.notion.site/GitHub-435ec8074bcf4353afb947f601a030df)
-
-
-
-branch와 merge 전략에 대한 내용을 정리하자면 https://meetup.nhncloud.com/posts/122 이 링크 참고 
+<img src="https://ifh.cc/g/mza47w.jpg" style="max-width: 100%" align="center">
 
 <br>
 
