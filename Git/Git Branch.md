@@ -19,7 +19,10 @@
 
 - [6 브랜치 병합하기](#6-브랜치-병합하기)
   - [6-1 Fast-forward Merge](#6-1-Fast-forward-Merge)
-  - [6-2 Merge Commit](#6-2-Merge-Commit)
+  - [6-2 Merge Commit(feat. No Fast-forward)](#6-2-Merge-Commit(feat.-No-Fast-Forward))
+  - [6-3 Squash Merge](#6-3-Squash-Merge)
+  - [6-4 Rebase Merge](#6-4-Rebase-Merge)
+  - [6-5 Conflict](#6-5-Conflict)
 
 
 ***
@@ -359,7 +362,7 @@ git log --oneline
   67c904b A commit
 ```
 
-### 6-2 Merge Commit
+### 6-2 Merge Commit(feat. No Fast-forward)
 
 Merge commit은 `main` 브랜치에서 `feature/1` 브랜치를 분기한 이후 `main` 브랜치에 추가적인 커밋이 있다면, 두 브랜치의 커밋 이력(변경사항) 전체를 하나로 병합하여 새로운 커밋을 생성하는 형태의 merge다. 아래 예제를 살펴보자: 
 
@@ -378,11 +381,11 @@ git log --oneline
 
 현재 로그 상태를 아래 그림과 같이 나타낼 수 있다: 
 
-<img src="https://ifh.cc/g/CKVXJ2.png" style="max-width: 100%" align="center">
+<img src="https://ifh.cc/g/TgY4Jm.jpg" style="max-width: 100%" align="center">
 
-이처럼 `feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 있다면, 두 브랜치를 merge 했을 때 분기 시점으로 추가된 `feature/1`와 `main` 브랜치의 커밋들을 모두 하나로 합치는 형태의 merge가 이뤄진다. 이때, 아래 그림과 같이 Merge commit은 명칭의 의미답게 merge 시 하나의 새로운 커밋을 생성하게 된다:
+이처럼 `feature/1` 브랜치가 `main` 브랜치로부터 분기된 이후 `main` 브랜치에 추가적인 커밋이 있다면, 두 브랜치를 merge 했을 때 분기 시점으로 추가된 `feature/1`와 `main` 브랜치의 커밋들을 모두 하나로 합치는 형태의 merge가 이뤄진다. 이때, 아래 그림과 같이 Merge commit은 명칭의 의미답게 merge 시 하나의 새로운 커밋을 생성하게 된다: 
 
-<img src="https://ifh.cc/g/vlRh1Y.jpg" style="max-width: 100%" align="center">
+<img src="https://ifh.cc/g/Vsb4xl.jpg" style="max-width: 100%" align="center">
 
 즉, 두 브랜치를 merge 했을 때 하나의 merge commit이 추가되어 예제에서는 총 일곱 번의 커밋 이력이 존재하게 된다. 그리고 Fast-forward merge와 동일하게, merge commit 또한 Incoming 브랜치를 Receiving 브랜치에 merge 하는 것이다
 
@@ -401,6 +404,119 @@ git log --oneline
   8979dec A commit
 ```
 
+>  Fast-forward merge를 merge commit과 동일하게 merge 시 새로운 최신 커밋을 생성하고자 하면 아래 명령어를 입력하면 된다: 
+>
+> ```bash
+> git switch main
+> git merge --no-ff feature/1
+> 
+> git log --oneline
+> 
+> → c6783d5 (HEAD -> main, feature/1) G commit
+>   f21bdef F commit
+>   4f22469 E commit
+>   549b242 D commit
+>   e7c2ddf C commit
+>   2255c06 B commit
+>   67c904b A commit
+> ```
+>
+> <img src="https://ifh.cc/g/LhN38V.png" style="max-width: 100%" align="center">
+
+### 6-3 Squash Merge
+
+Squash merge은 `main` 브랜치에서 `feature/1` 브랜치를 분기한 이후 `main` 브랜치에 추가적인 커밋이 있는 Merge Commit과 동일한 상태에서, Incoming 브랜치의 모든 커밋 내역을 squash하여 하나의 새로운 커밋을 Receiving 브랜치에 추가하는 방식으로 이뤄진다
+
+아래 그림과 같이 `main` 브랜치에서 세 번(`A`, `B`, `C`)의 커밋, `feature/1` 브랜치에서 세 번(`D`, `E`, `F`)의 커밋, 그리고 다시 `main` 브랜치에서 세 번(`G`, `H`, `I`)의 커밋이 이뤄졌다고 가정하자
+
+<img src="https://ifh.cc/g/s1yJdF.jpg" style="max-width: 100%" align="center">
+
+이때, 아래의 명령어와 같이 Receiving 브랜치인 `main` 브랜치를 기준으로 `main`과 `feature/1` 브랜치를 squash merge한다면 아래 로그와 같은 결과를 얻을 수 있다. Merge의 커밋을 포함하여 총 열 번의 커밋 이력이 존재해야 하지만 일곱 번의 커밋 이력만 존재한다는 것을 볼 수 있다: 
+
+```bash
+git merge --squash feature/1
+
+→ bf93c48 (HEAD -> main) J commit: main & feature/1 branch sqaush merged
+  616cebb I commit
+  320339e H commit
+  839477d G commit
+  c8dadfd C commit
+  4e7a78a B commit
+  f31ba80 A commit
+```
+
+위 로그를 아래와 같은 그림으로 나타낼 수 있다. 이렇듯, 두 브랜치를 squash merge 하게 되면 incoming 브랜치의 커밋 이력은 하나로 합쳐지며 커밋 자체(브랜치도 포함)가 사라진다. Squash merge는 버그 수정 등으로 커밋 내역이 많아져 지저분해진 커밋 내역을 깔끔하게 정리하기 위해서도 사용된다: 
+
+<img src="https://ifh.cc/g/lhBfDD.jpg" style="max-width: 100%" align="center">
+
+### 6-4 Rebase Merge
+
+'Rebase'의 사전적 의미는 '새로운 기준을 설정하다'이다. 버전 관리 측면에서의 `rebase`는 base를 다시(re) 지정한다는 의미의 명령어다. 아래 예제를 살펴보자:
+
+현재까지 특정 브랜치를 기준으로 새로운 브랜치(`feature/1`)가 분기되는 예시들을 살펴봤었다. 이때 `feature/1` 브랜치가 분기된 시점 이후 커밋 이력(`C`, `D`)의 base은 `main` 브랜치의 `B` 커밋이다
+
+<img src="https://ifh.cc/g/LzdjAX.png" style="max-width: 100%" align="center">
+
+여기서 `main` 브랜치를 Receiving 브랜치라 고려했을 때, `rebase` 명령어를 통해 기존 base를 기준으로 Incoming 브랜치의 커밋 이력을 merge 할 수 있다
+
+> `rebase` 명령어에 의한 merge 과정에서 Conflict(충돌)가 발생한다면 각 커밋 별로 충돌을 resolve(해결)한 후, rebase 과정을 계속(`--continue`)해서 진행해야 한다
+
+```bash
+git rebase feature/1
+
+→ Auto-merging README.md
+  CONFLICT (content): Merge conflict in README.md
+  error: could not apply c4a09e9... E commit(main)
+  hint: Resolve all conflicts manually, mark them as resolved with
+  hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+  hint: You can instead skip this commit: run "git rebase --skip".
+  hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+  Could not apply c4a09e9... E commit(main)
+ 
+git rebase --continue
+
+→ [detached HEAD 4bd5b67] E commit(main) rebase merged
+  1 file changed, 1 insertion(+)
+  Successfully rebased and updated refs/heads/main.
+
+git commit -am "E commit"
+
+git log --oneline
+
+→ 86f070b (HEAD -> main) F commit(main)
+  4bd5b67 E commit(main) rebase merged
+  550148c (feature/1) D commit(feature/1)
+  b67f0fd C commit(feature/1)
+  8918387 B commit(main)
+  ea45f84 A commit (main)
+```
+
+위 rebase merge 진행 후 로그를 아래 그림과 같이 나타낼 수 있다. Receiving 브랜치의  base를 기준으로 rebase merge가 진행되며 merge가 종료된 후 base는 최신 커밋인 `F` 커밋으로 변경되었다. 만약 새로운 커밋 `G`가 이뤄지고 `G` 커밋 직후 새로운 브랜치가 생성되어 커밋들이 이뤄진다면 브랜치에서 이뤄진 커밋들의 base는 `G` 커밋이 되는 것이다
+
+<img src="https://ifh.cc/g/joFZkQ.jpg" style="max-width: 100%" align="center">
+
+그렇다면 만약 `rebase`의 기준이 `main` 브랜치가 아니라 `feature/1`가 된다면 rebase merge의 결과는 어떻게 달라질까? 
+
+
+
+https://hudi.blog/git-merge-squash-rebase/ 이 링크 참고
+
+https://minoolian.github.io/tech/Merge.html 이 링크 참고
+
+https://velog.io/@injoon2019/Git-Merge-%EC%A2%85%EB%A5%98 이 링크 참고
+
+https://bcp0109.tistory.com/373 이 링크 참고
+
+### 6-5 Conflict
+
+merge, rebase 에서 conflict 발생
+
+https://kotlinworld.com/277 여기 링크의 Conflict 부분, [알잘딱깔센 Github Conflict 부분 참고](https://paullabworkspace.notion.site/GitHub-435ec8074bcf4353afb947f601a030df)
+
+
+
+branch와 merge 전략에 대한 내용을 정리하자면 https://meetup.nhncloud.com/posts/122 이 링크 참고 
+
 <br>
 
 ---
@@ -411,6 +527,7 @@ git log --oneline
 - [W3docs - Git Merge](https://www.w3docs.com/learn-git/git-merge.html)
 - [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)
 - [알아서 잘 딱 깔끔하고 센스있게 정리하는 Github 핵심 개념](https://m.yes24.com/Goods/Detail/108203273)
+- [러닝 브랜치](https://learngitbranching.js.org/?locale=ko)
 - [라인 편집기 모드를 vi로 적용하기](https://knight76.tistory.com/entry/%EB%9D%BC%EC%9D%B8-%ED%8E%B8%EC%A7%91%EA%B8%B0-%EB%AA%A8%EB%93%9C%EB%A5%BC-vi%EB%A1%9C-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-set-o-vi)
 - [git merge 한 번에 정리하기: Fast Forward Merge, Commit Merge, Conflict Merge](https://kotlinworld.com/277)
 - [Git Merge(feat. Github)](https://bcp0109.tistory.com/373)
