@@ -23,6 +23,7 @@
   - [6-3 Squash Merge](#6-3-Squash-Merge)
   - [6-4 Rebase Merge](#6-4-Rebase-Merge)
   - [6-5 Conflict](#6-5-Conflict)
+- [7 최적의 브랜치 Merge 전략](#7-최적의-브랜치-Merge-전략)
 
 
 ***
@@ -547,6 +548,87 @@ git log --oneline
 
 <img src="https://ifh.cc/g/mza47w.jpg" style="max-width: 100%" align="center">
 
+### 6-5 Conflict
+
+브랜치를 merge(Fast-forward, Merge Commit, Rebase, Squash 등)할 시 변경사항에 따라 conflict가 발생할 수도 있다. Conflict는 브랜치를 merge할 때 변경사항 중 같은 곳에 각각의 수정사항이 존재한다면 conflict가 일어난다. 예를 들어, 공통적으로  `main` 브랜치의 커밋 내역을 base로 두는  `feature/1` 브랜치와 `feature/2`의 변경 사항이 아래와 같다고 가정하자:  
+
+```bash
+README.md(main branch):        README.md(feature/1 branch):        README.md(feature/1 branch):
+
+hello world                    hello world                         hello world
+                               git merge study                     git merge study 
+```
+
+`feature/1`과 `feature/2` 브랜치를 merge하려 한다. 이 상태에서 merge를 시도할 시 같은 곳(두 번째 줄)의 내용이 다르기 때문에 conflict가 아래와 같이 발생한다. 이때 conflict가 발생한 시점을 찾아서 직접 수정하고 conflict 내용을 제거해야만 한다(공통 내용은 수정 범위에 들어가지 않는다)
+
+```bash
+git switch feature/1
+git merge feature/2 
+
+→ hello world
+  <<<<<<< HEAD (Current Change)
+  git merge study
+  =======
+  >>>>>>> feature/1 (Incoming Change)
+  git conflict study
+```
+
+`<<<<<<< HEAD (Current Change)`와 `  =======` 구분선 사이의 충돌 대상은 현재 브랜치(Receiving 브랜치)의 내용(변경사항)이다:
+
+```
+<<<<<<< HEAD (Current Change)
+git merge study
+=======
+```
+
+`=======` 구분선과 `>>>>>>> feature/1 (Incoming Change)` 사이의 충돌 대상은 병합될 대상 브랜치(Incoming 브랜치)의 내용이다:
+
+```bash
+=======
+>>>>>>> feature/1 (Incoming Change)
+git conflict study
+```
+
+Conflict 내용을 변경할 때는 터미널에서 직접하는 것보다 VSCode를 활용하는게 좋다. VSCode 터미널에서 conflict 발생 시 아래와 같이 조금 더 쉽게 변경 가능한 기능이 제공된다
+
+<img src="https://ifh.cc/g/daqn7X.png" style="max-width: 100%" align="center">
+
+Conflict 내용을 수정한 후 merge를 다시 진행하고 커밋을 하면 아래와 같은 로그 결과를 확인할 수 있다:
+
+```bash
+git log --all --oneline --graph
+
+→ *   68e04fe (HEAD -> feature/1) E commit(merged)
+  |\  
+  | * d820142 (feature/2) D commit(feature/2)
+  * | 32aa9ee C commit(feature/1)
+  |/  
+  * d1df3bb (main) B commit(main)
+  * 7c201b4 A commit(main)
+```
+
+<br>
+
+## 7 최적의 브랜치 Merge 전략
+
+사실 개발 프로젝트 그룹 혹은 회사의 팀별로 모두 선택하는 개발 및 배포 방식이 상이하기 때문에 최적의 브랜치 Merge 전략은 없다고 할 수 있다. 개발 포지션으로 실무에서의 경험이 없기 때문에 추후 실무에서 어떤 전략이 가장 나을지 다시 살펴보기 위해 그동안 검색해본 여러 정보를 정리해보려 한다. 아래 그림은 [우아한형제들 기술블로그](https://techblog.woowahan.com/2553/)에서 가져온 Git-flow를 가장 잘 대표하는 차트의 일부다: 
+
+<img src="https://ifh.cc/g/kprwrK.jpg" style="max-width: 100%" align="center">
+
+- **master(main):** 실제 사용자가 사용하게 될 서비스 출시를 위한 브랜치
+- **develop:** 다음 출시 버전의 개발이 이뤄지는 브랜치
+- **feature:** 다음 출시 버전의 세부 기능들을 기능별로 쪼갠 브랜치
+- **release:** 정식 버전 출시를 위해 배포 준비를 하는 브랜치
+- **hotfixes:** 출시 버전의 버그 수정을 위한 브랜치
+
+일반적으로 `feature` 브랜치에서 각각의 세부 기능들을 개발하고 `develop` 브랜치에 merge하고, `develop` 브랜치의 개발 사항을 최종적으로 `main` 브랜치에 merge하여 서비스를 출시하는 순서를 띈다
+
+`feature` 브랜치를 `develop` 브랜치에 merge할 시 Squash & merge 방식이 유용하다 한다. `feature` 브랜치에서 기능을 개발하며 발생하는 여러 잔업의 커밋 내역을 하나의 커밋으로 묶어 `develop` 브랜치에 병합하기 때문에 `develop` 브랜치에는 기능(feature) 단위로 커밋이 추가되어 한눈에 개발 상황을 볼 수 있다는 이점이 있다
+
+`develop` 브랜치를 `main` 브랜치에 merge할 시 Rebase & merge 방식이 유용하다 한다. 만약 `develop` 브랜치를 `main` 브랜치에 squash merge하게 되면 그동안의 커밋 이력이 모두 사라져 기능에 문제나 버그가 발생될 시 롤백할 수 없게 되기 때문이다
+
+
+
 <br>
 
 ---
@@ -564,4 +646,6 @@ git log --oneline
 - [Git Merge 종류](https://velog.io/@injoon2019/Git-Merge-%EC%A2%85%EB%A5%98)
 - [Git Merge(fast-forward, 3-way, squash, rebase)](https://minoolian.github.io/tech/Merge.html)
 - [Git의 다양한 브랜치 병합 방법(Merge, Squash, & Merge, Rebase & Merge)](https://hudi.blog/git-merge-squash-rebase/)
+- [GitHub의 Merge, Squash and Merge, Rebase and Merge 정확히 이해하기](https://meetup.nhncloud.com/posts/122)
+- [우린 Git-flow를 사용하고 있어요 - 우아한형제들 기술블로그](https://techblog.woowahan.com/2553/)
 
