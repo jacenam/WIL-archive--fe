@@ -627,8 +627,6 @@ git log --all --oneline --graph
 
 `develop` 브랜치를 `main` 브랜치에 merge할 시 Rebase & merge 방식이 유용하다 한다. 만약 `develop` 브랜치를 `main` 브랜치에 squash merge하게 되면 그동안의 커밋 이력이 모두 사라져 기능에 문제나 버그가 발생될 시 롤백할 수 없게 되기 때문이다
 
-
-
 <br>
 
 ---
