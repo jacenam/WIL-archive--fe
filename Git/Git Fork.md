@@ -10,7 +10,7 @@
 - [4 Fork를 위한 remote와 upstream에 대해 이해하기](#4-Fork를-위한-remote와-upstream에-대해-이해하기)
   - [4-1 remote](#4-1-remote)
   - [4-2 upstream](#4-2-upstream)
-  - [#4-3 Fork와 remote, upstream](#4-3-Fork와-remote,-upstream)
+  - [4-3 Fork와 remote, upstream](#4-3-Fork와-remote,-upstream)
 
 ***
 
@@ -96,7 +96,7 @@ Fork를 하는 방법은 아래와 같다:
 
 5. 원본 저장소의 원격 저장소 URL를 추가한다
 
-   > `remote`와 `upstream` 명령어에 대한 자세한 내용은 아래 내용을 참고하자
+   > `remote`와 `upstream` 명령어에 대한 자세한 내용은 [아래 내용](#4-Fork를-위한-remote와-upstream에-대해-이해하기)을 참고하자
 
    ```bash
    git remote add upstream https://github.com/codesquad/fe-max--wise-wallet.git
@@ -145,22 +145,62 @@ Fork를 하는 방법은 아래와 같다:
 
 ### 4-1 remote
 
-앞서 다룬 [원격 저장소 초기 설정](https://github.com/jacenam/WIL-archive/blob/main/Git/Github%20초기%20설정%20및%20기초%20명령어(feat.%20원격%20저장소).md)에서 `git remote add origin [원격 저장소 URL]`, `git push -u origin main`, `git pull origin main`과 같은 명령어를 살펴봤다. 언급한 명령어에서 사용되는  `origin`은 Github에 호스팅되어 있는 원격 저장소(Remote Repository)를 의미한다. 즉, 원격(Remote)에 있는 저장소를 작업물(파일)의 원천(origin)으로 삼아 로컬 저장소와 작업물을 주고 받는다는 것을 의미하는 것이다
+나의 로컬 저장소를 원격 저장소와 연결하는 방법은 두 가지가 있다: 
+
+1. `git remote add origin [원격 저장소 URL]`
+2. `git clone [원격 저장소 URL] .`
+
+위 명령어를 실행한 후 원격 저장소와의 원격 연결 상태를 확인해보면 아래와 같은 결과가 나온다
+
+```bash
+git remote -v
+
+→ origin	https://github.com/jacenam/git-practice.git (fetch)
+  origin	https://github.com/jacenam/git-practice.git (push)
+```
+
+이때 `origin`이라는 결과는 Github에 호스팅되어 있는 나의 원격 저장소를 의미한다. 즉, 원격(Remote)에 있는 저장소를 원천(origin)으로 삼아 원격으로(`remote`) 로컬 저장소와 연결하여 작업물을 주고 받는다는 뜻이다. ***다시 말해, 원격 저장소는 `origin`이라 볼 수 있다***
+
+그렇다면 앞서 [원격 저장소 초기 설정](https://github.com/jacenam/WIL-archive/blob/main/Git/Github%20초기%20설정%20및%20기초%20명령어(feat.%20원격%20저장소).md)에서 다룬  `git remote add origin [원격 저장소 URL]`, `git push -u origin main`, `git pull origin main`과 같은 명령어의 의미도 아래와 같이 해석해 볼 수 있다:
+
+- `git remote add origin [원격 저장소 URL]`: 데이터를 가져오고(`pull`) 보낼(`push`) 원격 저장소(`origin`)를 나의 로컬 저장소로 원격(`remote`)으로 연결(`add`)한다
+- `git push -u origin main`: 원격 저장소(`origin`)에 나의 로컬 저장소 데이터를 보낸다(`push`)
+- `git pull origin main`: 원격 저장소(`origin`)으로부터 나의 로컬 저장소로 데이터를 가져온다(`pull`)
+
+그렇다면 `git push -u origin main`에서 `-u`는 무엇을 의미하는 것일까?
 
 ### 4-2 upstream
 
-위에서 언급한  `git push -u origin main` 명령어에서 `-u`는 `--set-upstream` 명령어와 동일한 의미를 지니며 upstream을 설정한다는 뜻이다. 그렇다면 upstream은 무슨 의미일까? 아래 명령어를 살펴보자:
+위에서 언급한  `git push -u origin main` 명령어에서 `-u`는 `--set-upstream` 명령어와 동일한 의미를 지니며 upstream을 설정한다는 뜻이다. 그렇다면 upstream은 무슨 의미일까? `push`, `pull` 명령어를 살펴보자: 
 
-- `git push -u origin main`: 로컬 저장소에서 원격 저장소(`origin`)로 커밋 이력을  `push`한다
-- `git pull origin main`: 원격 저장소(`origin`)의 `main` 브랜치에서 로컬 저장소로 커밋 이력을 `pull`한다
+- `push`: 로컬 저장소에서 원격 저장소(`origin`)로 데이터를 보낸다
+- `pull`: 원격 저장소(`origin`)에서 로컬 저장소로 데이터를 가져온다
+
+데이터를 `push` 또는 `pull`할 때 데이터가 흐르는 방향을 `upstream/downstream`으로 아래 그림과 같이 표현할 수 있다: 
 
 <img src="https://ifh.cc/g/o2Yjnc.jpg" style="max-width: 100%" align="center">
 
-위 명령어의 해석을 통해 알 수 있듯이, upstream을 설정한다는 의미는 커밋 이력이 어디서 어디로 흐르는지 방향을 설정한다는 의미다. 즉, 위 명령어에서는 로컬 저장소에서 원격 저장소(`origin`)의 방향은 upstream, 원격 저장소에서 로컬 저장소는 downstream이 된다
+`-u` 명령어로 upstream을 설정한다는 것은 커밋 이력이 어디서 어디로 흐르는지 방향을 설정한다는 의미다. 즉, `git push -u origin main` 명령어를 통해 로컬 저장소에서 원격 저장소(`origin`)로 데이터를 보내는 방향은 upstream, 반대로 원격 저장소에서 로컬 저장소의 방향은 downstream으로 설정한다는 뜻이다
 
 ### 4-3 Fork와 remote, upstream
 
-앞서 Fork는 다른 사람의 원격 저장소(Remote Repository)를 나의 원격 저장소로 통째로 복사하는 것이라 했다.  
+여기서 주의해야 할 점은 upstream/downstream 개념은 상대적이라는 것이다. 아래와 같이 다른 사람의 원본 원격 저장소를 나의 원격 저장소로 통째로 복사해오는 Fork의 과정을 살펴보자:
+
+- 원본 원격 저장소 → `fork` → 나의 원격 저장소(`origin`) → `clone` → 나의 로컬 저장소
+
+앞서 나의 원격 저장소와 로컬 저장소만을 고려했을 때는 `origin`인 원격 저장소가 upstream, 로컬 저장소가 downstream이었는데, Fork의 경우는 아래와 같이 upstream/downstream의 관계가 형성된다: 
+
+- 원본 원격 저장소(upstream) → 나의 원격 저장소(`origin`이자 downstream) → `clone` → 나의 로컬 저장소(downstream)
+
+따라서 앞서 언급한 [Fork하는 방법](#2-Fork하는-방법) 중 `git remote add upstream [원본 원격 저장소 URL]` 명령어를 통해 upstream을 설정하고 원본 저장소의 커밋 이력을 `git fetch upstream` 명령어를 통해 로컬 저장소로 가져오는 upstream 명령어 설정이 필요한 이유다. 아래와 같이 상황에 따라 유동적으로 upstream에 변경 사항을 반영할 필요가 있기 때문이다: 
+
+- Fork 이후 원본 원격 저장소에 변경 사항이 없을 경우
+  1. 나의 로컬 저장소 작업 사항(커밋 이력) → `push` → 나의 원격 저장소(`origin`)
+  2. 나의 원격 저장소(`origin`) → `PR` → 원본 원격 저장소(upstream)
+- Fork 이후 원본 원격 저장소에 변경 사항이 있을 경우
+  1. 원본 원격 저장소(upstream) → `fetch` & `pull` → 나의 로컬 저장소
+  2. 나의 로컬 저장소 작업 사항(커밋 이력) → `push` → 나의 원격 저장소(`origin`)
+  3. 나의 원격 저장소(`origin`) → `PR` → 원본 원격 저장소(upstream)
 
 <br>
 
@@ -172,5 +212,5 @@ Fork를 하는 방법은 아래와 같다:
 - [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)
 - [알아서 잘 딱 깔끔하고 센스있게 정리하는 Github 핵심 개념](https://m.yes24.com/Goods/Detail/108203273)
 - [Git fetch: fork한 저장소를 원래 저장소의 최신 커밋 내역으로 바꾸기](https://chanhuiseok.github.io/posts/git-2/)
-- 
+- [Github에서 협업을 위한 remote repository와 upstream 이해하기](https://pers0n4.io/github-remote-repository-and-upstream/)
 
