@@ -212,3 +212,20 @@ git remote -v
 - [알아서 잘 딱 깔끔하고 센스있게 정리하는 Github 핵심 개념](https://m.yes24.com/Goods/Detail/108203273)
 - [Git fetch: fork한 저장소를 원래 저장소의 최신 커밋 내역으로 바꾸기](https://chanhuiseok.github.io/posts/git-2/)
 - [Github에서 협업을 위한 remote repository와 upstream 이해하기](https://pers0n4.io/github-remote-repository-and-upstream/)
+
+
+
+git remote add -t litae upstream [URL]
+
+git remote -v
+
+git fetch upstream litae
+
+git rebase upstream/litae
+
+
+
+git reset --hard [커밋 ID]
+
+git push -f origin jace
+
