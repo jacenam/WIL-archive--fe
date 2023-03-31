@@ -456,7 +456,7 @@ git merge --squash feature/1
 
 현재까지 특정 브랜치를 기준으로 새로운 브랜치(`feature/1`)가 분기되는 예시들을 살펴봤었다. 이때 `feature/1` 브랜치가 분기된 시점 이후 커밋 이력(`C`, `D`)의 base는 `main` 브랜치의 `B` 커밋이다
 
-<img src="https://ifh.cc/g/LzdjAX.png" style="max-width: 100%" align="center">
+<img src="https://ifh.cc/g/R7yC7r.png" style="max-width: 100%" align="center">
 
 여기서 `main` 브랜치를 Receiving 브랜치라 고려했을 때, `rebase` 명령어를 통해 기존 base를 기준으로 Incoming 브랜치의 커밋 이력을 merge 할 수 있다
 

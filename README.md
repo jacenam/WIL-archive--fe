@@ -17,7 +17,7 @@
 
 ## JavaScript
 
-- [JavaScript 기초](https://github.com/jacenam/WIL/tree/main/JavaScript)
+- [JavaScript 기초](https://github.com/jacenam/WIL-archive/tree/main/JavaScript)
 
 <br>
 

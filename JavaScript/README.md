@@ -15,9 +15,9 @@
 
 ### JavaScript 기본
 
-- [변수](https://github.com/jacenam/WIL/blob/main/JavaScript/JavaScript%20%EA%B8%B0%EB%B3%B8/%EB%B3%80%EC%88%98.md)
-- [할당](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20%EA%B8%B0%EB%B3%B8/%ED%95%A0%EB%8B%B9.md)
-- [표현식과 문(feat. 값, 리터럴)]()
+- [변수](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/variable.md)
+- [할당](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/assignment.md)
+- [표현식과 문(feat. 값, 리터럴)](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/expression%20%26%20statement(feat.%20value%2C%20literal).md)
 - [연산자]()
   - [산술 연산자]()
   - [할당 연산자]()
@@ -27,9 +27,9 @@
   - [지수 연산자]()
   - [그 외의 연산자들]()
   - [연산자의 부수 효과와 우선 연산 순위]()
-- [데이터 타입]()
-  - [원시 타입]()
-  - [객체 타입]()
+- [데이터 타입](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/data%20type.md)
+  - [원시 타입](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/primitive%20type.md)
+  - [객체 타입](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/object%20type.md)
   - [원시 값과 객체의 비교]()
   - 객체 생성 방식
     - [객체 리터럴에 의한 객체 생성]()
@@ -44,10 +44,10 @@
 
 ### 함수
 
-- [함수란](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/%ED%95%A8%EC%88%98/%ED%95%A8%EC%88%98%EB%9E%80.md)
-- [함수 정의](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/%ED%95%A8%EC%88%98/%ED%95%A8%EC%88%98%20%EC%A0%95%EC%9D%98.md)
-- [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/%ED%95%A8%EC%88%98/%ED%95%A8%EC%88%98%20%ED%98%B8%EC%B6%9C.md)
-- [참조에 의한 전달과 함수 외부 상태의 변경](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/%ED%95%A8%EC%88%98/%EC%B0%B8%EC%A1%B0%EC%97%90%20%EC%9D%98%ED%95%9C%20%EC%A0%84%EB%8B%AC%EA%B3%BC%20%ED%95%A8%EC%88%98%20%EC%99%B8%EB%B6%80%20%EC%83%81%ED%83%9C%EC%9D%98%20%EB%B3%80%EA%B2%BD.md)
+- [함수란](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/Function/function.md)
+- [함수 정의](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/Function/defining%20functions.md)
+- [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/Function/function%20invoke.md)
+- [참조에 의한 전달과 함수 외부 상태의 변경](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/Function/pass-by-reference%20%26%20function%20status.md)
 - 다양한 함수의 형태
   - [즉시 실행 함수]()
   - [재귀 함수]()

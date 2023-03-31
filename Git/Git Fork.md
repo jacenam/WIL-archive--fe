@@ -114,6 +114,8 @@ Fork를 하는 방법은 아래와 같다:
 
 7. 원본 저장소의 과거/최신 커밋 내역 정보를 가져온다
 
+   > `fetch` 명령어는 upstream 설정 시 대상의 원본 원격 저장소의 변경 사항을 확인만 하고 로컬 저장소로 변경 데이터를 가져오진 않는다. 만약 upstream을 설정하지 않을 시 `git fetch [나의 원격저장소 이름]`의 형태로 명령어를 입력하여 나의 원격저장소의 최신 정보를 로컬 저장소에서 확인이 가능하다. 이에 대해서는 [Git Fetch]() 파트의 내용을 참고하자
+
    ```bash
    git fetch upstream
    
@@ -212,20 +214,4 @@ git remote -v
 - [알아서 잘 딱 깔끔하고 센스있게 정리하는 Github 핵심 개념](https://m.yes24.com/Goods/Detail/108203273)
 - [Git fetch: fork한 저장소를 원래 저장소의 최신 커밋 내역으로 바꾸기](https://chanhuiseok.github.io/posts/git-2/)
 - [Github에서 협업을 위한 remote repository와 upstream 이해하기](https://pers0n4.io/github-remote-repository-and-upstream/)
-
-
-
-git remote add -t litae upstream [URL]
-
-git remote -v
-
-git fetch upstream litae
-
-git rebase upstream/litae
-
-
-
-git reset --hard [커밋 ID]
-
-git push -f origin jace
 
