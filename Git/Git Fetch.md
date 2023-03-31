@@ -168,8 +168,6 @@ git log --all --oneline
 - [Git 공식문서](https://git-scm.com/docs)
 - [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)
 - [알아서 잘 딱 깔끔하고 센스있게 정리하는 Github 핵심 개념](https://m.yes24.com/Goods/Detail/108203273)
-
 - [Git Fetch 커밋 정보 가져오기](https://velog.io/@devp1023/GIT-Fetch)
-
 - [Fetch, 원격 저장소의 데이터를 로컬에 가져오기만 하기](https://backlog.com/git-tutorial/kr/stepup/stepup3_2.html)
 
