@@ -30,10 +30,10 @@
 - [데이터 타입](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/data%20type.md)
   - [원시 타입](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/primitive%20type.md)
   - [객체 타입](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/object%20type.md)
-  - [원시 값과 객체의 비교]()
+  - [원시 값과 객체의 비교](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/primitive%20%26%20object%20type.md)
   - 객체 생성 방식
-    - [객체 리터럴에 의한 객체 생성]()
-    - [생성자 함수에 의한 객체 생성]()
+    - [객체 리터럴에 의한 객체 생성](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/object%20literal.md)
+    - [생성자 함수에 의한 객체 생성](https://github.com/jacenam/WIL-archive/blob/main/JavaScript/JavaScript%20Basic%20Concepts/constructor%20function.md)
 - [제어문]()
   - [제어문의 종류]()
 - 타입 변환과 단축 평가
