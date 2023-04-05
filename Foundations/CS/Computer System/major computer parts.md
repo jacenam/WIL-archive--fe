@@ -1,14 +1,14 @@
-<img src="https://ifh.cc/g/37nFXT.png" max-width="100%" align="center" />
+<img src="https://ifh.cc/g/Q9wDmd.png" max-width="100%" align="center" />
 
 <br>
 
 ### 목차
 
-- [1. 컴퓨터의 3대 구성 요소](#1-컴퓨터의-3대-구성-요소)
+- [1 컴퓨터의 3대 구성 요소](#1-컴퓨터의-3대-구성-요소)
 
-- [2. CPU란](#1-CPU란)
-- [3. RAM이란]()
-- [4. HDD/SSD란]()
+- [2 CPU란](#1-CPU란)
+- [3 RAM이란]()
+- [4 HDD/SSD란]()
 
 ***
 
