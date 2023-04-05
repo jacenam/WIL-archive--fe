@@ -1,4 +1,6 @@
-<img src="https://user-images.githubusercontent.com/92138751/204022801-e2246501-fabf-473c-9ed3-9a1ce4ca110f.png" align="center" width="100%">
+# 🏃🏻‍♂️ JavaScript
+
+> JS는 서버 사이드(node.js), 프레임워크(React, Angular, Vue), 크로스 플랫폼(React Native, Electron), PWAs(Progressive Web Apps) 등 각종 환경, 기기 위에서 동작하는 서비스를 만드는데 중요한 언어로 기초 학습을 확실하게 해내가자. 언젠가는 속도가 날 것이다
 
 <br>
 
@@ -7,7 +9,7 @@
 - [JavaScript란]()
 - [변수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/variable.md)
 - [할당](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/assignment.md)
-- [표현식과 문(feat. 값, 리터럴)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/expression%20%26%20statement(feat.%20value%2C%20literal).md)
+- [표현식과 문(feat. 값, 리터럴)](<https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/expression%20%26%20statement(feat.%20value%2C%20literal).md>)
 - [연산자]()
   - [산술 연산자]()
   - [할당 연산자]()

@@ -1,4 +1,6 @@
-<img src="https://ifh.cc/g/24gxyR.png" style="max-width: 100%" align="center">
+# 🎛️ Version Control System
+
+> 버전관리시스템(VCS)는 개인 작업물의 소스코드 관리뿐만 아니라 팀의 협업, 이슈 대응 등 더욱 빠르고 효율적인 작업으로 생산성을 증대시켜 준다
 
 <br>
 

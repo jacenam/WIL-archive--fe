@@ -1,7 +1,9 @@
-<img src="https://ifh.cc/g/ZaXy6M.png" style="max-width: 100%" align="center">
+# 🎄 CSS
+
+> CSS는 초기 학습 난이도가 크게 어렵지 않는 것으로 느껴지지만, 광범위한 CSS와 디자인을 잘 다루기 위해서는 웹과 서식에 대한 정확한 이해와 반복 연습이 필요하다
 
 <br>
 
 ## CSS Basics
 
-- 
+- [CSS란]()

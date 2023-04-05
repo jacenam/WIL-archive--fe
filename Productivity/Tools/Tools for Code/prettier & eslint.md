@@ -5,6 +5,10 @@
 - [1 Tools for Code](#1-Tools-for-Code)
   - [1-1 ESLint](#1-1-ESLint)
   - [1-2 Prettier](#1-2-Prettier)
+- [2 설치](#2-설치)
+  - [2-1 ESLint 설치 및 설정](#2-1-ESLint-설치-및-설정)
+  - [2-2 Prettier 설치 및 설정](#2-2-Prettier-설치-및-설정)
+
 
 ***
 
@@ -67,7 +71,15 @@ array.map(e => console.log(e));
 
 Prettier는 ESLint처럼 문법, 패턴, 구조 등의 문제를 식별해 코드의 품질과 구현 방식을 개선해주는 것이 아닌 공백, 줄바꿈, 들여쓰기 등 지정한 Prettier 설정에 따라 코드의 서식(스타일)을 교정해주는 프로그램이다. 팀에서 사용할 Prettier를 동일하게 설정해 협업 시 동일한 서식으로 코드 작성의 가독성 및 유지보수성을 향상시킬 수 있다
 
+아래는 Prettier를 `Format on save`로 설정해 파일 저장 시 지정해둔 공백, 줄바꿈, 들여쓰기로 코드의 서식이 포맷되는 것을 보여준다
 
+<img src="https://ifh.cc/g/7cX0RW.gif" style="max-width: 100%" align="center">
+
+<br>
+
+## 2 설치
+
+ESLint와 Prettier 모두 VSCode settings 혹은 [`.json`]()  
 
 <br>
 
@@ -75,3 +87,5 @@ Prettier는 ESLint처럼 문법, 패턴, 구조 등의 문제를 식별해 코�
 
 ### 참고
 
+- [ESLint & Prettier, Airbnb Style Guide로 설정하기](ESLint & Prettier, Airbnb Style Guide로 설정하기)
+- 
