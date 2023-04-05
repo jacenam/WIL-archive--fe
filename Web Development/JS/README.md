@@ -25,34 +25,28 @@
     - [객체 리터럴에 의한 객체 생성](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20literal.md)
     - [생성자 함수에 의한 객체 생성](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/constructor%20function.md)
 - [제어문]()
-- [제어문의 종류]()
+  - [제어문의 종류]()
 - 타입 변환과 단축 평가
-
   - [명시적 타입 변환]()
   - [암묵적 타입 변환]()
   - [타입 변환과 불변 값]()
   - [단축 평가]()
 - 함수
-
   - [함수란](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function.md)
-
   - [함수 정의](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/defining%20functions.md)
-
   - [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function%20invoke.md)
-
   - [참조에 의한 전달과 함수 외부 상태의 변경](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/pass-by-reference%20%26%20function%20status.md)
-
   - 다양한 함수의 형태
     - [즉시 실행 함수]()
     - [재귀 함수]()
     - [중첩 함수]()
     - [콜백 함수]()
     - [생성자 함수]()
-    - <span style="color: grey">순수 함수와 비순수 함수</span>
+    - 순수 함수와 비순수 함수
 - 스코프
-- [스코프란]()
+  - [스코프란]()
   - [전역 변수의 문제점]()
-- [`let`, `const` 키워드와 블록 레벨 스코프]()
+  - [`let`, `const` 키워드와 블록 레벨 스코프]()
 - 배열
   - [배열이란]()
   - [배열 요소의 관리]()

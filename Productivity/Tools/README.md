@@ -4,10 +4,10 @@
 
 ## IDE
 
-- [IDE란]()
+- [IDE란](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools/IDE/ide.md)
 - VSCode
-  - [VSCode 셋팅](https://github.com/jacenam/WIL-archive/blob/main/IDE/VSCode%20%EC%85%8B%ED%8C%85.md)
+  - [VSCode 셋팅](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools/IDE/VSCode/vscode%20settings.md)
 
 ## Tools for Code
 
-- [Prettier & ESLint]()
+- [Prettier & ESLint](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools/Tools%20for%20Code/prettier%20%26%20eslint.md)
