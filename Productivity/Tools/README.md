@@ -1,4 +1,4 @@
-<img src="https://ifh.cc/g/ovM5gs.png" style="max-width: 100%" align="center">
+<img src="https://ifh.cc/g/8Dzxvs.png" style="max-width: 100%" align="center">
 
 <br>
 
