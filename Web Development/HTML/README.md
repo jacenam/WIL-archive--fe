@@ -6,5 +6,6 @@
 
 ## HTML Basics
 
-- [HTML란]()
+- [HTML란](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/HTML/HTML%20Basics/html%20intro.md)
+- [HTML Syntax](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/HTML/HTML%20Basics/html%20syntax.md)
 
