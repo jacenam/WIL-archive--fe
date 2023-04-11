@@ -1,6 +1,6 @@
 # 🏃🏻‍♂️ JavaScript
 
-> JS는 서버 사이드(node.js), 프레임워크(React, Angular, Vue), 크로스 플랫폼(React Native, Electron), PWAs(Progressive Web Apps) 등 각종 환경, 기기 위에서 동작하는 서비스를 만드는데 중요한 언어로 기초 학습을 확실하게 해내가자. 언젠가는 속도가 날 것이다
+> JS는 서버 사이드(node.js), 프레임워크(React, Angular, Vue), 크로스 플랫폼(React Native, Electron), PWAs(Progressive Web Apps) 등 각종 환경, 기기 위에서 동작하는 서비스를 만드는데 중요한 언어인만큼 기초 학습을 확실하게 해내가자. 언젠가는 속도가 날 것이다
 
 <br>
 

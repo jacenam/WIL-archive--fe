@@ -14,7 +14,7 @@ HTML 요소(Element)란 HTML 문서(Document)를 이루는 구성 단위를 의�
 
 - 요소는 시작/종료 태그, 그리고 그 태그 사이에 위치한 콘텐츠(Content)로 구성된다
 - 태그는 브라켓(Brackets, `<`, `>`) 사이에 위치한다. 태그를 브라켓으로 감싸 브라우저에 '태그'로서 인식시켜 주기 위함이다
-- 태그는 일반적으로 소문자로 작성한다
+- 태그는 일반적으로 소문자로 작성한다3
 
 <img style="max-width: 100%" src="https://user-images.githubusercontent.com/92138751/230755958-3a92dee0-7b55-43f1-b73d-4f79d1e5e6ca.png">
 
