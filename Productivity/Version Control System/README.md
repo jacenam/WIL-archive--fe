@@ -19,6 +19,7 @@
 ## Git Advanced
 
 - [Git module, submodule, subtree](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Version%20Control%20System/Git%20Advanced/git%20module%2C%20submodule%20%26%20subtree.md)
+- [.gitignore](https://www.toptal.com/developers/gitignore/)
 
 ## Git Error Handling
 
