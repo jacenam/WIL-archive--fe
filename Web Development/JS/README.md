@@ -16,7 +16,7 @@
   - [비교 연산자](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Operator/assignment%20operator.md)
   - [삼항 조건 연산자](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Operator/ternary%20operator.md)
   - [논리 연산자](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Operator/logical%20operator.md)
-  - [지수 연산자]()
+  - [지수 연산자](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Operator/exponentiation%20operator.md)
   - [그 외의 연산자들](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Operator/other%20operators.md)
   - [연산자의 부수 효과와 우선 연산 순위](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Operator/operator%20additional%20effect.md)
 - [데이터 타입](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/data%20type.md)
