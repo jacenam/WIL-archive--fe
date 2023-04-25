@@ -1,4 +1,4 @@
-<img src="https://ifh.cc/g/DZWNlw.png" style="max-width: 100%" align="center">
+# 생성자 함수
 
 ### 목차
 
