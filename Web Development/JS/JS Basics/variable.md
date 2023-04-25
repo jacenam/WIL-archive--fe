@@ -1,4 +1,4 @@
-<img src="https://ifh.cc/g/rW5RlJ.png" style="max-width: 100%" align="center">
+# 변수
 
 ### 목차
 

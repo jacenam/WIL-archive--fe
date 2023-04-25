@@ -1,6 +1,4 @@
-<img src="https://ifh.cc/g/MXNfT7.png" style="max-width: 100%" align="center">
-
-<br>
+# 할당
 
 ### 목차
 
@@ -133,3 +131,4 @@ userName; // → Jace
 ### 참고
 
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
+

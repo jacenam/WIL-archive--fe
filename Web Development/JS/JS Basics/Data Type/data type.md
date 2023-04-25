@@ -1,6 +1,6 @@
 
 
-<img src="https://ifh.cc/g/4TPwvS.png" style="max-width: 100%" align="center">
+# 데이터 타입
 
 ### 목차
 

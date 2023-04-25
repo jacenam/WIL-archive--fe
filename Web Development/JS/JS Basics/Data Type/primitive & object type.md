@@ -1,4 +1,4 @@
-<img src="https://ifh.cc/g/kDTZ4W.png" style="max-width: 100%" align="center">
+# 원시 값과 객체의 비교
 
 ### 목차
 
@@ -287,3 +287,4 @@ user1['age'] === user2['age'] => 'Jace' === 'Jace' => true
 - [원시 타입과 참조타입](https://velog.io/@nomadhash/Java-Script-깊은-복사와-얕은-복사)
 - [값 타입(value type) & 참조 타입(reference type)](https://eun-ng.tistory.com/10)
 - [변수, 원시 값과 참조 값](https://feel5ny.github.io/2017/11/29/JS_01/)
+

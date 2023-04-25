@@ -1,4 +1,4 @@
-<img src="https://ifh.cc/g/n9Axkr.png" style="max-width: 100%" align="center">
+# 원시 타입
 
 ### 목차
 
@@ -331,3 +331,4 @@ console.log(userName); // → undefined
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
 
 - [Symbol을 사용하는 이유는 뭘까 | symbol usage](https://another-light.tistory.com/105)
+

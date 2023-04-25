@@ -1,4 +1,4 @@
-<img src="" style="max-width: 100%" align="center">
+# JS 객체의 관리 방식
 
 ### 목차
 

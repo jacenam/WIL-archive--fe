@@ -1,6 +1,6 @@
 
 
-<img src="https://ifh.cc/g/J8Pqao.png" style="max-width: 100%" align="center">
+# 표현식과 문(feat. 값, 리터럴)
 
 ### 목차
 
@@ -244,3 +244,4 @@ userName = 'Jace Nam'; // → 'Jace Nam'
 ### 참고
 
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
+

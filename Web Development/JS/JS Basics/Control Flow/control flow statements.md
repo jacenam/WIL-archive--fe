@@ -597,3 +597,4 @@ console.log(b); // → 12
 - [JavaScript - 반복문(Loops)에 대해 알아보자](https://velog.io/@surim014/웹을-움직이는-근육-JavaScript란-무엇인가-part-5-Loops)
 - [자바(+스크립트)의 레이블 구문 쁠랚쓰하게 활용하기](https://dev.to/composite/-59m4)
 - [자바스크립트에서 switch(true) 패턴 사용하기](https://github.com/pming-kr/pming-content/discussions/101)
+
