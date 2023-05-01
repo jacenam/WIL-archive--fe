@@ -51,8 +51,8 @@
 - 프로토타입
   - [프로토타입이란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md)
 - 배열
-  - [배열이란(in progress)]()
-  - [배열 요소의 관리(in progress)]()
+  - [배열이란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array.md)
+  - [배열 요소의 관리(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array%20element.md)
 - 비동기
   - 비동기 프로그래밍
   - 프로미스
