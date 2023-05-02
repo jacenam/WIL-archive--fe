@@ -54,6 +54,6 @@
   - [배열이란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array.md)
   - [배열 요소의 관리(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array%20element.md)
 - 비동기
-  - 비동기 프로그래밍
-  - 프로미스
-  - 제네레이터와 async/await
+  - [비동기 프로그래밍(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Asynchronous/asynchronous%20programming.md)
+  - [프로미스(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Asynchronous/promise.md)
+  - [제네레이터와 async/await(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Asynchronous/async%2C%20await.md)
