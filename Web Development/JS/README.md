@@ -51,7 +51,7 @@
 - 프로토타입
   - [프로토타입이란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md)
 - 클로저
-  - [클로저란(in progress)]()
+  - [클로저란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Closure/closure.md)
 - 배열
   - [배열이란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array.md)
   - [배열 요소의 관리(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array%20element.md)
