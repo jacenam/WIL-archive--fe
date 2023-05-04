@@ -6,6 +6,11 @@
 
 ## HTML Basics
 
+- 인터넷
+  - [인터넷 동작 방식]()
+  - [DNS(Domain Name System)이란]()
+  - [HTTP 프로토콜]()
+
 - [HTML란](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/HTML/HTML%20Basics/html%20intro.md)
 - [HTML Syntax](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/HTML/HTML%20Basics/html%20syntax.md)
 
