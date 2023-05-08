@@ -50,8 +50,16 @@
   - [`let`, `const` 키워드와 블록 레벨 스코프(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/var%2C%20let%2C%20const.md)
 - 프로토타입
   - [프로토타입이란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md)
+- strict mode
+  - [strict mode란(in progress)]()
+- this
+  - [this(in progress)란]()
+- 실행 컨텍스트
+  - [실행 컨텍스트란()]()
 - 클로저
   - [클로저란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Closure/closure.md)
+- 클래스
+  - [클래스란(in progress)]()
 - 배열
   - [배열이란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array.md)
   - [배열 요소의 관리(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array%20element.md)
