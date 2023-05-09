@@ -2,9 +2,9 @@
 
 ### 목차
 
-- [1. 스코프란]()
-- [2. 스코프의 종류]()
-- [3. 스코프 체인]()
+- [1 스코프란](#1-스코프란)
+- [2 스코프의 종류](#2-스코프의-종류)
+- [3 스코프 체인](#3-스코프-체인)
 - [4. 함수 레벨 스코프]() 
 - [5. 렉시컬 스코프]()
 
@@ -24,7 +24,7 @@ checkScope(1, 2);
 
 console.log(x, y); // → Uncaught ReferenceError: x is not defined 
 ```
-다음 예제를 살펴보자. 코드의 가장 바깥 영역(최상위 영역)과 함수 `func` 내부에 동일한 이름을 갖는 변수 `number`를 선언했다. 이때 변수 `number`의 참조 결과를 살펴보면, 함수 내부에서는 `2`이 반환되고 함수 외부에서는 `1`이 반환된다. 왜 그런 것일까?
+다음 예제를 살펴보자. 코드의 가장 바깥 영역(최상위 영역)과 함수 `func` 내부에 동일한 이름을 갖는 변수 `number`를 선언했다. 이때 변수 `number`의 참조 결과를 살펴보면, 함수 내부에서는 `2`가 반환되고 함수 외부에서는 `1`이 반환된다. 왜 그런 것일까?
 ```javascript
 var number = 1; 
 
@@ -41,65 +41,60 @@ JS 엔진은 코드 문맥에 따라 이름이 같은 두 개의 변수 `number`
 
 > 코드 문맥에 따라 JS 엔진에 의해 코드 실행 결과가 달라지는 현상은 [명시적/암묵적 타입변환](), [단축평가](), [함수 정의]() 등에서 자주 접했었다. 이러한 코드 문맥과 환경은 추후에 다뤄질 [렉시컬 환경](), [실행 컨텍스트]()와 관련이 깊다
 
-<img src="https://velog.velcdn.com/images/jacenam/post/3ce44f33-6246-448e-9f08-8026f78f55f1/image.png" style="max-width: 100%" align="center"> 
+<img src="https://user-images.githubusercontent.com/92138751/236974091-fe42ed01-7696-465c-ae76-c91b4bda78e3.png" style="width: 100%"> 
 <br>
 
 
 ## 2 스코프의 종류
 
-코드는 코드 전체 영역인 전역(Global)과 코드 일부 영역인 지역(Local)으로 구분된다. 그리고 변수는 선언된 위치(전역 또는 지역)에 따라 스코프가 결정된다 
+코드는 코드 전체 영역인 전역(Global)과 코드 일부 영역인 지역(Local)으로 구분된다. 그리고 이를 전역 스코프와 지역 스코프라고 부른다. 
 
-- **전역 변수**: **코드의 가장 바깥 영역**에서 선언된 변수로 전역 스코프를 갖게 된다
-- **지역 변수**: **함수 몸체 내부**에서 선언된 변수로 지역 스코프를 갖게 된다
+- **전역 스코프**: **코드의 가장 바깥 영역**(함수 외부)에서 변수가 선언되면 이를 전역 변수라 부르며 전역 스코프를 갖게 된다
+- **지역 스코프**: **함수 몸체 내부**에서 변수가 선언되면 이를 지역 변수라 부르며 지역 스코프를 갖게 된다
 
-각 변수 스코프에 따라 
+즉, 변수가 선언된 위치(전역 또는 지역)에 따라 스코프가 결정된다. 아래 예제의 결과를 통해 알 수 있듯이, 전역 스코프를 갖는 전역 변수는 어떤 지역(함수 내부)에서도 참조가 가능하다. 지역 스코프를 갖는 지역 변수는 자신이 선언된 지역(`outerScope` 함수 지역)과 하위 지역(`innerScope` 함수 지역)에서만 참조가 가능하다 
+
+> 실무 프로그래밍에서 실제로 전역 변수의 사용을 지양한다. 전역 변수는 어떤 지역에서도 참조가 가능하기 때문에 의도치 않은 오류가 발생할 수 있기 때문이다. 이에 대해서는 [여기](https://intzzzero.netlify.app/blog/no-more-global-variables)를 참고하자
+
 ```javascript
 // 전역 변수 선언
-var x = 10; 
-var y = 20; 
+var w = 1; 
+var x = 2; 
 
 // 지역 변수 선언
-function func() {
-  var z = 30; 
-  // 전역 변수 x, y는 함수 내부 영역인 지역에서도 참조할 수 있다 
-  console.log(x + y + z); // → 60
+function outerScope() {
+  var y = 3;
+  // 전역 변수 w, x는 함수 내부 영역인 지역에서도 참조할 수 있다 
+  console.log(w, x, y); // → 1 2 3
+  
+  function innerScope() {
+    var w = 4; 
+    var z = 5; 
+    // 상위 지역 변수 x, y는 하위 중첩 함수 영역인 지역에서도 참조할 수 있다 
+    // 전역 변수 w가 아닌 지역에서 선언된 지역 변수 w를 참조한다
+    console.log(w, x, y, z); // → 4 2 3 5    
+  }
+  innerScope();
 } 
 
-func()
+outerScope();
 
-// 지역 변수 z는 코드의 가장 바깥 영역인 전역에서 참조할 수 없다
-console.log(x + y + z); // → Uncaught ReferenceError: z is not defined
+// 지역 변수 y와 z는 코드의 가장 바깥 영역인 전역에서 참조할 수 없다
+console.log(w); // → 1
+console.log(w, x, y); // → Uncaught ReferenceError: y is not defined
+console.log(w, x, y, z); // → Uncaught ReferenceError: y is not defined
 ```
 
-```javascript 
-var x = "global x"; 
-var y = "global y"; 
+<br>
 
-function outer() {
-  var z = "outer's local z";
-  
-  console.log(x); // 1 
-  console.log(y); // 2
-  console.log(z); // 3
-  console.log(a); //
-  
-  function inner() {
-    var x = "inner's local x"; 
-    var a = "inner's local a"; 
-    
-    console.log(x); // 4
-    console.log(y); // 5
-    console.log(z); // 6
-  }
-  
-  inner(); 
-}
+## 3 스코프 체인
 
-outer(); 
+앞서 스코프는 전역과 지역으로 나뉜다고 했다. 또한 지역 스코프는 함수 몸체 내부에서 선언된 변수가 갖는 유효범위라고 했다. 
 
-console.log(x); // 7
-console.log(y); // 8
-```
+
+
+
+
 ```javascript
 function foo() {
   console.log("global function foo"); 
@@ -146,10 +141,9 @@ foo();
 
 <br>
 
-### <span style="color:  #F15F3F">학습하며 정리 중</span>
-
 ***
 
 ### 참고
 
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
+- [전역 변수를 왜 지양해야 하는가](https://intzzzero.netlify.app/blog/no-more-global-variables)
