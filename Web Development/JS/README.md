@@ -53,7 +53,7 @@
 - strict mode
   - [strict mode란(in progress)]()
 - this
-  - [this(in progress)란]()
+  - [this란(in progress)]()
 - 실행 컨텍스트
   - [실행 컨텍스트란(in progress)]()
 - 클로저
