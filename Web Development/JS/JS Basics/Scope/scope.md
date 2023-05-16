@@ -224,4 +224,3 @@ foo();
 ### 참고
 
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
-- [전역 변수를 왜 지양해야 하는가](https://intzzzero.netlify.app/blog/no-more-global-variables)
