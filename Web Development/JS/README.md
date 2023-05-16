@@ -45,7 +45,7 @@
   - [콜백 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/callback%20function.md)
   - [생성자 함수(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/constructor%20function.md)
 - 스코프
-  - [스코프란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/scope.md)
+  - [스코프란](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/scope.md)
   - [전역 변수의 문제점(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/global%20variable.md)
   - [`let`, `const` 키워드와 블록 레벨 스코프(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/var%2C%20let%2C%20const.md)
 - 프로토타입
