@@ -61,35 +61,45 @@ user.sayHello();
 
 ### 2-1 생성자 함수의 종류
 
-JS에서는 `Object` 생성자 함수 이외에도 `String`, `Number`, `Boolean`, `Function`, `Array`, `Date`, `RegExp`, `Promise` 등의 빌트인 생성자 함수를 제공한다. 몇 가지 생성자 함수의 예제를 살펴보자(추후 각각의 빌트인 생성자 함수에 대해 자세히 살펴볼 것이다)
+JS에서는 `Object` 생성자 함수 이외에도 `String`, `Number`, `Boolean`, `Function`, `Array`, `Date`, `RegExp`, `Promise` 등의 빌트인 생성자 함수를 제공한다. 몇 가지 생성자 함수의 예제를 살펴보자(추후 각각의 빌트인 생성자 함수와 그들의 필요성에 대해 자세히 살펴볼 것이다. 현재 시점에서는 간단하게 어떤 빌트인 생성자 함수가 존재하는지만 알아두자)
+
+> 원시타입인 문자열, 숫자, 불리언 타입이 어째서 생성자 함수를 통해 객체로 생성되는지 추후 각각의 [빌트인 생성자 함수]()를 참고하자
 
 - `String` 생성자 함수
 
-  문자열 타입의 프로퍼티를 객체에 
-
   ```javascript
-  
+const strObj = new String("Jace");
+  console.log(typeof strObj); // → object
+  console.log(strObj); // → [String: "Jace"]
   ```
 
 - `Number` 생성자 함수
 
-  ㅁㄴ아러닝리
-
   ```javascript
+  const numObj = new Number(123);
+  console.log(typeof numObj); // → object
+  console.log(numObj); // → [Number: 123]
   ```
 
 - `Array` 생성자 함수
 
-  ㅁㄴㅇ러ㅏ닝러ㅣㅏㅁㄴㅇㄹ
-
   ```javascript
+  const arr = new Array(1, 2, 3);
+  console.log(typeof arr); // → object
+  console.log(arr); // → [1, 2, 3]
+  
+  const emptyArr = new Array(10);
+  console.log(typeof emptyArr); // → object
+  console.log(emptyArr); // → [<10 empty items>]
   ```
 
-`Object` 생성자 함수를 비롯해 `String`, `Number`와 같은 생성자 함수를 사용해 굳이 객체를 생성할 필요는 없다. 오히려 객체 리터럴을 통해 문자열, 숫자 타입의 프로퍼티 값을 갖는 객체를 생성하는 것이 더 간편하다. 따라서 상황과 필요에 따라 생성자 함수를 사용하는 것이 바람직하다
-
-
+`Object` 생성자 함수를 비롯해 `String`, `Number`와 같은 생성자 함수를 사용해 굳이 객체를 생성할 필요는 없다. 오히려 객체 리터럴을 통해 문자열, 숫자 타입의 프로퍼티 값을 갖는 객체를 생성하는 것이 더 간편하다. 그러나 객체 리터럴에 의한 객체 생성 방식은 몇 가지 문제가 존재한다. 따라서 상황과 필요에 따라 생성자 함수를 사용하는 것이 바람직하다
 
 <br>
+
+## 3 객체 리터럴에 의한 객체 생성 방식의 장단점
+
+
 
 ***
 
