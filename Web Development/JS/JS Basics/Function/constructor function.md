@@ -68,7 +68,7 @@ JS에서는 `Object` 생성자 함수 이외에도 `String`, `Number`, `Boolean`
 - `String` 생성자 함수
 
   ```javascript
-const strObj = new String("Jace");
+  const strObj = new String("Jace");
   console.log(typeof strObj); // → object
   console.log(strObj); // → [String: "Jace"]
   ```
