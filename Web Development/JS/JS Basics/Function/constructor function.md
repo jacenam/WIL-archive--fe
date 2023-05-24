@@ -99,7 +99,44 @@ JS에서는 `Object` 생성자 함수 이외에도 `String`, `Number`, `Boolean`
 
 ## 3 객체 리터럴에 의한 객체 생성 방식의 장단점
 
-객체 리터럴을 활용한 객체 생성 방식은 직관적이기에 간결하고 간편하다. 
+객체 리터럴을 활용한 객체 생성 방식은 직관적이기에 간결하고 간편하다는 장점이 있다. 그러나 객체 리터럴은 아래와 같이 단 하나의 객체만 생성이 가능하다
+
+```javascript
+// 정사격형의 한 변의 길이와 넓이를 구하는 함수를 객체 값으로 갖는 객체
+const square = {
+  sideLength: 5,
+  getArea() {
+    console.log(Math.pow(this.sideLength, 2)); // → 25
+  },
+};
+
+square.getArea();
+```
+
+만약 정사격형 두 개를 객체 리터럴로 생성하고자 하면 아래와 같이 한 변의 길이와 넓이를 구하는 함수를 값으로 갖는 객체를 두 번 반복해야 한다
+
+> `Math.pow()`는 [지수 연산](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Operator/exponentiation%20operator.md) 시 사용하는 메서드다. 첫 번째 매개변수에는 밑을, 두 번째 매개변수에는 지수를 입력하여 지수 연산을 실행한다. 정사격형의 넓이는 한 변의 길이의 제곱이기 때문에 아래 예제와 같이 매개변수들을 입력했다
+
+```javascript
+const square1 = {
+  sideLength: 5,
+  getArea() {
+    console.log(Math.pow(this.sideLength, 2)); // → 25
+  },
+};
+
+const square2 = {
+  sideLength: 10,
+  getArea() {
+    console.log(Math.pow(this.sideLength, 2)); // → 100
+  },
+};
+
+square1.getArea();
+square2.getArea();
+```
+
+
 
 ***
 
