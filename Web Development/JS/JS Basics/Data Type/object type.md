@@ -279,9 +279,27 @@ console.log(user); // → { name: 'Ju Hyung' }
 
 ## 4 메서드 
 
-JS에서 사용할 수 있는 모든 값은 프로퍼티 값이 될 수 있다 했다. 함수도 프로퍼티 값으로 사용할 수 있는데, 프로퍼티 값이 함수일 경우 일반 함수와 구분하기 위해 [메서드(Method)]()라고 부른다. 즉, 메서드는 객체에 묶여있는 함수를 의미한다. 
+JS에서 사용할 수 있는 모든 값은 프로퍼티 값이 될 수 있다 했다. 함수도 프로퍼티 값으로 사용할 수 있는데, **프로퍼티 값이 함수일 경우 일반 함수와 구분하기 위해 [메서드(Method)]()라고 부른다.** 즉, 메서드는 객체의 프로퍼티 값으로 할당된 함수를 의미한다
 
-<img src="https://ifh.cc/g/fp7T09.png" style="max-width: 100%" align="center">
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/58b2813d-ef2d-4bc9-82ad-b9eef9ff1377" style="max-width: 100%" align="center">
+
+예제를 살펴보자. 아래 객체 `user`의 일반 프로퍼티 값으로 문자열 `"Jace"`와 `"Korea"`가 프로퍼티 키에 각각 할당되어 있다. 이때 프로퍼티 키 `sayHello`에는 함수가 프로퍼티 값으로 할당되어 있다. 이 함수가 바로 객체 `user`의 메서드다
+
+> `this`에 대해서는 [`this` 바인딩]()을 참고하자. 현재 시점에서는 자세히 살펴보지 않을 예정이다
+
+> 함수에 대해서는 [함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function.md), [함수 정의](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/defining%20functions.md), [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function%20invoke.md)을 각각 참고하자. 이 또한 현재 시점에서는 자세히 살펴보지 않을 예정이다
+
+```javascript
+const user = {
+  name: "Jace", 
+  country: "Korea",
+  sayHello: function() {
+    console.log(`Hello, ${this.name} from ${this.country}!`);
+  }
+}
+
+user.sayHello();
+```
 
 앞서 JS에서 원시 타입을 이외의 모든 타입은 객체 타입이라 했다. 함수도 객체 타입이며 JS에서 함수는 [일급 객체]()이므로 값으로 취급할 수 있다. 객체와 함수는 밀접한 관계를 가진다. JS에서 함수와 객체는 분리해서 생각할 수 없는 개념이므로 객체와 함수의 관계에 대해서 제대로 이해해야 한다. 이에 대해서는 [함수와 일급 객체](), [객체지향 프로그래밍]()의 내용을 참고하자
 <br>
@@ -295,4 +313,5 @@ JS에서 사용할 수 있는 모든 값은 프로퍼티 값이 될 수 있다 �
 - [JavaScript - 객체(Object)에 대해 알아보자](https://velog.io/@surim014/%EC%9B%B9%EC%9D%84-%EC%9B%80%EC%A7%81%EC%9D%B4%EB%8A%94-%EA%B7%BC%EC%9C%A1-JavaScript%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80-part-7-Object-35k01xmdfp)
 - [[Javascript] 동적으로 프로퍼티 추가](https://developer-talk.tistory.com/511)
 - [객체(Object) | JavaScript로 만나는 세상](https://helloworldjavascript.net/pages/180-object.html)
-
+- [객체의 개념](http://www.tcpschool.com/javascript/js_object_concept)
+- [메서드란 무엇일까](https://velog.io/@alang/%EB%A9%94%EC%84%9C%EB%93%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C)
