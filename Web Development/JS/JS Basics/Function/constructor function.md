@@ -201,7 +201,7 @@ console.log(square) // → Square { sideLength: 5, getArea: [Function] }
 
 ### 5-1 인스턴스 생성과 this 바인딩
 
-생성자 함수에 `new` 연산자를 붙여 호출하면 먼저 암묵적으로 빈 인스턴스(객체)가 생성된다 
+생성자 함수에 `new` 연산자를 붙여 호출하면 먼저 암묵적으로 빈 인스턴스(객체)가 생성된다. 이때 `this = {};` 코드는 실제로 개발자가 기술한 코드가 아니라 JS 엔진에 의해 눈에 보이진 않지만 암묵적으로 실행되는 코드인 것이다
 
 <img width="100%" src="https://github.com/jacenam/WIL-archive/assets/92138751/92cefd62-6bdd-4c71-b353-d17401b81aae">
 
@@ -211,8 +211,10 @@ console.log(square) // → Square { sideLength: 5, getArea: [Function] }
 
 ```javascript
 function Square(sideLength) {
-  console.log(this); // → Square {}
-	// 여기서의 this는 Square 인스턴스를 가리킨다. Square 인스턴스에 아래와 같은 프로퍼티를 추가하게 된다
+  // (1) 빈 인스턴스를 암묵적으로 생성하며, this와 바인딩된다
+  this = {};
+  console.log(this); // (this는 Square 인스턴스를 가리킨다) → Square {} 
+
   this.sideLength = sideLength; 
   this.getArea = function () {
     return Math.pow(this.sideLength, 2);
@@ -224,9 +226,82 @@ const square = new Square(5);
 
 ### 5-2 인스턴스 초기화
 
+앞서 생성자 함수에 `new` 연산자를 호출하면 JS 엔진은 암묵적으로 빈 인스턴스(객체)를 생성하여 `this` 식별자에 바인딩한다고 했다. 이때 암묵적으로 생성된 빈 인스턴스는 프로퍼티가 추가되지 않은 '빈' 상태이므로, 개발자의 코드 기술에 따라 생성자 함수가 인수(Parameter)로 전달받은 값을 빈 인스턴스의 프로퍼티에 할당하는 단계를 '인스턴스 초기화'라고 한다
 
+```javascript
+function Square(sideLength) {
+  this = {};
+  console.log(this); // → Square {}
+	
+  // (2) Square 인스턴스에 아래와 같은 프로퍼티를 추가하게 된다. 빈 인스턴스 프로퍼티에 값을 할당하는 것을 인스턴스 초기화라고 부른다
+  this.sideLength = sideLength; 
+  this.getArea = function () {
+    return Math.pow(this.sideLength, 2);
+  };
+}
 
+const square = new Square(5);
+```
 
+### 5-3 인스턴스 반환
+
+생성자 함수 몸체 내부에서 개발자가 기술한 코드에 따라 인스턴스 생성의 모두 완료되면 인스턴스가 바인딩된 `this`의 값을 암묵적으로 함수 몸체 밖으로 반환한다. 이때 `return this` 코드 떠또한 실제로 개발자가 기술한 코드가 아니라 JS 엔진에 의해 눈에 보이진 않지만 암묵적으로 실행되는 코드인 것이다 
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/68d8d279-bd3e-46a5-9963-3f753aa41a62" width="100%">
+
+```javascript
+function Square(sideLength) {
+  this = {};
+  console.log(this); // → Square {}
+	
+  this.sideLength = sideLength; 
+  this.getArea = function () {
+    return Math.pow(this.sideLength, 2);
+  };
+  // (3) 프로퍼티가 추가된 인스턴스가 암묵적으로 함수 몸체 밖으로 반환된다
+  return this;
+}
+
+// Square 생성자 함수가 호출되면 위 과정들이 모두 실행되어 최종 인스턴스를 가진 this가 반환된다
+const square = new Square(5);
+console.log(square); // Square {sideLength: 5, getArea: f}
+```
+
+여기서 주의해야 할 것은 JS 엔진에 의해 반환문은 암묵적으로 실행되기 때문에, 생성자 함수 몸체 내부에 명시적으로 기술한 `return` 반환문을 반드시 생략해야 한다. 그렇지 않을 시 원치 않는 오류가 발생할 수도 있다. 예를 들어: 
+
+- 명시적으로 다른 객체 타입의 값을 반환하는 반환문을 기술한 경우
+
+  ```javascript
+  function Square(sideLength) {
+    this.sideLength = sideLength; 
+    this.getArea = function () {
+      return Math.pow(this.sideLength, 2);
+    };
+    return {radius: 10, getDiameter: function() {} };
+  }
+  
+  const square = new Square(5);
+  // 의도치 않은 결과를 초래한다
+  console.log(square); // Square {radius: 10, getDiameter: f}
+  ```
+
+- 명시적으로 원시 값을 반환하는 반환문을 기술한 경우
+
+  ```javascript
+  function Square(sideLength) {
+    this.sideLength = sideLength; 
+    this.getArea = function () {
+      return Math.pow(this.sideLength, 2);
+    };
+    return 25;
+  }
+  
+  const square = new Square(5);
+  // 원시 값의 반환이 아닌 this가 가리키는 값이 반환된다
+  console.log(square); // Square {sideLength: 5, getArea: f}
+  ```
+
+<br>
 
 ***
 
