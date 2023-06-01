@@ -201,7 +201,30 @@ console.log(square) // → Square { sideLength: 5, getArea: [Function] }
 
 ### 5-1 인스턴스 생성과 this 바인딩
 
+생성자 함수에 `new` 연산자를 붙여 호출하면 먼저 암묵적으로 빈 인스턴스(객체)가 생성된다 
+
 <img width="100%" src="https://github.com/jacenam/WIL-archive/assets/92138751/92cefd62-6bdd-4c71-b353-d17401b81aae">
+
+이렇게 생성된 인스턴스는 `this`에 바인딩 된다. 아래와 같이 생성자 함수를 실행(호출)했을 때 참조문의 `this` 식별자는 생성자 함수가 생성할 인스턴스를 가리킨다
+
+> 바인딩(Binding) 또는 식별자 바인딩이란 식별자와 값을 연결하는 과정을 의미한다. 이는 마치 변수를 선언할 시 변수 이름과 변수 값을 저장할 메모리 공간의 주소를 연결(바인딩)하는 것과 같은 개념이다. `this` 바인딩이란 `this`가 가리킬 객체와 바인딩하는 것이다. `this`는 상황에 따라 가리키는 값(객체)이 다른데, 이에 대해서는 [`this` 바인딩]()을 참고하자
+
+```javascript
+function Square(sideLength) {
+  console.log(this); // → Square {}
+	// 여기서의 this는 Square 인스턴스를 가리킨다. Square 인스턴스에 아래와 같은 프로퍼티를 추가하게 된다
+  this.sideLength = sideLength; 
+  this.getArea = function () {
+    return Math.pow(this.sideLength, 2);
+  };
+}
+
+const square = new Square(5);
+```
+
+### 5-2 인스턴스 초기화
+
+
 
 
 
