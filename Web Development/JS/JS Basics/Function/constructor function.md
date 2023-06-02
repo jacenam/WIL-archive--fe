@@ -32,6 +32,20 @@
 
 > 빌트인 함수(Built-in Function)란 프로그래밍 언어 설계 과정에서 미리 만들어놓고 개발자가 사용할 수 있도록 제공되는 자체 내장 함수를 의미한다. 이에 대해서는 [빌트인 객체]()를 참고하자
 
+생성자 함수는 일반 함수와 정의하는 방식이 동일하다. 또한 `new` 연산자 뒤에 생성자 함수 또는 일반 함수를 호출했을 때 객체를 생성하게 되는 매커니즘은 동일하기에, 생성자 함수와 일반 함수의 구별을 위해 생성자 함수는 일반적으로 대문자 알파벳으로 함수 이름을 짓는다
+
+```javascript
+function Greetings(name) {
+  this.name = name;
+  this.sayHello = function() {
+    console.log(`Hello, ${this.name}`);
+  };
+}
+
+const welcomeMsg = new Greetings("Jace");
+welcomeMsg.sayHello();
+```
+
 생성자 함수의 가장 기본적인 사용 방식은 '객체(Object)를 생성한다'는 의미로 빈 객체를 생성해주는 빌트인 생성자 함수를 `Object()`의 형식으로 호출하는 것이다
 
 ```javascript
@@ -308,3 +322,4 @@ console.log(square); // Square {sideLength: 5, getArea: f}
 ### 참고
 
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
+- [코딩앙마 - 자바스크립트 생성자 함수](https://youtu.be/8hrSkOihmBI)
