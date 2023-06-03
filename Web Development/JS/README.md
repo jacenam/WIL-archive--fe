@@ -38,7 +38,7 @@
   - [함수 정의](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/defining%20functions.md)
   - [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function%20invoke.md)
   - [참조에 의한 전달과 함수 외부 상태의 변경](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/pass-by-reference%20%26%20function%20status.md)
-  - [함수와 일급 객체]()
+  - [함수와 일급 객체(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/first%20class%20object.md)
 - 다양한 함수의 형태
   - [즉시 실행 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/immediately%20invoked%20function.md)
   - [재귀 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/recursive%20function.md)
