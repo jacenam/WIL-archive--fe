@@ -23,6 +23,7 @@
   - [원시 타입](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/primitive%20type.md)
   - [객체 타입](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20type.md)
     - [JS의 객체 관리 방식(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/js%20object.md)
+    - [프로퍼티 어트리뷰트(in progress)]()
   - [원시 값과 객체의 비교](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/primitive%20%26%20object%20type.md)
   - 객체 생성 방식
     - [객체 리터럴에 의한 객체 생성](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20literal.md)
