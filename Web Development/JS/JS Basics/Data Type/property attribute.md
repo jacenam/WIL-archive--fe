@@ -106,7 +106,28 @@ console.log(Object.getOwnPropertyDescriptors(user));
 
 - 접근자 프로퍼티(Accessor Property): 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 호출되는 접근자 함수(Accessor Function)으로 구성된 프로퍼티다. 즉, 접근자 함수 형태의 키는 존재하지만, 자체적인 값은 갖지 않는 프로퍼티의 형태다
 
-### 
+  ```javascript
+  const user = {
+    firstName: "Jace",
+    lastName: "Nam",
+    age: 31,
+  
+    get fullName() {
+      return `${this.firstName} ${this.lastName}`;
+    },
+  
+    set fullName(name) {
+      [this.firstName, this.lastName] = name.split("");
+    },
+  };
+  
+  console.log(`${user.firstName} ${user.lastName}`);
+  console.log(user.fullName);
+  console.log(user);
+  ```
+
+  
+
 
 
 
