@@ -51,10 +51,10 @@ console.log(obj.__proto__); // → [Object: null prototype] {}
 
 프로퍼티 어트리뷰트(Property Attritube)는 단어 의미 그대로 "[객체 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20type.md#3-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EA%B5%AC%EC%84%B1-%EC%9A%94%EC%86%8C)가 가지는 속성"이라는 뜻으로, JS 엔진에 의해 객체의 프로퍼티가 생성될 때 프로퍼티의 상태를 나타내는 속성 값이라 이해하면 된다. 프로퍼티 어트리뷰트에는 아래와 같은 기본값을 갖으며 이는 모두 내부 슬롯의 일종이다
 
-- **Value:** 프로퍼티의 값, `[[Value]]`
-- **Writable:** 값의 갱신 가능 여부, `[[Writable]]`
-- **Enumerable:** 값의 열거 가능 여부, `[[Enumerable]]`
-- **Configurable:** 값의 재정의 가능 여부,  `[[Configurable]]`
+- **value:** 프로퍼티의 값, `[[Value]]`
+- **writable:** 값의 갱신 가능 여부, `[[Writable]]`
+- **enumerable:** 값의 열거 가능 여부, `[[Enumerable]]`
+- **configurable:** 값의 재정의 가능 여부,  `[[Configurable]]`
 
 앞서 언급했듯이 내부 슬롯은 원래 개발자가 직접 접근하고 제어할 수 없지만, 프로퍼티 어트리뷰트는 `[[Prototype]]` 내부 슬롯과 동일하게 간접적인 접근이 가능하다. 프로퍼티 어트리뷰트에는 아래와 같이  `Object.getOwnPropertyDescriptor` 메서드를 사용하여 간접적으로 접근할 수 있다:
 
@@ -88,6 +88,8 @@ console.log(Object.getOwnPropertyDescriptors(user));
 // → { name: { value: 'Jace', writable: true, enumerable: true, configurable: true }, age: { value: 31, writable: true, enumerable: true, configurable: true } }
 ```
 
+쌍의 키와 값으로 이루어진 프로퍼티 디스크립터 객체의 프로퍼티는 각각 `value: "Jace"`, `writable: true`, `enumerable: true`, `configurable: true`이다
+
 <br>
 
 ## 3 데이터 프로퍼티와 접근자 프로퍼티
@@ -106,27 +108,40 @@ console.log(Object.getOwnPropertyDescriptors(user));
 
 - 접근자 프로퍼티(Accessor Property): 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 호출되는 접근자 함수(Accessor Function)으로 구성된 프로퍼티다. 즉, 접근자 함수 형태의 키는 존재하지만, 자체적인 값은 갖지 않는 프로퍼티의 형태다
 
-  ```javascript
-  const user = {
-    firstName: "Jace",
-    lastName: "Nam",
-    age: 31,
-  
-    get fullName() {
-      return `${this.firstName} ${this.lastName}`;
-    },
-  
-    set fullName(name) {
-      [this.firstName, this.lastName] = name.split("");
-    },
-  };
-  
-  console.log(`${user.firstName} ${user.lastName}`);
-  console.log(user.fullName);
-  console.log(user);
-  ```
+데이터 프로퍼티는 현재까지 살펴본 객체의 일반적인 프로퍼티다. 바로 위에서 언급했듯이, 접근자 프로퍼티는 자체적인 값을 갖고 있지 않기 때문에 데이터 프로퍼티 키의 값을 읽어들이거나 새로운 값을 저장할 때 사용되는 함수 형태의 프로퍼티다
 
-  
+접근자 프로퍼티의 내부 슬롯과 프로퍼티 어트리뷰트는 아래와 같이 표현된다:
+
+| 내부 슬롯          | 프로퍼티 어트리뷰트 | 프로퍼티 디스크립터 객체의 프로퍼티 키 |
+| ------------------ | ------------------- | -------------------------------------- |
+| `[[Get]]`          | get                 | `get`                                  |
+| `[[Set]]`          | set                 | `set`                                  |
+| `[[Enumerable]]`   | enumerable          | `enumerable`                           |
+| `[[Configurable]]` | configurable        | `configurable`                         |
+
+접근자 함수에 대한 이해를 위해 실제 예제를 살펴보자
+
+```javascript
+const user = {
+  firstName: "Jace",
+  lastName: "Nam",
+  age: 31,
+
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+	
+  // set 접근자 함수는 매개변수가 최소 1개가 필수적으로 필요하다
+  set fullName(name) {
+    [this.firstName, this.lastName] = name.split("");
+  },
+};
+
+console.log(`${user.firstName} ${user.lastName}`);
+console.log(user.fullName);
+console.log(user);
+```
+
 
 
 
