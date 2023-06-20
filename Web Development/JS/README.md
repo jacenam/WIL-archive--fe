@@ -23,8 +23,9 @@
   - [원시 타입](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/primitive%20type.md)
   - [객체 타입](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20type.md)
     - [JS의 객체 관리 방식(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/js%20object.md)
-    - [프로퍼티 어트리뷰트(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md)
+    - [프로퍼티 어트리뷰트](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md)
   - [원시 값과 객체의 비교](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/primitive%20%26%20object%20type.md)
+    - [객체의 얕은 복사와 깊은 복사(in progress)]()
   - 객체 생성 방식
     - [객체 리터럴에 의한 객체 생성](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20literal.md)
 - [제어문](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Control%20Flow/control%20flow%20statement%20intro.md)
@@ -46,6 +47,7 @@
   - [중첩 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/nested%20function.md)
   - [콜백 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/callback%20function.md)
   - [생성자 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/constructor%20function.md)
+  - [함수와 메서드(in progress)]()
 - 스코프
   - [스코프란](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/scope.md)
   - [전역 변수의 문제점](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/global%20variable.md)
