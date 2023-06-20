@@ -7,8 +7,11 @@
   - [2-1 프로퍼티 어트리뷰트](#2-1-프로퍼티-어트리뷰트)
   - [2-2 프로퍼티 디스크립터 객체](#2-2-프로퍼티-디스크립터-객체)
 - [3 데이터 프로퍼티와 접근자 프로퍼티](#3-데이터-프로퍼티와-접근자-프로퍼티)
-
-
+  - [3-1 접근자 프로퍼티](#3-1-접근자-프로퍼티)
+  - [3-2 getter 함수](#3-2-getter-함수)
+  - [3-3 setter 함수](#3-3-setter-함수)
+- [4 프로퍼티 정의](#4-프로퍼티-정의)
+- [5 객체 변경 방지](#5-객체-변경-방지)
 
 <br>
 
@@ -108,6 +111,8 @@ console.log(Object.getOwnPropertyDescriptors(user));
 
 - 접근자 프로퍼티(Accessor Property): 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 호출되는 접근자 함수(Accessor Function)으로 구성된 프로퍼티다. 즉, 접근자 함수 형태의 키는 존재하지만, 자체적인 값은 갖지 않는 프로퍼티의 형태다
 
+### 3-1 접근자 프로퍼티
+
 데이터 프로퍼티는 현재까지 살펴본 객체의 일반적인 프로퍼티다. 바로 위에서 언급했듯이, 접근자 프로퍼티는 자체적인 값을 갖고 있지 않기 때문에 데이터 프로퍼티 키의 값을 읽어들이거나 새로운 값을 저장할 때 사용되는 함수 형태의 프로퍼티다
 
 접근자 프로퍼티의 내부 슬롯과 프로퍼티 어트리뷰트는 아래와 같이 표현된다:
@@ -119,30 +124,355 @@ console.log(Object.getOwnPropertyDescriptors(user));
 | `[[Enumerable]]`   | enumerable          | `enumerable`                           |
 | `[[Configurable]]` | configurable        | `configurable`                         |
 
-접근자 함수에 대한 이해를 위해 실제 예제를 살펴보자
+접근자 함수에 대한 이해를 위해 실제 예제를 살펴보자. 아래와 같이 하나의 객체에 데이터 프로퍼티와 접근자 프로퍼티가 존재할 수 있다. 이때, 접근자 프로퍼티(`get`, `set`)는 함수의 형태로 값과 직접적으로 맵핑되어 있지 않고, 데이터 프로퍼티의 값을 읽어들여 새로운 값을 반환한다. 이러한 접근자 프로퍼티의 함수는 `getter` 혹은 `setter` 함수라고도 부른다
 
 ```javascript
 const user = {
   firstName: "Jace",
   lastName: "Nam",
-  age: 31,
 
+  // getter 함수
   get fullName() {
     return `${this.firstName} ${this.lastName}`;
   },
 	
-  // set 접근자 함수는 매개변수가 최소 1개가 필수적으로 필요하다
+  // setter 함수
   set fullName(name) {
-    [this.firstName, this.lastName] = name.split("");
+    [this.firstName, this.lastName] = name.split(" ");
   },
 };
 
-console.log(`${user.firstName} ${user.lastName}`);
-console.log(user.fullName);
-console.log(user);
+// 객체 user의 참조
+console.log(user); // → { firstName: 'Jace', lastName: 'Nam', fullName: [Getter/Setter] }
+// 데이터 프로퍼티를 통한 프로퍼티 값의 참조
+console.log(`${user.firstName} ${user.lastName}`); → // Jace Nam
 ```
 
+객체 `user`의 프로퍼티 `firstName`과 `lastName`은 데이터 프로퍼티다. 따라서, 위 프로퍼티 어트리뷰트 파트에서 언급했듯이 `[[Value]]`, `[[Writable]]`, `[[Enumerable]]`, `[[Configurable]]`를 프로퍼티 어트리뷰트로서 갖는다
+
+```javascript
+const user = {
+  firstName: "Jace",
+  lastName: "Nam",
+
+  // getter 함수
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+	
+  // setter 함수
+  set fullName(name) {
+    [this.firstName, this.lastName] = name.split(" ");
+  },
+};
+
+// 데이터 프로퍼티의 프로퍼티 디스크립터 객체의 참조
+console.log(Object.getOwnPropertyDescriptor(user, "firstName")); // → { value: 'Jace', writable: true, enumerable: true, configurable: true } 
+console.log(Object.getOwnPropertyDescriptor(user, "lastName"));
+```
+
+그러나 객체 `user`의 프로퍼티 `fullName`은 값이 맵핑되어 있지 않은 접근자 프로퍼티다. 따라서 `[[Get]]`, `[[Set]]`, `[[Enumerable]]`, `[[Configurable]]`를 프로퍼티 어트리뷰트로서 갖는다
+
+```javascript
+const user = {
+  firstName: "Jace",
+  lastName: "Nam",
+
+  // getter 함수
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+	
+  // setter 함수
+  set fullName(name) {
+    [this.firstName, this.lastName] = name.split(" ");
+  },
+};
+
+// 접근자 프로퍼티의 프로퍼티 디스크립터 객체의 참조
+console.log(Object.getOwnPropertyDescriptor(user, "fullName")) // → { get: f, set: f, enumerable: true, configurable: true } 
+```
+
+### 3-2 getter 함수
+
+접근자 프로퍼티는 `getter`와 `setter` 함수를 모두 정의할 수도 있고 아래와 같이 하나만 정의할 수도 있다.  `getter` 함수는 이름 그대로 '(값을) 가져오는 함수'라고 생각하면 된다. 접근자 프로퍼티의 이름을 사용하여 **마침표 프로퍼티 접근 연산자를 통해 객체에 접근하면 데이터 프로퍼티의 값을 반환하는 `getter` 함수가 호출**된다
+
+```javascript
+const user = {
+  firstName: "Jace",
+  lastName: "Nam",
+
+  // getter 함수
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+};
+
+// 접근자 프로퍼티 키인 fullName을 통해 객체 user에 접근하면 getter 함수가 호출된다
+console.log(person.fullName); // → Jace Nam
+```
+
+### 3-3 setter 함수
+
+`setter` 함수는 이름 그대로 '(값을) 설정하는 함수'라고 생각하면 된다. `setter` 함수는 `getter` 함수와는 다르게, `setter` 함수 호출 시 값을 `setter` 함수에 전달해야하기 때문에 최소 1개의 매개변수가 필수적으로 필요하다. **`setter` 함수에 값을 전달하면 `getter` 함수가 아닌 `setter` 함수가 호출**된다
+
+```javascript
+const user = {
+  firstName: "Jace",
+  lastName: "Nam",
+
+  // getter 함수
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+  
+  // setter 함수
+  set fullName(name) {
+		[this.firstName, this.lastName] = name.split(" ");
+  },
+};
+
+// 접근자 프로퍼티 fullName에 값을 할당한다
+// 접근자 프로퍼티 fullName에 값을 저장하면 getter 함수가 아닌 setter 함수가 호출된다
+user.fullName = "Jace Nam";
+console.log(user) // → { firstName: "Jace", lastName: "Nam" }
+```
+
+`setter` 함수를 호출하면 `user` 객체를 참조했을 때 프로퍼티 `firstName`, `lastName`에 대한 객체 `user`의 정보만을 확인할 수 있다. 그러나 브라우저 콘솔에서 위 코드 예제를 실행하면 아래와 같이 `setter` 함수에 의해 설정된 프로퍼티 `fullName`의 값을 확인할 수 있다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/ad486a2f-a87b-41bb-8706-638c53582e3f" width="100%">
+
+<br>
+
+## 4 프로퍼티 정의
+
+프로퍼티 정의란 특정 객체에 새로운 프로퍼티를 추가할 때 프로퍼티 어트리뷰트를 개발자가 명시적으로 정의하거나 기존 프로퍼티 어트리뷰트를 재정의(수정)하는 것을 의미한다
+
+> [앞서](#2-프로퍼티-어트리뷰트와-프로퍼티-디스크립터-객체) 살펴본 프로퍼티 어트리뷰트에 대한 내용은 객체 리터럴에 의한 생성 방식으로 객체를 생성했을 때 JS 엔진에 의해 디폴트로 실행되는 프로퍼티 정의 방식이다
+
+`Object.defineProperty` 메서드를 사용하면 프로퍼티 어트리뷰트를 개발자가 명시적으로 정의할 수 있다. `Object.defineProperty`의 인수에는 객체 이름, 데이터 프로퍼티의 키 그리고 프로퍼티 디스크립터 객체를 전달해야한다
+
+```javascript 
+const user = {};
+
+Object.defineProperty(user, "firstName", {
+  value: "Jace",
+  writable: true,
+  enumerable: true,
+  configurable: true,
+});
+
+console.log(Object.getOwnPropertyDescriptor(user, "firstName")); → { value: 'Jace', writable: true, enumerable: true, configurable: true }
+```
+
+이때 프로퍼티 디스크립터 객체의 프로퍼티를 누락시키면 `undefined` 혹은 `false`가 디폴트 값으로 정의된다
+
+```javascript
+const user = {};
+
+Object.defineProperty(user, "firstName", {
+  value: "Jace",
+  writable: true,
+  enumerable: true,
+  configurable: true,
+});
 
 
 
+Object.defineProperty(user, "lastName", {});
+
+Object.defineProperty(user, "fullName", {
+  get () {},
+});
+
+console.log(Object.getOwnPropertyDescriptor(user, "lastName")); // → { value: undefined, writable: false, enumerable: false, configurable: false }
+
+console.log(Object.getOwnPropertyDescriptor(user, "fullName")); // → { get: f, set: undefined, enumerable: false, configurable: false }
+```
+
+여기서 살펴볼 수 있듯이, `Object.defineProperty` 메서드로 프로퍼티를 정의할 때 누락된 프로퍼티 디스크립터 객체의 프로퍼티는 다음과 같이 디폴트 값으로 정의된다
+
+| 디스크립터 객체의 프로퍼티 | 디스크립터 프로퍼티 생략 시 디폴트 값 |
+| -------------------------- | ------------------------------------- |
+| `value`                    | `undefined`                           |
+| `get`                      | `undefined`                           |
+| `set`                      | `undefined`                           |
+| `writable`                 | `false`                               |
+| `enumerable`               | `false`                               |
+| `configurable`             | `false`                               |
+
+특정 프로퍼티 어트리뷰트가 `false`인 경우 아래와 같은 부수효과가 있다: 
+
+- `writable`: `false`인 경우
+
+  ```javascript
+  user.lastName = "Nam";
+  
+  // 에러와 프로퍼티 디스크립터 객체의 변경사항이 없다
+  console.log(Object.getOwnPropertyDescriptor(user, "lastName")); // → { value: undefined, writable: false, enumerable: false, configurable: false }
+  ```
+  
+
+- `enumerable`: `false`인 경우
+
+  ```javascript
+  // 프로퍼티 lastName, fullName에 대한 프로퍼티 열거가 불가능하다
+  console.log(Object.keys(user)); // → ["firstName"]
+  
+  for (const property in user) {
+    console.log(property); // → firstName
+  }
+  ```
+
+- `configurable`: `false`인 경우
+
+  ```javascript
+  // 프로퍼티 삭제가 불가능하다
+  delete user.lastName;
+  delete user.fullName;
+  
+  console.log(Object.getOwnPropertyDescriptor(user, "lastName")); // → { value: undefined, writable: false, enumerable: false, configurable: false }
+  console.log(Object.getOwnPropertyDescriptor(user, "fullName")); // → { get: f, set: undefined, enumerable: false, configurable: false }
+  
+  // 프로퍼티의 재정의가 불가능하다
+  Object.defineProperty(user, "lastName", {
+    value: "Nam",
+    writable: true,
+    enumerable: true,
+    configurable: true,
+  }); // → TypeError: Cannot redefine property: lastName
+  ```
+
+<br>
+
+## 5 객체 변경 방지
+
+[객체는 변경 가능한 값](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/primitive%20%26%20object%20type.md)이다. 프로퍼티를 추가, 삭제 및 갱신할 수 있으며 `Object.defineProperty`를 통해 프로퍼티의 프로퍼티 어트리뷰트도 재정의할 수도 있다. 이때 JS는 객체 값의 변경을 방지하는 다양한 메서드를 아래와 같이 제공하기도 한다:
+
+> 아래 메서드들은 객체 변경을 금지하는 강도에 따라 구분된다
+
+> 위 세 가지 객체 변경 방지 방법들은 모두 '얕은 변경 방지'로서 직속 프로퍼티의 변경만 방지되고 중첩 객체까지는 영향을 주지 못한다. 따라서 중첩 객체까지 모두 영향을 주는 깊은 객체 변경 방지 방법은 재귀적으로 사용되어야 한다. 이에 대해서는 [얕은 복사, 깊은 복사]()를 참고하자
+
+| 메서드                     | 의미           | 프로퍼티 추가 | 프로퍼티 삭제 | 프로퍼티 값 읽기 | 프로퍼티 값 쓰기 | 어트리뷰트 재정의 |
+| -------------------------- | -------------- | ------------- | ------------- | ---------------- | ---------------- | ----------------- |
+| `Object.preventExtensions` | 객체 확장 금지 | X             | O             | O                | O                | O                 |
+| `Object.seal`              | 객체 밀봉      | X             | X             | O                | O                | X                 |
+| `Object.freeze`            | 객체 동결      | X             | X             | O                | X                | X                 |
+
+### 5-1 객체 확장 금지
+
+먼저, `Object.isExtensible` 메서드를 통해 확장이 가능한 객체인지 확인해볼 수 있다
+
+```javascript
+const user = { 
+  name: "Jace"
+}
+
+console.log(Object.isExtensible(user)); // → true
+```
+
+`Object.preventExtensions` 메서드를 통해 객체의 확장(프로퍼티 추가)을 금지시킬 수 있다
+
+```javascript
+const user = { 
+  name: "Jace"
+}
+
+Object.preventExtensions(user);
+console.log(Object.isExtensible(user)); // → false
+
+// 동적 프로퍼티 추가 및 프로퍼티 정의에 의한 프로퍼티 추가 모두 금지된다
+user.age = 31;
+// 에러 없이 프로퍼티 추가가 이뤄지지 않는다
+console.log(user); // → { name: "Jace" }
+```
+
+다만, `Object.preventExtensions` 메서드는 객체의 확장만 금지하기 때문에 프로퍼티 삭제는 가능하다
+
+```javascript
+const user = { 
+  name: "Jace"
+}
+
+Object.preventExtensions(user);
+console.log(Object.isExtensible(user)); // → false
+
+user.age = 31;
+delete user.name;
+console.log(user); // → {}
+```
+
+### 5-2 객체 밀봉
+
+먼저, `Object.isSealed` 메서드를 통해 밀봉된 객체인지 확인해볼 수 있다
+
+```javascript
+const user = { 
+  name: "Jace"
+}
+
+console.log(Object.isSealed(user)); // → false
+```
+
+객체 밀봉이란 프로퍼티 추가, 삭제와 프로퍼티 어트리뷰트의 재정의를 금지한다. 밀봉된 객체는 읽기와 쓰기만 가능해진다
+
+```javascript
+const user = { 
+  name: "Jace"
+}
+
+Object.seal(user);
+
+user.age = 31; 
+delete user.name; 
+
+console.log(user); // → { name: "Jace" }
+```
+
+다만, 객체가 밀봉되더라도 객체의 기존 프로퍼티 값을 갱신하는 것은 가능하다
+
+```javascript
+const user = { 
+  name: "Jace"
+}
+
+user.name = "Ju Hyung"
+console.log(user); // → { name: "Ju Hyung" }
+```
+
+### 5-3 객체 동결
+
+먼저, `Object.isFrozen` 메서드를 통해 동결된 객체인지 확인해 볼 수 있다
+
+```javascript
+const user = {
+  name: "Jace"
+}
+
+console.log(Object.isFrozen(user)); // → false
+```
+
+객체 동결은 객체 값에 가장 높은 변경 금지 강도를 부여한다. 프로퍼티 추가, 삭제, 갱신과 프로퍼티 어트리뷰트의 재정의가 불가능하며 읽기만 가능하다
+
+```javascript
+const user = {
+  name: "Jace"
+}
+
+Object.freeze(user);
+
+user.age = 31; 
+user.name = "Ju Hyung"
+delete user.name; 
+
+console.log(user); // → { name: "Jace" }
+```
+
+<br>
+
+***
+
+### 참고
+
+- [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
 
