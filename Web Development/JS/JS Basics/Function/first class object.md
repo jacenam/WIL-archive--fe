@@ -10,6 +10,7 @@
   - [1-5 호출할 수 있는 객체 값](#1-5-호출할-수-있는-객체-값)
 
 - [2 함수 객체](#2-함수-객체)
+- [3 함수 객체의 데이터 프로퍼티](#3-함수-객체의-데이터-프로퍼티)
 
 <br>
 
@@ -185,4 +186,102 @@ obj.sayHello();
 
 ## 2 함수 객체
 
-JS에서 객체는 프로퍼티를 갖는다. 함수는 객체이기 때문에 함수도 일반 객체와 동일하게 프로퍼티를 가질 수 있다. 
+JS에서 객체는 프로퍼티를 갖는다. 함수는 객체이기 때문에 함수도 일반 객체와 동일하게 프로퍼티를 가질 수 있다
+
+> `console.dir` 메서드의 `dir`는 'Directory'의 약자로, 매개변수에 특정 객체를 전달하면 디렉토리(파일 구조) 형태의 리스트로 객체 정보를 콘솔에 출력한다
+
+```javascript 
+// 브라우저 콘솔에서 실행해야 한다
+
+function sayHello(firstName, lastName, age) {
+  return `Hello, ${firstName} ${lastName} whose age is ${age}`;
+}
+
+console.dir(sayHello);
+```
+
+브라우저 환경에서 함수 `sayHello`의 객체 정보를 확인하면 결과는 아래와 같이 반환된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/bb1739bf-fc09-45b7-b180-4febae3153a8" width="100%">
+
+반환된 결과에서 볼 수 있듯이 함수 `sayHello`는 객체이므로 키와 값으로 이루어진 프로퍼티가 함수 내부를 구성하고 있다. `arguments`, `caller`, `length`, `name`, `prototype`이 모두 함수 `sayHello`의 데이터 프로퍼티다. 보다 쉬운 이해를 위해 함수 `sayHello`의 프로퍼티 어트리뷰트를 확인해보면 아래와 같다
+
+```javascript
+function sayHello(firstName, lastName, age) {
+  return `Hello, ${firstName} ${lastName} whose age is ${age}`;
+}
+
+const descriptor = Object.getOwnPropertyDescriptors(sayHello);
+console.log(descriptor); 
+/* 
+{
+  length: { value: 3, writable: false, enumerable: false, configurable: true },
+  name: { value: 'sayHello', writable: false, enumerable: false, configurable: true },
+  arguments: { value: null, writable: false, enumerable: false, configurable: false},
+  caller: { value: null, writable: false, enumerable: false, configurable: false },
+  prototype: { value: {}, writable: true, enumerable: false, configurable: false }
+}
+*/
+```
+
+<br>
+
+## 3 함수 객체의 데이터 프로퍼티 
+
+함수의 프로퍼티를 살펴보면 일반 객체의 프로퍼티와는 다르다. 이는 함수가 일반 객체에 없는 고유 프로퍼티를 갖기 때문이다. 함수 객체만이 갖는 고유 프로퍼티를 살펴보자
+
+### 3-1 arguments 프로퍼티
+
+함수의 `arguments` 프로퍼티의 값은 `arguments` 객체다. 즉, 앞서 살펴본 함수의 고유 프로퍼티 5가지 중 첫 번째 프로퍼티인 `arguments` 프로퍼티는 `arguments`라는 객체를 값으로 가진다는 의미다. 따라서, 함수 `sayHello`를 호출하며 매개변수에 전달되는 인수(Argument)를 확인해보면 아래 예제와 같은 결과를 확인할 수 있다
+
+> 앞서 [객체의 구성 요소](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20type.md#3-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EA%B5%AC%EC%84%B1-%EC%9A%94%EC%86%8C)에서 언급했듯이, 객체의 프로퍼티 값에는 JS에서 사용할 수 있는 모든 값이 자리할 수 있다했다. 따라서, 프로퍼티 값에 또 다른 객체가 사용될 수 있다는 것이다
+
+> 반환된 인수의 정보를 확인하면 마치 배열과 같은 구조를 지녔다. 이러한 객체의 형태를 유사 배열 객체라고 부르며 이에 대해서는 [배열](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array.md) 파트를 참고하자
+
+```javascript
+function sayHello(firstName, lastName, age) {
+	// 함수 sayHello의 매개변수에 전달된 인수(arguments)의 정보 확인	
+  console.log(arguments); // → { '0': 'Jace', '1': 'Nam', '2': 31 }
+  return `Hello, ${firstName} ${lastName} whose age is ${age}`;
+}
+
+// 함수 sayHeelo를 호출하여 매개변수에 값을 전달
+sayHello("Jace", "Nam", 31);
+```
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/ca2ca5c5-0b13-48d7-b3e9-9e5ff120d8d4" width="100%">
+
+`arguments` 객체는 프로퍼티 값으로 매개변수에 전달된 인수 값을 갖게 되며, `arguments` 객체의 프로퍼티 키([배열의 인덱스](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Array/array.md#2-%EC%9D%B8%EB%8D%B1%EC%8A%A4%EC%99%80-%EB%B0%B0%EC%97%B4-%EA%B8%B8%EC%9D%B4)와 동일한 개념)는 인수의 순서를 나타낸다. 이때, 매개변수 개수보다 인수를 더 많이 전달한 경우에는 초과된 인수는 버려지는 것이 아니라 암묵적으로 `arguments` 객체의 프로퍼티로서 보관된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/b22c104d-0b08-4858-8455-d67e6b9b1195" width="100%">
+
+### 3-2 caller 프로퍼티
+
+함수 객체의 `caller` 프로퍼티는 'caller'의 의미 그대로 '호출자', 즉 함수 자신을 호출한 함수를 가리킨다. 
+
+
+
+`callee`와 `caller`
+
+`arguments` 객체의 `callee` 프로퍼티도 동일한 개념. 
+
+### 3-3 length 프로퍼티
+
+
+
+`arguments` 객체의 `length` 프로퍼티도 동일한 개념. 함수의 `length` 프로퍼티는 매개변수의 개수를 나타낸다. 반면, `arguments` 객체의 `length` 프로퍼티는 인수의 개수를 나타낸다.
+
+### 3-4 name 프로퍼티
+
+### 3-5 __proto__ 접근자 프로퍼티
+
+
+
+<br>
+
+***
+
+### 참고
+
+- [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
+
