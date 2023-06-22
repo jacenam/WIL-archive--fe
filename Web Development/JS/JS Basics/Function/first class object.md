@@ -259,6 +259,22 @@ sayHello("Jace", "Nam", 31);
 
 함수 객체의 `caller` 프로퍼티는 'caller'의 의미 그대로 '호출자', 즉 함수 자신을 호출한 함수를 가리킨다. 
 
+```javascript
+function checkCaller1(func) {
+  return func();
+}
+
+function checkCaller2() {
+  return `caller: ${checkCaller2.caller}`;
+}
+
+const result1 = checkCaller1(checkCaller2);
+const result2 = checkCaller2();
+
+console.log(result1);
+console.log(result2);
+```
+
 
 
 `callee`와 `caller`
