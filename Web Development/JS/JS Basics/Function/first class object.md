@@ -258,7 +258,7 @@ console.dir(sayHello);
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/bb1739bf-fc09-45b7-b180-4febae3153a8" width="100%">
 
-반환된 결과에서 볼 수 있듯이 함수 `sayHello`는 객체이므로 키와 값으로 이루어진 프로퍼티가 함수 내부를 구성하고 있다. `arguments`, `caller`, `length`, `name`, `prototype`이 모두 함수 `sayHello`의 데이터 프로퍼티다. 보다 쉬운 이해를 위해 함수 `sayHello`의 프로퍼티 어트리뷰트를 확인해보면 아래와 같다
+반환된 결과에서 볼 수 있듯이 함수 `sayHello`는 객체이므로 키와 값으로 이루어진 프로퍼티가 함수 내부를 구성하고 있다. `arguments`, `caller`, `length`, `name`, `prototype`이 모두 함수 `sayHello`의 데이터 프로퍼티다. 보다 쉬운 이해를 위해 함수 `sayHello`의 [프로퍼티 어트리뷰트](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md)를 확인해보면 아래와 같다
 
 ```javascript
 function sayHello(firstName, lastName, age) {
@@ -399,15 +399,9 @@ console.log(checkLength.length); // → 3
   console.log(checkName.name); // → checkName
   ```
 
-  
-
-
-
-
-
 ### 3-5 __proto__ 접근자 프로퍼티
 
-
+앞서 [프로퍼티 어트리뷰트](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md)에서 언급했듯이, 모든 객체는 `[[Prototype]]`이라는 내부 슬롯을 가진다 했다. 또한, `[[Prototype]]` 내부 슬롯은 `__proto__` [접근자 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md#3-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%99%80-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)를 통해 간접적으로 접근하여 정보를 확인할 수 있다 했다. 이에 대한 자세한 내용은 [프로토타입]()을 참고하자
 
 <br>
 
