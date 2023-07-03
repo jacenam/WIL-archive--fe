@@ -13,6 +13,9 @@
   - [5-1 인스턴스 생성과 this 바인딩](#5-1-인스턴스-생성과-this-바인딩)
   - [5-2 인스턴스 초기화](#5-2-인스턴스-초기화)
   - [5-3 인스턴스 반환](#5-3-인스턴스-반환)
+- [6 함수의 내부 메서드 Call과 Construct](#6-함수의-내부-메서드-Call과-Construct)
+  - [6-1 Call과 Construct](#6-1-Call과-Construct)
+  - [6-2 Constructor와 Non-Constructor](#6-2-Constructor와-Non-Constructor)
 ***
 
 <br>
@@ -314,6 +317,72 @@ console.log(square); // Square {sideLength: 5, getArea: f}
   // 원시 값의 반환이 아닌 this가 가리키는 값이 반환된다
   console.log(square); // Square {sideLength: 5, getArea: f}
   ```
+
+<br>
+
+## 6 함수의 내부 메서드 Call과 Construct
+
+함수 선언문, 함수 표현식과 같이 일반적인 방법으로 정의하는 함수와 생성자 함수를 통해 생성되는 함수는 모두 호출이 가능하다. 함수도 객체이지만, 일반 객체는 함수처럼 호출할 수 없다. 따라서 함수의 [내부 슬롯과 내부 메서드](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md)를 살펴보면 일반 객체가 지니는 내부 슬롯과 내부 메서드를 모두 가지면서도, 함수로서 동작하기 위해 함수 객체만 지니는 내부 슬롯과 내부 메서드를 가진다
+
+> 아래 예제에서 [프로퍼티 디스크립터](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md#2-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%96%B4%ED%8A%B8%EB%A6%AC%EB%B7%B0%ED%8A%B8%EC%99%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EB%94%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%84%B0-%EA%B0%9D%EC%B2%B4) 객체에 간접적으로 접근하는 메서드를 통해 내부 슬롯과 내부 메서드인 [프로퍼티 어트리뷰트](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md#2-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EC%96%B4%ED%8A%B8%EB%A6%AC%EB%B7%B0%ED%8A%B8%EC%99%80-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EB%94%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%84%B0-%EA%B0%9D%EC%B2%B4) 정보를 살펴볼 수 있다
+
+```javascript
+function foo() {}; 
+
+// 일반 객체처럼 동적 프로퍼티 추가
+foo.property1 = "Jace";
+foo.property2 = 31;
+
+// 함수도 객체이므로 메서드를 소유할 수 있다
+foo.method1 = function() {
+  console.log(this.property1);
+}
+
+foo.method2 = function() {
+  console.log(this.property2);
+}
+
+foo.method1(); // → Jace
+foo.method2(); // → 31
+
+console.log(Object.getOwnPropertyDescriptors(foo)); 
+```
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/8d07cca9-3647-4cdb-b38b-18b8db4bdb7d" width="100%">
+
+위 예제에서의 프로퍼티 디스크립터 객체의 정보를 살펴보면 함수 `foo`는 일반 객체와 동일한 프로퍼티 디스크립터(내부 슬롯과 내부 메서드) `[[Value]]`, `[[Writable]]`, `[[Enumerable]]`, `[[Configurable]]`를 가진다는 것을 확인할 수 있다. 여기에 함수는 함수 객체로서 일반 객체가 갖지 않는  `[[Environment]]`, `[[FormalParameters]]` 등의 내부 슬롯과 `[[Call]]`, `[[Construct]]` 같은 내부 메서드를 추가로 가지고 있다
+
+> 프로퍼티 어트리뷰트 파트에서 살펴봤듯이, 일반 객체와 함수 객체의 모든 내부 슬롯과 내부 메서드를 상세히 알아야 될 필요는 없다. 일반 객체와 함수 객체의 어떠한 내부 슬롯과 내부 메서드가 차이가 있는지만 인지해도 된다
+
+### 6-1 Call과 Construct 
+
+여기서 함수 객체의 내부 메서드인 `[[Call]]`과 `[[Construct]]`를 살펴보자
+
+- `[[Call]]`: 함수가 일반 함수로서 호출되면 함수 객체의 내부 메서드인 `[[Call]]`이 호출된다
+
+  ```javascript
+  function foo() {}
+  
+  // JS 자체에서 함수 내부적으로 [[Call]] 내부 메서드가 호출된다
+  foo();
+  ```
+
+- `[[Construct]]`: `new` 연산자와 함께 생성자 함수가 사용(호출)되면 내부 메서드인 `[[Construct]]`가 호출된다
+
+  ```javascript
+  function foo() {}
+  
+  // JS 자체에서 생성자 함수 내부적으로 [[Construct]] 내부 메서드가 호출된다
+  new foo();
+  ```
+
+내부 메서드 `[[Call]]`을 갖는 함수 객체를 Callable이라 한다. 바로 위에서는 `[[Call]]`을 설명할 때 "함수 객체의 내부 메서드인 `[[Call]]`" 이라 표현했다. 이는 사실 함수 객체는 언제나 내부 메서드 `[[Call]]`을 갖기 때문이다. 호출할 수 없는 객체는 함수 객체가 아니므로, 함수라는 객체는 반드시 `[[Call]]` 내부 메서드를 가져야 하는 Callable 객체여야 한다
+
+내부 메서드 `[[Construct]]`를 갖는 함수 객체를 Constructor, `[[Construct]]` 내부 메서드를 갖지 않는 함수 객체는 Non-Constructor라고 부른다. 다시 말해, `new` 연산자와 함께 생성자 함수로서 사용(호출)할 수 있는 함수는 Constructor, 반대로 생성자 함수로 호출하지 못하는  함수는 Non-Constructor라고 부른다 
+
+### 6-2 Constructor와 Non-Constructor
+
+
 
 <br>
 
