@@ -378,11 +378,144 @@ console.log(Object.getOwnPropertyDescriptors(foo));
 
 내부 메서드 `[[Call]]`을 갖는 함수 객체를 Callable이라 한다. 바로 위에서는 `[[Call]]`을 설명할 때 "함수 객체의 내부 메서드인 `[[Call]]`" 이라 표현했다. 이는 사실 함수 객체는 언제나 내부 메서드 `[[Call]]`을 갖기 때문이다. 호출할 수 없는 객체는 함수 객체가 아니므로, 함수라는 객체는 반드시 `[[Call]]` 내부 메서드를 가져야 하는 Callable 객체여야 한다
 
-내부 메서드 `[[Construct]]`를 갖는 함수 객체를 Constructor, `[[Construct]]` 내부 메서드를 갖지 않는 함수 객체는 Non-Constructor라고 부른다. 다시 말해, `new` 연산자와 함께 생성자 함수로서 사용(호출)할 수 있는 함수는 Constructor, 반대로 생성자 함수로 호출하지 못하는  함수는 Non-Constructor라고 부른다 
+내부 메서드 `[[Construct]]`를 갖는 함수 객체를 Constructor, 내부 메서드 `[[Construct]]`를 갖지 않는 함수 객체는 Non-Constructor라고 부른다. 다시 말해, `new` 연산자와 함께 생성자 함수로서 사용(호출)할 수 있는 함수는 Constructor, 반대로 생성자 함수로 호출하지 못하는  함수는 Non-Constructor라고 부르는 것이다
 
 ### 6-2 Constructor와 Non-Constructor
 
+호출할 수 없는 함수는 존재하지 않는다. 즉, 함수 객체는 반드시 Callable이어야 한다. 반면, 모든 함수 객체가 내부 메서드 `[[Construct]]`를 갖는 것은 아니다. 결론적으로 함수 객체는 아래와 같이 구분된다:
 
+- Callable이면서 Constructor인 함수
+- Callable이면서 Non-Constructor인 함수
+
+함수를 생성할 때 JS 엔진은 함수의 정의 방식을 평가하여 함수를 Constructor와 Non-Constructor로 구분한다. JS 엔진은 아래의 함수 정의 방식에 따라 함수를 구분한다: 
+
+- Constructor: [함수 선언문](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/defining%20functions.md#2-%ED%95%A8%EC%88%98-%EC%84%A0%EC%96%B8%EB%AC%B8), [함수 표현식](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/defining%20functions.md#3-%ED%95%A8%EC%88%98-%ED%91%9C%ED%98%84%EC%8B%9D), [클래스]()
+- Non-Constructor: [메서드 축약 표현](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20literal.md), [화살표 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/defining%20functions.md#6-%ED%99%94%EC%82%B4%ED%91%9C-%ED%95%A8%EC%88%98)
+
+아래 예제에서 일반 함수 정의 방식인 함수 선언문, 함수 표현식은 모두 JS 엔진에 의해 Constructor로 구분된다
+
+```javascript
+// 함수 선언문
+function foo() {
+  console.log("constructor");
+}
+
+// 함수 표현식
+const bar = function() {
+  console.log("constructor");
+}
+
+new foo(); // → constructor
+new bar(); // → constructor
+```
+
+그렇다면 객체의 프로퍼티 값으로 할당된 함수의 경우는 어떠할까? 앞서 [객체 타입](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20type.md#4-%EB%A9%94%EC%84%9C%EB%93%9C) 파트에서 함수를 객체의 프로퍼티 값으로 사용하면 이를 일반 함수와 구분하기 위해 메서드라고 부른다 했다
+
+```javascript
+const obj = { 
+	baz: function() {
+  	console.log("constructor? non-constructor?");
+  }
+};
+
+new obj.baz(); // → constructor? non-constructor?
+```
+
+그러나 ECMAScript에 따르면 ES6의 '메서드 축약 표현'만이 메서드로 인정된다
+
+```javascript
+// ES6 메서드 축약 표현
+const obj = {
+  shorten() {
+    console.log("메서드 축약 표현으로 정의된 함수")
+  }
+}
+```
+
+즉, 메서드 축약 표현을 쓰지 않은 예제에서 함수는 프로퍼티 키(`baz`)라는 식별자에 프로퍼티 값으로 함수를  할당하는 함수 표현식과도 같이 취급되는 것이다
+
+```javascript
+// 함수 표현식과도 같은 메서드 정의 방식
+baz: function() {
+	console.log("constructor? non-constructor?");
+}
+
+=> const baz = function () {
+  console.log("constructor? non-constructor?");
+}
+```
+
+종합적으로, 함수 표현식과 같이 일반 함수 정의 방식으로 정의된 객체의 메서드와 메서드 축약 표현으로 정의된 객체의 메서드를 비교해보자. 아래 예제를 살펴보면 ES6 메서드 축약 표현은 Non-Construct 특성을 가진 함수로 `new` 연산자와 함께 생성자 함수로 호출하여 사용할 수 없음을 확인할 수 있다
+
+```javascript
+const obj = {
+  foo: function () {
+    console.log("constructor? non-constructor?");
+  },
+	bar() {
+    console.log("constructor? non-constructor?");
+  }
+};
+
+// 일반 함수(메서드)
+console.log(obj.foo()); // → constructor? non-constructor?
+// ES6 메서드 축약표현
+console.log(obj.bar()); // → constructor? non-constructor?
+
+// 일반 함수(메서드)
+new obj.foo(); // → constructor? non-constructor?
+// ES6 메서드 축약 표현
+new obj.bar(); // → Uncaught TypeError: obj.bar is not a constructor
+```
+
+정리하자면, 모든 함수는 Callable이다. 그러나 일반 함수 정의 방식으로 생성한 함수는 `new` 연산자와 함께 생성자 함수로 호출 가능한 Construct 함수인 반면, 메서드 축약 표현와 화살표 함수와 같이 축약 형태로 생성한 함수는 생성자 함수로 호출이 불가능한 Non-Construct 함수다
+
+### 6-3 new 연산자
+
+앞서 함수의 내부 메서드 `[[Call]]`과 `[[Construct]]`, 그리고 Construch 함수와 Non-Construct 함수를 살펴보았다
+
+모든 함수는 내부 메서드 `[[Call]]`을 가지고 있기 때문에 호출이 가능하다. 함수를 호출하면 내부 메서드 `[[Call]]`을 호출하여 함수가 호출되는 것이다
+
+```javascript 
+function foo() {}
+
+// 함수를 호출하면 내부 메서드 [[Call]]이 호출되어 함수가 동작하는 것이다
+foo(); 
+```
+
+그러나 `new` 연산자와 함께 함수를 호출하면 해당 함수는 내부 메서드 `[[Call]]`을 호출하지 않고 내부 메서드 `[[Construct]]`을 호출하게 되어 생성자 함수로서 동작하게 된다
+
+```javascript
+function foo() {}
+
+new foo(); 
+```
+
+앞서 [Constructor와 Non-Constructor](#6-2-Constructor와-Non-Constructor)에서 살펴보았듯이, 중요한 것은`new` 연산자와 함께 호출하는 함수는 Construct 함수여야 생성자 함수로서 동작할 수 있다
+
+```javascript
+function sum(x, y) {
+	console.log(x + y);
+}
+new sum(1, 2); // → 3
+
+const add = function(x, y) {
+  console.log(x + y);
+}
+new add(1, 2); // → 3
+
+const obj = {
+  multiply(x, y) {
+    console.log(x * y);
+  }
+}
+new obj.multiply(1, 2); // → Uncaught TypeError: obj.multiply is not a constructor
+
+const divide = (x, y) => {
+  console.log(x / y); 
+}
+new divide(1, 2); // → Uncaught TypeError: divide is not a constructor
+```
 
 <br>
 
