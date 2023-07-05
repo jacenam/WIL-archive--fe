@@ -16,6 +16,7 @@
 - [6 함수의 내부 메서드 Call과 Construct](#6-함수의-내부-메서드-Call과-Construct)
   - [6-1 Call과 Construct](#6-1-Call과-Construct)
   - [6-2 Constructor와 Non-Constructor](#6-2-Constructor와-Non-Constructor)
+  - [6-3 new 연산자](#6-3-new-연산자)
 ***
 
 <br>
