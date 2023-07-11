@@ -134,29 +134,27 @@ Square.prototype.getDoubledArea = function() {
 
 const square = new Square(5);
 
-console.log(square);
+console.log(square); // → Square { sideLength: 5 }
 console.log(square.getDoubledArea()); // → 50
 
 console.log(Square.prototype); // → {double: 2, getDoulbedArea: [Function] }
 ```
 
+### 3-1 객체 생성 방식과 프로토타입
+
+모든 객체는 `[[Prototype]]` 내부 슬롯을 가지며 객체 생성 방식에 따라 프로토타입의 형태가 결정되고 이는 `[[Prototype]]` 내부 슬롯에 저장된다. 
+
+### 3-2 프로토타입과 생성자 함수
+
+모든 객체는 단 하나의 프로토타입을 갖는다. 그리고 프로토타입은 생성자 함수와 연결되어 있다. 
+
+<br>
+
+## 4 __proto__ 접근자 프로퍼티
 
 
 
 
 
 
-```javascript
-function foo() {}
-foo.prototype.fooProperty = true;
-
-function bar() {}
-bar.prototype = new foo();
-
-function baz() {}
-baz.prototype = new bar();
-
-const obj = new baz(); 
-console.log(obj.fooProperty);
-```
 
