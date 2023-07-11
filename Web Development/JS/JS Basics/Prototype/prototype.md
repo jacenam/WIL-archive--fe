@@ -6,8 +6,10 @@
 - [2 프로토타입의 중요성(feat. 상속)](#2-프로토타입의-중요성(feat.-상속))
   - [2-1 생성자 함수의 단점](#2-1-생성자-함수의-단점)
   - [2-2 상속](#2-2-상속)
+- [3 proto 접근자 프로퍼티](#3-proto-접근자-프로퍼티)
+- [4 함수 객체의 prototype 프로퍼티](#4-함수-객체의-prototype-프로퍼티)
 
-- [3 프로토타입 객체](#3-프로토타입-객체)
+<br>
 
 ## 1 프로토타입이란 
 
@@ -111,15 +113,11 @@ console.log(square3); // → Square { sideLength: 20 }
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/b5def9b3-34de-4a9e-8500-77c4ea6e034f" width="100%">
 
-프로토타입 상속에 대한 위 예제를 아래 그림과 같이 표현할 수 있다. 결론적으로, JS에서는 프로토타입을 통해 프로그래밍적으로 상속이라는 개념을 갖게 된다:
+프로토타입 상속에 대한 위 예제를 아래 그림과 같이 표현할 수 있다. 결론적으로, JS에서는 프로토타입을 통해 프로그래밍적으로 상속이라는 개념을 갖게 된다. 상속이란 특정 객체의 상위(부모) 객체의 메서드를 포함한 프로퍼티를  하위(자식) 객체에게 공유할 수 있는 특성을 의미한다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/d5fb71b2-6f34-4c93-8c9d-9229ddf453ce" width="100%">
 
-<br>
-
-## 3 프로토타입 객체
-
-위 `Square.prototype` 예제에서 살펴본대로, `prototype`은 모든 객체에 디폴트로 자동 할당되어 있으며 이를 통해 객체 간 상속이 구현된다. 특정 객체의 상위(부모) 객체 역할을 수행하여 다른 하위(자식) 객체에 메서드를 포함한 프로퍼티를 공유할 수 있는 기능을 제공한다. 자식 객체는 부모 객체의 프로퍼티를 자신의 프로퍼티처럼 자유롭게 사용이 가능하다
+자식 객체는 부모 객체의 프로퍼티를 자신의 프로퍼티처럼 자유롭게 사용이 가능하다
 
 ```javascript
 // 메서드뿐만 아닌 지정한 프로퍼티를 모두 공유할 수 있게 된다
@@ -140,21 +138,103 @@ console.log(square.getDoubledArea()); // → 50
 console.log(Square.prototype); // → {double: 2, getDoulbedArea: [Function] }
 ```
 
-### 3-1 객체 생성 방식과 프로토타입
+<br>
 
-모든 객체는 `[[Prototype]]` 내부 슬롯을 가지며 객체 생성 방식에 따라 프로토타입의 형태가 결정되고 이는 `[[Prototype]]` 내부 슬롯에 저장된다. 
+## 3 proto 접근자 프로퍼티
 
-### 3-2 프로토타입과 생성자 함수
+모든 객체는 `[[Prototype]]` 내부 슬롯을 하나씩 가지며, 객체 생성 방식에 따라 프로토타입 객체의 형태가 결정되고 이는 `[[Prototype]]` 내부 슬롯에 저장된다. 아래 예제에서 볼 수 있듯이, 객체를 참조하면 객체의 프로퍼티 외에도 해당 객체의 프로토타입 값을 확인해볼 수 있다:
 
-모든 객체는 단 하나의 프로토타입을 갖는다. 그리고 프로토타입은 생성자 함수와 연결되어 있다. 
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/b9586957-2fb6-4ae6-8ff7-d68f913290e9" width="100%">
+
+이때 내부 슬롯에 저장된 프로토타입 객체는 [프로퍼티 어트리뷰트](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md) 파트에서 언급했듯이 개발자가 직접적으로 접근해서 제어할 수 없다. 그러나 `__proto__` 접근자 프로퍼티를 통해 객체의 `[[Prototype]]` 내부 슬롯에 저장된 프로토타입에 간접적으로 접근해서 객체 정보를 참조할 수 있다: 
+
+> [접근자 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md#3-1-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)는 직접적으로 값을 갖지 않고, 데이터 프로퍼티의 값을 참조하여 값을 반환해주는 프로퍼티다. `__proto__` 접근자 프로퍼티는 `getter`/`setter` 접근자 함수를 통해 `[[Prototype]]` 내부 슬롯에 저장된 객체의 프로토타입 객체 값을 간접적으로 취득하여 그 값(정보)을 반환해주는 것이다
+
+```javascript
+const user = {
+	name: "Jace",
+}
+
+// 객체 user의 프로토타입을 참조한다
+console.log(user.__proto__); // → {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
+```
+
+여기서 중요한 것은 `__proto__` 접근자 프로퍼티는 객체가 직접 소유하는 [데이터 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md#3-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%99%80-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)가 아니다
+
+```javascript
+const user = {
+  name: "Jace",
+}
+
+// 객체 user가 직접적으로 소유하는 프로퍼티는 데이터 프로퍼티다
+console.log(user); // → { name: "Jace" }
+```
+
+`__proto__` 접근자 프로퍼티는 바로 모든 객체의 최상위 객체인 `Object.prototype` 객체의 프로퍼티인 것이다. 위 예제에서 객체 `user`는 최상위 객체인 `Object.prototype` 객체의 자식 객체로서, 부모 객체의 프로퍼티를 상속받아 자유롭게 사용할 수 있는 것이다. 따라서 모든 객체는 상속을 통해 `Object.prototype` 객체의 프로퍼티인 `__proto__` 접근자 프로퍼티를 사용하여 각 객체의 프로토타입 정보를 참조할 수 있는 것이다
+
+> 아직까지 살펴보지 않은 '최상위 객체'에 대한 내용은 다음에 나올 내용들을 참고하자
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/99252263-c61a-4847-afd8-72f834952fa8" width="100%">
+
+실제로 아래 예제와 같이 코드를 실행하면 객체 `user`는 데이터 프로퍼티를 갖지만 `__proto__` 접근자 프로퍼티를 직접적으로 소유하고 있지 않다는 것을 알 수 있다
+
+```javascript
+const user = { name: "Jace" };
+
+console.log(user.hasOwnProperty("name")); // → true
+console.log(user.hasOwnProperty("age")); // → false
+console.log(user.hasOwnProperty("__proto__")); // → false
+
+// __proto__ 접근자 프로퍼티는 최상위 객체인 Object.prototype 객체가 직접적으로 소유한다
+console.log(Object.prototype.hasOwnProperty("__proto__")); // → true
+console.log(Object.getOwnPropertyDescriptor(Object.prototype, "__proto__")); // → {enumerable: false, configurable: true, get: ƒ, set: ƒ}
+```
+
+그러나 실제 코드 작성 시 프로토타입에 대한 정보를 참조하고 싶은 경우 `__proto__` 접근자 프로퍼티를 사용하지 않는다. 다음에 나올 내용 직접 상속 부분에서 확인할 수 있듯이, 최상위 객체인 `Object.prototype`으로부터 프로퍼티를 상속받지 않는 객체를 생성할 수 있기에 `__proto__` 접근자 프로퍼티를 사용할 수 없는 경우가 존재하기 때문이다
+
+따라서, `Object.getPrototypeOf` 메서드를 통해 `__proto__` 접근자 프로퍼티의 역할을 대체하고, 프로토타입을 교체하고 싶은 경우 `Object.setPrototypeOf` 메서드를 사용하는 것이 좋다
+
+```javascript
+const user1 = {};
+const user2 = { name: "Jace" };
+
+Object.getPrototypeOf(user1);
+Object.setPrototypeOf(user1, user2);
+
+console.log(user1.name); // → Jace
+```
 
 <br>
 
-## 4 __proto__ 접근자 프로퍼티
+## 4 함수 객체의 prototype 프로퍼티
+
+앞서 모든 객체는 디폴트로  `[[Prototype]]` 내부 슬롯을 가진다 했다. 그리고 `[[Prototype]]` 내부 슬롯은 프로토타입(`prototype` 프로퍼티)이 저장되어 있는 객체를 가리킨다. 일반 객체는 최상위 객체인 `Object.prototype`에 `prototype` 프로퍼티가 귀속되어 있으므로, 객체에서 직접으로 `prototype`의 유무를 확인할 시 `false`가 반환되는 것이다. 반면 모든 객체 중에 함수 객체만이 프로토타입(`prototype` 프로퍼티)을 직접적으로 소유한다
+
+```javascript
+// 함수 객체
+function sayHello() {
+  console.log("Hello");
+}
+sayHello.hasOwnProperty("prototype"); // → true
+
+// 일반 객체
+const user = { name: "Jace" }
+user.hasOwnProperty("prototype"); // → false
+```
 
 
 
 
 
+### 추가할 내용
+
+**객체, 프로토타입, 생성자 함수의 상호 연결성**, **`__proto__` 접근자 프로퍼티를 통해 프로토타입에 접근하는 이유**
 
 
+
+***
+
+### 참고
+
+- [모던 자바스크립트 Deep Dive]()
+- [함수의 프로토타입 핵심 정리](https://webclub.tistory.com/509)
