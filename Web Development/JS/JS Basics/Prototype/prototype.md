@@ -14,7 +14,7 @@ JS는 프로토타입 기반의 [객체지향 언어](https://github.com/jacenam
   - [3-1 constructor 프로퍼티(feat. 생성자 함수)](#3-1-constructor-프로퍼티(feat.-생성자-함수))
   - [3-2 constructor 프로퍼티(feat. 객체 리터럴)](#3-2-constructor-프로퍼티(feat.-객체-리터럴))
   - [3-3 proto 접근자 프로퍼티](#3-3-proto-접근자-프로퍼티)
-- [4 함수 객체의 prototype 프로퍼티](#4-함수-객체의-prototype-프로퍼티)
+- [4 함수 객체의 프로토타입](#4-함수-객체의-프로토타입)
 
 <br>
 
@@ -344,7 +344,7 @@ console.log(user1.name); // → Jace
 
 <br>
 
-## 4 함수 객체의 prototype 프로퍼티
+## 4 함수 객체의 프로토타입
 
 앞서 모든 객체는 디폴트로  `[[Prototype]]` 내부 슬롯을 가진다 했다. 그리고 객체 생성 방식에 따라 프로토타입(`prototype` 프로퍼티) 형태가 결정되어 `[[Prototype]]` 내부 슬롯에 저장된다 했다
 
