@@ -346,19 +346,24 @@ console.log(user1.name); // → Jace
 
 ## 4 함수 객체의 프로토타입
 
-앞서 모든 객체는 디폴트로  `[[Prototype]]` 내부 슬롯을 가진다 했다. 그리고 객체 생성 방식에 따라 프로토타입(`prototype` 프로퍼티) 형태가 결정되어 `[[Prototype]]` 내부 슬롯에 저장된다 했다
-
-일반 객체는 최상위 객체인 `Object.prototype`에 `prototype` 프로퍼티가 귀속되어 있으므로, 객체에서 직접으로 `prototype`의 유무를 확인할 시 `false`가 반환되는 것이다
+앞서 모든 객체는 `[[Prototype]]` 내부 슬롯을 가지며, 이 내부 슬롯 내부에는 `prototype` 객체를 가리키는 참조 값이 저장되어 있다. 즉, 객체는 `prototype` 객체를 프로퍼티로서 직접적으로 소유하지 않는다
 
 ```javascript
-// 일반 객체
-const user = { name: "Jace" }
+const user = { name: "Jace" };
 
-console.log(user.prototype); // → undefined
-user.hasOwnProperty("prototype"); // → false
+console.log(user.hasOwnProperty("prototype")); // → false
 ```
 
-반면 모든 객체 중에 함수 객체만이 프로토타입(`prototype` 프로퍼티)을 직접적으로 소유한다
+앞서 언급한대로, 리터럴 표기법에 의해 생성된 객체는 가상의 생성자 함수와 연결되며  `prototype` 객체는 가상의 생성자 함수를 구성하는 프로퍼티 중 하나가 된다. 즉, 객체와 연결된 가상의 생성자 함수가 `prototype` 객체를 직접적으로 소유하게 된다
+
+```javascript
+const user = { name: "Jace" };
+
+console.log(user.hasOwnProperty("prototype")); // → false
+console.log(Object.hasOwnProperty("prototype")); // → true
+```
+
+반면, 아래 예제에서 알 수 있듯이 신기하게도 함수 객체는 `prototype` 객체를 소유한다. 즉, 함수 객체를 구성하는 프로퍼티 중 하나로 `prototype` 객체가 존재한다
 
 ```javascript
 // 함수 객체
@@ -370,21 +375,18 @@ console.log(sayHello.prototype); // → { constructor: ƒ }
 sayHello.hasOwnProperty("prototype"); // → true
 ```
 
-왜 함수 객체만이 `prototype` 프로퍼티를 직접적으로 소유할 수 있는것인가? 이는 아래의 이유 때문이다: 
+이는 함수 객체가 객체이면서도 생성자 함수로서도 동작이 가능하기 때문이다. 앞서 [프로퍼티 어트리뷰트](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md)와 [생성자 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/constructor%20function.md) 파트에서 살펴봤듯이, 일반적인 함수 정의 방식인 함수 선언문, 함수 표현식으로 정의된 함수는 일반 객체와는 다르게  `[[Call]]`과 `[[Construct]]` 내부 메서드를 가지기 때문이다. 다시 말해, 일반적인 함수 정의 방식으로 정의된 함수는 `new` 연산자와 함께 호출되면 언제든 생성자 함수로서 동작할 수 있다는 것이다
 
-1. 일반적인 함수 정의 방식으로 정의된 함수는 생성자 함수가 될 수 있다. 함수 선언문, 함수 표현식과 같은 방법으로 정의된 함수는 인스턴스를 생성할 수 있는 생성자 함수로서 동작이 가능하다
+```javascript
+function sayHello() {
+  return "Hello";
+}
 
-   > 이는 함수 객체가 `[[Call]]`과 `[[Construct]]` 내부 메서드를 가지기 때문이다.  `new` 연산자와 함께 함수 객체를 호출하게 되면 `[[Construct]]` 내부 메서드가 호출되어 일반적인 함수 객체도 생성자 함수로서 동작할 수 있다
+const sayHello2 = sayHello();
+const sayHello3 = new sayHello();
+```
 
-   ```javascript
-   function foo() {}
-   
-   new foo();
-   ```
 
-2. 생성자 함수를 통해 생성된 인스턴스들과 프로퍼티 및 메서드를 공유할 수 있는 `prototype` 프로퍼티를 디폴트로 생성하기 때문이다
-
-   <img src="https://github.com/jacenam/WIL-archive/assets/92138751/a23cebe2-8672-4e7b-9e5a-33aa3214a4db" width="100%">
 
 
 
