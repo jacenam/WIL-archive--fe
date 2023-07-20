@@ -15,6 +15,9 @@ JS는 프로토타입 기반의 [객체지향 언어](https://github.com/jacenam
   - [3-2 constructor 프로퍼티(feat. 객체 리터럴)](#3-2-constructor-프로퍼티(feat.-객체-리터럴))
   - [3-3 proto 접근자 프로퍼티](#3-3-proto-접근자-프로퍼티)
 - [4 함수 객체의 프로토타입](#4-함수-객체의-프로토타입)
+  - [4-1 생성자 함수와 프로토타입](#4-1-생성자-함수와-프로토타입)
+  - [4-2 Non-constructor 함수와 프로토타입](#4-2-Non-constructor-함수와-프로토타입)
+
 
 <br>
 
@@ -346,6 +349,8 @@ console.log(user1.name); // → Jace
 
 ## 4 함수 객체의 프로토타입
 
+### 4-1 생성자 함수와 프로토타입
+
 앞서 모든 객체는 `[[Prototype]]` 내부 슬롯을 가지며, 이 내부 슬롯 내부에는 `prototype` 객체를 가리키는 참조 값이 저장되어 있다. 즉, 객체는 `prototype` 객체를 프로퍼티로서 직접적으로 소유하지 않는다
 
 ```javascript
@@ -384,6 +389,33 @@ function sayHello() {
 
 const sayHello2 = sayHello();
 const sayHello3 = new sayHello();
+```
+
+생성자 함수로서 동작하는 `sayHello` 함수는 `prototype` 객체를 갖는다. 그리고 이는 `sayHello` 생성자 함수에 의해 생성된 인스턴스의 `prototype` 객체가 된다는 것을 의미한다. 다시 말해,  `sayHello3` 인스턴스는 `prototype` 객체를 갖지 않고 `prototype` 객체를 가리키는 `[[Prototype]]` 내부 슬롯을 갖는다
+
+```javascript
+console.log(sayHello.hasOwnProperty("prototype")); // → true
+
+// sayHello 생성자 함수에 의해 생성된 sayHello2, sayHello3는 프로토타입 객체를 갖지 않는다
+console.log(sayHello3.hasOwnProperty("prototype")); // → false
+```
+
+여기서 주의해야할 점으로 `sayHello` 함수를 할당받은 `sayHello2`는 변수로서 `sayHello` 함수의 반환값인 `"Hello"` 문자열 원시 타입의 값을 갖기 때문에 객체가 아니므로 `prototype` 객체가 생성되지 않는다
+
+```javascript
+// sayHello2 변수에 담긴 값은 원시 타입이므로 prototype와 연결되지 않는다 
+console.log(sayHello2.hasOwnProperty("prototype")); // → false
+console.log(sayHello2 === "Hello"); // → true
+```
+
+### 4-2 Non-constructor 함수와 프로토타입
+
+앞서 [생성자 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/constructor%20function.md#6-2-constructor%EC%99%80-non-constructor)에서 살펴봤듯이, Non-constructor 함수는 호출할 수 있는 객체이지만 `[[Construct]]`  내부 메서드를 갖지 않는 함수로서, 생성자 함수로 생성할 수 없는 함수다. 즉, non-constructor 함수인 메서드 축약 표현과 화살표 함수는 생성자 함수와 연결되지 않는 함수이기 때문에 `prototype` 객체와도 연결될 수 없다
+
+> 생성자 함수와 `prototype` 객체는 단독으로 존재할 수 없고 언제나 쌍으로 존재한다
+
+```javascript
+const User = 
 ```
 
 
