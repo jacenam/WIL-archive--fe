@@ -17,6 +17,7 @@ JS는 프로토타입 기반의 [객체지향 언어](https://github.com/jacenam
 - [4 함수 객체의 프로토타입](#4-함수-객체의-프로토타입)
   - [4-1 생성자 함수와 프로토타입](#4-1-생성자-함수와-프로토타입)
   - [4-2 Non-constructor 함수와 프로토타입](#4-2-Non-constructor-함수와-프로토타입)
+- [5 프로토타입의 생성 시점](#5-프로토타입의-생성-시점)
 
 
 <br>
@@ -415,8 +416,29 @@ console.log(sayHello2 === "Hello"); // → true
 > 생성자 함수와 `prototype` 객체는 단독으로 존재할 수 없고 언제나 쌍으로 존재한다
 
 ```javascript
-const User = 
+// 메서드 축약 표현
+const User = {
+  name: "Jace",
+  sayHello() {
+    console.log(`Hello, ${this.name}`);
+  }
+}
+
+console.log(User.hasOwnProperty("prototype")); // → false
 ```
+
+```javascript
+// 화살표 함수
+const User = (name) => {
+  this.name = name;
+}
+
+console.log(User.hasOwnProperty("prototype"));
+```
+
+<br>
+
+## 5 프로토타입의 생성 시점
 
 
 
