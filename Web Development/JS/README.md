@@ -55,6 +55,7 @@
   - [`let`, `const` 키워드와 블록 레벨 스코프](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/var%2C%20let%2C%20const.md)
 - 프로토타입
   - [프로토타입이란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md)
+  - [프로토타입 체인](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20chain.md)
 - strict mode
   - [strict mode란(in progress)]()
 - this
