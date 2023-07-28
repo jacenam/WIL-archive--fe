@@ -11,9 +11,15 @@ JS는 프로토타입 기반의 [객체지향 언어](https://github.com/jacenam
   - [2-1 생성자 함수의 단점](#2-1-생성자-함수의-단점)
   - [2-2 상속](#2-2-상속)
 - [3 프로토타입 객체](#3-프로토타입-객체)
-  - [3-1 constructor 프로퍼티(feat. 생성자 함수)](#3-1-constructor-프로퍼티(feat.-생성자-함수))
-  - [3-2 constructor 프로퍼티(feat. 객체 리터럴)](#3-2-constructor-프로퍼티(feat.-객체-리터럴))
-  - [3-3 proto 접근자 프로퍼티](#3-3-proto-접근자-프로퍼티)
+  - [3-1 프로토타입 객체의 프로퍼티 구성](#3-1-프로토타입-객체의-프로퍼티-구성)
+    - [3-1-1 객체 리터럴](#3-1-1-객체-리터럴)
+    - [3-1-2 생성자 함수](#3-1-2-생성자-함수)
+    - [3-1-3 그 외의 생성자 함수](#3-1-3-그-외의-생성자-함수)
+  
+  - [3-2 constructor 프로퍼티(feat. 생성자 함수)](#3-2-constructor-프로퍼티(feat.-생성자-함수))
+  - [3-3 constructor 프로퍼티(feat. 객체 리터럴)](#3-3-constructor-프로퍼티(feat.-객체-리터럴))
+  - [3-4 proto 접근자 프로퍼티](#3-4-proto-접근자-프로퍼티)
+  
 - [4 함수 객체의 프로토타입](#4-함수-객체의-프로토타입)
   - [4-1 생성자 함수와 프로토타입](#4-1-생성자-함수와-프로토타입)
   - [4-2 Non-constructor 함수와 프로토타입](#4-2-Non-constructor-함수와-프로토타입)
@@ -118,10 +124,10 @@ console.log(square3); // → Square { sideLength: 20, getArea: [Function] }
 심지어 각 인스턴스에서 사용되는 동일한 메서드처럼 보이지만 실제로 모두 다른 메모리 공간에 저장되기 때문에, 생성자 함수를 통해 인스턴스를 많이 생성하면 할수록 내용이 동일한 내용의 메서드를 저장하기 위해 불필요한 메모리를 차지하게 된다
 
 > 메서드는 객체에 할당되어 있는 함수다. 따라서 객체와 동일하게 [참조에 의한 저장 방식](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/primitive%20%26%20object%20type.md#3-2-%EA%B0%9D%EC%B2%B4-%EA%B0%92%EC%9D%98-%EC%A0%80%EC%9E%A5)을 통해 메모리에 객체 값이 저장된다. 위 예제에서 각 인스턴스의 메서드가 모두 동일해보이지만 저장되는 메모리 공간이 모두 다르다. 즉, 각각의 메서드에 대한 메모리 참조 값이 다르다
-
-```javascript
-console.log(square1.getArea === square2.getArea === square3.getArea); // → false
-```
+>
+> ```javascript
+> console.log(square1.getArea === square2.getArea === square3.getArea); // → false
+> ```
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/d6b2e87b-0645-403f-b4ec-dd5c7de1ef6d" width="100%">
 
@@ -171,11 +177,11 @@ console.log(square3); // → Square { sideLength: 20 }
 
 생성자 함수 `Square`에 의해 생성된 인스턴스는 모두 메서드 `getArea`를 각각 따로 메모리에 저장하지 않게 되며, 이를 통해 메모리 공간 저장 효율도 개선할 수 있게 된다. 즉, 인스턴스별로 상이한 프로퍼티만 개별적으로 소유하고 동일한 메서드는 상속을 통해 공유하여 사용하는 것이다
 
-<img src="https://github.com/jacenam/WIL-archive/assets/92138751/b5def9b3-34de-4a9e-8500-77c4ea6e034f" width="100%">
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/0c70977b-d8bb-42ae-bfed-ae219a91e257" width="100%">
 
 프로토타입 상속에 대한 위 예제를 아래 그림과 같이 표현할 수 있다. 결론적으로, JS에서는 프로토타입을 통해 프로그래밍적으로 상속이라는 개념을 갖게 된다. 상속이란 특정 객체의 상위(부모) 객체의 메서드를 포함한 프로퍼티를  하위(자식) 객체에게 공유할 수 있는 특성을 의미한다
 
-<img src="https://github.com/jacenam/WIL-archive/assets/92138751/36e70303-be8a-43e0-a969-28c632ad8415" width="100%">
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/bb05f2c6-c70c-47e1-880d-11795f6cb61f" width="100%">
 
 자식 객체는 부모 객체의 프로퍼티를 자신의 프로퍼티처럼 자유롭게 사용이 가능하다
 
@@ -198,21 +204,104 @@ console.log(square.getDoubledArea()); // → 50
 console.log(Square.prototype); // → {double: 2, getDoulbedArea: [Function] }
 ```
 
-<img src="https://github.com/jacenam/WIL-archive/assets/92138751/f2e5a109-68bd-484a-be11-2d3c2ff3a300" width="100%">
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/d6a8982b-f59b-41c2-b2cb-bd305d2ad448" width="100%">
 
 <br>
 
 ## 3 프로토타입 객체
 
-`prototype` 객체는 생성자 함수 측면에서 봤을 때 생성자 함수의 프로퍼티가 되는 것이며, `prototype` 객체 측면에서 봤을 때는 특정 데이터와 로직이 담겨있는 객체 되는 것이다. 다시 말해, 생성자 함수의 `prototype` 프로퍼티이자 `prototype` 자체적으로는 객체가 되는 것이다
+`prototype` 객체는 생성자 함수 측면에서 봤을 때 생성자 함수의 프로퍼티가 되는 것이며, `prototype` 객체 측면에서 봤을 때는 특정 데이터와 로직이 담겨있는 객체 되는 것이다. 다시 말해, 생성자 함수의 `prototype` 프로퍼티이자 `prototype` 자체적으로는 객체가 되는 것이다. 그럼  `prototype` 객체의 구조를 살펴보자
 
-`prototype` 객체는 아래와 같이 여러 개의 프로퍼티를 갖는다:
+먼저 주목해야할 부분으로 객체를 생성하는 방식은 객체 리터럴, `Object` 생성자 함수, 생성자 함수 등 다양한 방법이 존재한다는 것이다. 객체 생성 방식에 따라 `prototype` 객체의 구성이 다르다
 
-<img src="https://github.com/jacenam/WIL-archive/assets/92138751/fc0d09cc-0bc3-4537-aec3-18541393ea3d" width="100%">
+```javascript
+// 일반 함수 정의 방식으로 정의된 생성자 함수
+function Square(sideLength) {
+  this.sideLength = sideLength;
+}
 
-이 중에서  `constructor` 프로퍼티와 `__proto__` 접근자 프로퍼티를 살펴보자
+// Object 생성자 함수
+const obj = new Object();
 
-### 3-1 constructor 프로퍼티(feat. 생성자 함수)
+// Function 생성자 함수 
+const sayHello = new Function(console.log("sayHello"));
+
+// String 생성자 함수
+const strObj = new String("Jace"); 
+
+// 객체 리터럴 방식
+const user = { name: "Jace" }
+
+......
+```
+
+### 3-1 프로토타입 객체의 프로퍼티 구성
+
+### 3-1-1 객체 리터럴
+
+먼저 객체 리터럴에 의해 생성된 일반 객체의 `prototype` 객체를 살펴보자. 브라우저 환경에서 실행된 아래 예제를 살펴보면 객체 리터럴로 빈 객체(`{}`)를 생성했다. 그리고 살펴보면 `[[Prototype]]` 내부 슬롯이 가리키는 `prototype` 객체는 `Object`이며, 프로퍼티 구성이 다양하다
+
+> 객체 리터럴에 의해 생서된 일반 객체의 `[[Prototype]]` 내부 슬롯은 어째서 `Object`를 가리키는 것일까? 이에 대해서는 [constructor 프로퍼티(feat. 객체 리터럴)](#constructor-프로퍼티(feat.-객체-리터럴))를 살펴보자
+
+> `prototype` 객체의 프로퍼티 전부를 다 상세히 볼 필요는 없다. 이 중에서  `constructor` 프로퍼티와 `__proto__` 접근자 프로퍼티를 [다음에 나올 내용](#3-2-constructor-프로퍼티(feat.-생성자-함수))에서 살펴볼 예정이다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/85157efe-a3db-40a4-87ff-aa578d2a008f" width="100%">
+
+### 3-1-2 생성자 함수
+
+다음은 일반 함수 정의 방식으로 정의된 생성자 함수의 `prototype` 객체를 살펴보자. 프로퍼티가 `constructor` 프로퍼티 1개 뿐이다. 그리고 `[[Prototype]]` 내부 슬롯이 존재하며, 이 내부 슬롯은 `Object`를 가리키고 있다.  [앞서 언급했듯이](#1-프로토타입이란), 이는 일반 함수 정의 방식으로 정의된 생성자 함수의 `prototype` 객체도 객체로서 `[[Prototype]]` 내부 슬롯을 가지기 때문이다 
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/ad6e3320-8357-43f2-8b0a-14c2da880770" width="100%">
+
+따라서 아래 예제와 같이 `Square` 생성자 함수의 `Square.prototype` 객체가 소유하지 않은 `hasOwnProperty` 프로퍼티(메서드)를 `Object`로부터 상속받아 사용할 수 있게 된다
+
+```javascript
+// Square.prototype은 hasOwnProperty 메서드를 소유하고 있지 않지만 사용이 가능하다
+Square.prototype.hasOwnProperty("constructor"); // → true
+
+// Square.prototype은 __proto__ 접근자 프로퍼티를 소유하고 있지 않지만 사용이 가능하다
+Square.prototype.__proto__ === Object.prototype; // → true
+```
+
+즉 `Square` 생성자 함수, `prototype` 객체(`Square.prototype`), `Object`와의 관계도는 아래 그림과 같이 나타날 수 있다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/f55e53c4-0f69-41b1-89ee-ad50b801078c" width="100%">
+
+`Function` 생성자 함수도 일반 함수 정의 방식으로 정의한 생성자 함수와 동일하다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/a75f5905-64b6-49a6-8c9c-0f856760d524" width="100%">
+
+### 3-1-3 그 외의 생성자 함수
+
+`Object`, `String`, `Number`, `Array` 등의 생성자 함수는 아래와 같은 `prototype` 객체 구조를 갖는다:
+
+- `Object` 생성자 함수
+
+  <img src="https://github.com/jacenam/WIL-archive/assets/92138751/cef231a8-8ca4-44ab-8c4f-a0c448b6592c" width="100%">
+
+- `String` 생성자 함수
+
+  <img src="https://github.com/jacenam/WIL-archive/assets/92138751/9bd91bd0-c8c3-4515-87f2-110268055482" width="100%">
+
+- `Array` 생성자 함수
+
+  <img src="https://github.com/jacenam/WIL-archive/assets/92138751/8ec6ee2d-e2a7-4970-b529-b629f8905aec" width="100%">
+
+위 생성자들의 `prototype` 객체와의 관계도는 아래 그림과 같이 표현된다(물론 생성자별로 프로퍼티는 약간의 차이가 있다)
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/44813f49-51d9-4a2c-8c72-1bbe8c0d4bf3" width="100%">
+
+여기서 주의해야할 점으로 일반 함수 정의 방식으로 정의된 생성자 함수, `Function` 생성자 함수와는 다르게 다른 생성자 함수들은 모두 지정한 변수명을 이용해 `prototype` 객체를 참조하려하면 `undefined`가 반환된다
+
+```javascript
+obj.prototype; // → undefined
+strObj.prototype; // → undefined
+arr.prototype; // → undefined
+```
+
+이는 `prototype` 객체가 생성되었을 때 바인딩되는 주체가 다르기 때문이며, 이는 추후에 다뤄볼 예정이다
+
+### 3-2 constructor 프로퍼티(feat. 생성자 함수)
 
 모든 `prototype` 객체는 `constructor` 프로퍼티를 갖는다. `constructor` 프로퍼티는 `prototype` 객체를 참조하고 있는 생성자 함수를 가리킨다
 
@@ -234,9 +323,9 @@ console.log(square.constructor); // → ƒ Square(sideLength) { this.sideLength 
 
 이때 `square` 인스턴스는 `prototype` 객체의 `constructor` 프로퍼티를 통해 "`square` 인스턴스 → `Square.prototype` 객체 → `Square` 생성자 함수" 순으로 생성자 함수와 연결된다. `constructor` 프로퍼티는 `prototype` 객체를 참조하고 있는 생성자 함수가 누구인지를 가리키므로, 생성자 함수와 인스턴스 사이에는 연결성이 확보된다. 이로 인해서 `square` 인스턴스는 `constructor` 프로퍼티 뿐만 아니라 `Square.prototype` 객체의 모든 프로퍼티를 사용할 수 있게 되는 것이다
 
-<img src="https://github.com/jacenam/WIL-archive/assets/92138751/68681d96-aeaa-48b8-a6af-c79ffcb6576a" width="100%">
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/06cf01e9-07e2-42c2-b1e4-1a4165008ac3" width="100%">
 
-### 3-2 constructor 프로퍼티(feat. 객체 리터럴)
+### 3-3 constructor 프로퍼티(feat. 객체 리터럴)
 
 앞서 살펴본대로, 생성자 함수에 의해 생성된 인스턴스는 `prototype` 객체의 `constructor` 프로퍼티를 통해 생성자 함수와 연결된다
 
@@ -294,15 +383,17 @@ console.log(user.constructor === Object); // → true
 | 배열 리터럴        | `Array` 생성자 함수    | `Array.prototype`    |
 | 정규 표현식 리터럴 | `RegExp` 생성자 함수   | `RegExp.prototype`   |
 
-### 3-3 proto 접근자 프로퍼티
+### 3-4 proto 접근자 프로퍼티
 
 모든 객체, 프로토타입과 생성자 함수는 서로 연결되어 있는 것을 살펴보았다. `prototype` 객체의 `constructor` 프로퍼티를 통해서 생성자 함수와 연결되고, 인스턴스는 `[[Prototype]]` 내부 슬롯에 저장되어 `prototype` 객체를 가리키는 참조 값을 통해 `prototype` 객체와 연결된다
 
-그리고 인스턴스는 `prototype` 객체의 프로퍼티를 상속받아 자유롭게 사용이 가능하다. 여기서 `prototype` 객체의 프로퍼티 중 하나인 `__proto__` 접근자 프로퍼티를 인스턴스가 사용하면 인스턴스가 가진 `[[Prototype]]` 내부 슬롯에 간접적으로 접근해 역으로  `prototype` 객체의 정보를 취득할 수 있다
+그리고 인스턴스는 `prototype` 객체의 프로퍼티를 상속받아 자유롭게 사용이 가능하다. 여기서 `prototype` 객체의 프로퍼티 중 하나인 `__proto__` 접근자 프로퍼티를 인스턴스가 사용하면 인스턴스가 가진 `[[Prototype]]` 내부 슬롯에 간접적으로 접근해 역으로  `prototype` 객체의 정보를 취득할 수 있다. 
 
 > [접근자 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md#3-1-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)는 직접적으로 값을 갖지 않고, 데이터 프로퍼티의 값을 참조하여 값을 반환해주는 프로퍼티다. `__proto__` 접근자 프로퍼티는 `getter`/`setter` 접근자 함수를 통해 `[[Prototype]]` 내부 슬롯에 저장된 객체의 프로토타입 객체 값을 간접적으로 취득하여 그 값(정보)을 반환해주는 것이다
 
-<img src="https://github.com/jacenam/WIL-archive/assets/92138751/11fedd9e-e297-40e6-bae1-ef9ff4140289" width="100%">
+아래 예제의 경우, [앞서 언급했듯이](#3-1-2-생성자-함수) 일반 함수 정의 방식으로 정의된 생성자 함수이기 때문에 `Square` 생성자 함수의 `prototype` 객체(`Square.prototype`)는 `constructor` 프로퍼티만와 `[[Prototype]]` 내부 슬롯만을 갖는다. 따라서, `Square.prototype`은 부모 `prototype` 객체인 `Object.prototype`으로부터 `__proto__` 접근자 프로퍼티를 상속받고, 이는 `Square` 생성자 함수를 통해 생성된 인스턴스까지 상속이 이어지게 된다. 
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/072aeeb9-3a64-4fe3-869a-cbbdb4cf20cc" width="100%">
 
 아래 예제를 살펴보자.  `__proto__` 접근자 프로퍼티는 `user` 객체가 직접적으로 소유하는 프로퍼티가 아니다. `user` 객체의 생성자 함수인 `Object` 생성자 함수의 `prototype` 객체가 `__proto__` 접근자 프로퍼티를 소유하는 것이다
 
@@ -436,10 +527,6 @@ console.log(User.hasOwnProperty("prototype"));
 ```
 
 <br>
-
-
-
-### 5-2 빌트인 생성자 함수와 프로토타입 생성 시점
 
 ***
 
