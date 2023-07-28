@@ -289,7 +289,7 @@ Square.prototype.__proto__ === Object.prototype; // → true
 
 위 생성자들의 `prototype` 객체와의 관계도는 아래 그림과 같이 표현된다(물론 생성자별로 프로퍼티는 약간의 차이가 있다)
 
-<img src="https://github.com/jacenam/WIL-archive/assets/92138751/44813f49-51d9-4a2c-8c72-1bbe8c0d4bf3" width="100%">
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/aae16698-b3d8-4a46-a9a1-11dfef4ff260" width="100%">
 
 여기서 주의해야할 점으로 일반 함수 정의 방식으로 정의된 생성자 함수, `Function` 생성자 함수와는 다르게 다른 생성자 함수들은 모두 지정한 변수명을 이용해 `prototype` 객체를 참조하려하면 `undefined`가 반환된다
 
@@ -391,7 +391,7 @@ console.log(user.constructor === Object); // → true
 
 > [접근자 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/property%20attribute.md#3-1-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)는 직접적으로 값을 갖지 않고, 데이터 프로퍼티의 값을 참조하여 값을 반환해주는 프로퍼티다. `__proto__` 접근자 프로퍼티는 `getter`/`setter` 접근자 함수를 통해 `[[Prototype]]` 내부 슬롯에 저장된 객체의 프로토타입 객체 값을 간접적으로 취득하여 그 값(정보)을 반환해주는 것이다
 
-아래 예제의 경우, [앞서 언급했듯이](#3-1-2-생성자-함수) 일반 함수 정의 방식으로 정의된 생성자 함수이기 때문에 `Square` 생성자 함수의 `prototype` 객체(`Square.prototype`)는 `constructor` 프로퍼티만와 `[[Prototype]]` 내부 슬롯만을 갖는다. 따라서, `Square.prototype`은 부모 `prototype` 객체인 `Object.prototype`으로부터 `__proto__` 접근자 프로퍼티를 상속받고, 이는 `Square` 생성자 함수를 통해 생성된 인스턴스까지 상속이 이어지게 된다. 
+아래 예제의 경우, [앞서 언급했듯이](#3-1-2-생성자-함수) 일반 함수 정의 방식으로 정의된 생성자 함수이기 때문에 `Square` 생성자 함수의 `prototype` 객체(`Square.prototype`)는 `constructor` 프로퍼티와 `[[Prototype]]` 내부 슬롯만을 갖는다. 따라서, `Square.prototype`은 부모 `prototype` 객체인 `Object.prototype`으로부터 `__proto__` 접근자 프로퍼티를 상속받고, 이는 `Square` 생성자 함수를 통해 생성된 인스턴스까지 상속이 이어지게 된다 
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/072aeeb9-3a64-4fe3-869a-cbbdb4cf20cc" width="100%">
 
@@ -442,7 +442,7 @@ console.log(user1.name); // → Jace
 
 ### 4-1 생성자 함수와 프로토타입
 
-앞서 모든 객체는 `[[Prototype]]` 내부 슬롯을 가지며, 이 내부 슬롯 내부에는 `prototype` 객체를 가리키는 참조 값이 저장되어 있다. 즉, 객체는 `prototype` 객체를 프로퍼티로서 직접적으로 소유하지 않는다
+앞서 모든 객체는 `[[Prototype]]` 내부 슬롯을 가지며, 이 내부 슬롯 내부에는 `prototype` 객체를 가리키는 참조 값이 저장되어 있다 했다. 즉, 객체는 `prototype` 객체를 프로퍼티로서 직접적으로 소유하지 않는다
 
 ```javascript
 const user = { name: "Jace" };
