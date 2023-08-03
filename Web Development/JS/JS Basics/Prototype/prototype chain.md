@@ -4,6 +4,9 @@
 
 - [1 프로토타입 체인](#1-프로토타입-체인)
 - [2 프로토타입 체인 탐색](#2-프로토타입-체인-탐색)
+- [3 오버라이딩과 프로퍼티 섀도잉](#3-오버라이딩과-프로퍼티-섀도잉)
+- [4 프로토타입 프로퍼티의 변경](#4-프로토타입-프로포티의-변경)
+- [5 프로토타입의 교체](#5-프로토타입의-교체)
 
 <br>
 
@@ -135,7 +138,144 @@ console.log(brand.wheels); // → 4
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/c99c95b5-fb04-4e79-ad8d-23dd86241169" width="100%">
 
+생성자 함수를 통해 생성한 인스턴스의 경우를 포함하여 프로토타입 체인의 최상위에 위치하는 `prototype` 객체는 언제나 `Object.prototype`이다. 따라서 모든 객체는 `Object.prototype`으로부터 프로퍼티를 상속받을 수 있다
+
+실제로 `Object.prototype`의 `prototype` 객체, 즉 `[[Prototype]]` 내부 슬롯의 참조 값은 `null`이다
+
+```javascript
+console.log(Object.prototype.__proto__ === null); // → true
+```
+
+> 스코프 체인과 프로토타입 체인의 차이도 추후 살펴볼 예정이다
+
 <br>
+
+## 3 오버라이딩과 프로퍼티 섀도잉
+
+오버라이딩(Overriding)이란 프로토타입 체인 상에서 상위 객체가 이미 가지고 있는 메서드를 하위 객체가 재정의하여 사용하는 방식을 의미한다
+
+프로퍼티 섀도잉(Property Shadowing)은 상위 객체가 가지고 있는 메서드를 하위 객체가 재정의함에 따라, 상위 객체의 메서드가 '가려지는' 현상을 의미한다. 즉, 상속 관계에 의해 프로퍼티가 가려지는 현상을 프로퍼티 섀도잉이라 하는 것이다
+
+아래 예제를 살펴보자: 
+
+```javascript 
+function User(name) {
+  this.name = name; 
+}
+
+// User.prototype 객체에 메서드 추가
+User.prototype.sayHello = function() {
+  console.log(`Hello, ${this.name} from prototype`);
+}
+
+// User 생성자 함수를 통한 인스턴스 생성
+const a = new User("Jace");
+
+// User.prototype 객체의 메서드를 상속받아 호출
+a.sayHello(); // → Hello, Jace from prototype
+
+// 인스턴스에 동일한 이름의 메서드를 재정의
+a.sayHello = function() {
+  console.log(`Hello, ${this.name} from instance`);
+}
+
+// 인스턴스의 메서드를 호출
+a.sayHello(); // → Hello, Jace from instance
+```
+
+`prototype` 객체가 소유한 프로퍼티를 '프로토타입 프로퍼티', 인스턴스가 소유한 프로퍼티를 '인스턴스 프로퍼티'라 부른다. 위 예제는 프로토타입 프로퍼티인 `sayHello` 메서드와 같은 이름의 프로퍼티를 인스턴스에 추가한 상황이다. 이때 "인스턴스 프로퍼티인 `sayHello` 메서드는 프로토타입 프로퍼티인 `sayHello` 메서드를 오버라이딩했고, 프로토타입의 `sayHello` 메서드는 인스턴스의 `sayHello` 메서드에 의해 섀도잉되었다" 라고 표현한다
+
+<br>
+
+## 4 프로토타입 프로퍼티의 변경
+
+프로토타입도 객체기 때문에 프로퍼티를 추가, 삭제, 수정할 수 있다. 프로토타입 체인 상에서 하위 객체는 상위 객체의 프로퍼티를 마음대로 삭제 혹은 수정할 수 없다(하위 객체에서 프로퍼티를 추가하면 하위 객체에 해당 프로퍼티가 추가된다)
+
+위 [오버라이딩과 프로퍼티 섀도잉](#3-오버라이딩과-프로퍼티-섀도잉)에서 살펴본 예제를 이어서 활용해보자. 인스턴스의 `sayHello` 메서드를 삭제하면 인스턴스는 `sayHello` 메서드를 더 이상 가지지 않기 때문에, `sayHello` 메서드를 호출하면 `User.prototype` 객체의 메서드를 상속받아서 호출하게 된다
+
+```javascript
+// 인스턴스의 메서드를 삭제한다
+delete a.sayHello(); 
+
+// 인스턴스의 메서드를 삭제했기 때문에 프로토타입의 메서드를 상속받아 호출
+a.sayHello(); // → Hello, Jace from prototype
+```
+
+여기서 `sayHello` 메서드를 다시 한번 더 삭제해보자. `sayHello` 메서드를 상속받았기 때문에 인스턴스를 통해 `sayHello` 메서드에 접근해 삭제하려해도 삭제 되지 않는다. 이는 프로토타입 체인 때문이다. 프로토타입 체인 상에서 하위 객체는 상위 객체의 프로퍼티를 변경하거나 삭제하는 것은 불가능하다
+
+```javascript
+delete a.sayHello;
+
+// User.prototype의 sayHello 메서드는 삭제되지 않아 정상적으로 호출된다
+a.sayHello(); // → Hello, Jace from prototype
+```
+
+따라서 프로토타입 프로퍼티를 변경 또는 삭제하려면 상위 객체인 프로토타입 자체에서 해당 프로퍼티를 변경 혹은 삭제해야한다
+
+```javascript
+delete User.prototype.sayHello(); 
+
+a.sayHellp(); // → Uncaught TypeError: a.sayHellp is not a function
+```
+
+<br>
+
+## 5 프로토타입의 교체
+
+```javascript
+function User(name) {
+  this.name = name;
+}
+
+const obj = {
+  sayHello() {
+  	console.log(`Hello, ${this.name}`);
+	}
+};
+
+User.prototype = sayHello;
+
+
+const a = new User("Jace");
+```
+
+인스턴스의 프로토타입은 없다. 이걸 주의해야한다. 
+
+User 생성자 함수는 prototype을 프로퍼티로서 갖는다. 인스턴스는 prototype을 프로퍼티로서 갖는게 아니라 [[prototype]] 내부 메서드를 통해 User.prototype에 접근하는 것.
+
+객체 리터럴도 마찬가지. model.prototype은 없음. model은 인스턴스니까
+
+
+
+```javascript
+const car = {
+  wheels: 4,
+  drive() {
+    console.log("drive away");
+  },
+}
+
+const brand = {
+  name: "benz",
+  navigation: true,
+}
+
+const model = {
+  name: "c200",
+  color: "black",
+  price: 5000,
+}
+
+undefined
+model.__proto__ === Object.prototype;
+true
+Object
+ƒ Object() { [native code] }
+model.prototype;
+undefined
+```
+
+
 
 ***
 
