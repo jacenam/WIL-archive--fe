@@ -224,19 +224,26 @@ a.sayHellp(); // → Uncaught TypeError: a.sayHellp is not a function
 
 ```javascript
 function User(name) {
-  this.name = name;
+  this.name = name; 
 }
+
+// User 생성자 함수의 User.prototype 객체는 constructor 프로퍼티를 갖는다
+console.log(User.prototype); // → {constructor: ƒ User(name)}
 
 const obj = {
   sayHello() {
-  	console.log(`Hello, ${this.name}`);
-	}
+    console.log(`Hello, ${this.name}`);
+  }
 };
 
-User.prototype = sayHello;
+// User.prototype에 객체 리터럴 방식으로 생성한 obj 객체로 교체했다 
+User.prototype = obj; 
 
+console.log(User.prototype); // → {sayHello: ƒ}
 
 const a = new User("Jace");
+
+a.sayHello(); // → Hello, Jace
 ```
 
 인스턴스의 프로토타입은 없다. 이걸 주의해야한다. 
@@ -244,8 +251,6 @@ const a = new User("Jace");
 User 생성자 함수는 prototype을 프로퍼티로서 갖는다. 인스턴스는 prototype을 프로퍼티로서 갖는게 아니라 [[prototype]] 내부 메서드를 통해 User.prototype에 접근하는 것.
 
 객체 리터럴도 마찬가지. model.prototype은 없음. model은 인스턴스니까
-
-
 
 ```javascript
 const car = {
