@@ -7,6 +7,9 @@
 - [3 오버라이딩과 프로퍼티 섀도잉](#3-오버라이딩과-프로퍼티-섀도잉)
 - [4 프로토타입 프로퍼티의 변경](#4-프로토타입-프로포티의-변경)
 - [5 프로토타입의 교체](#5-프로토타입의-교체)
+  - [5-1 생성자 함수에 의한 프로토타입 교체](#5-1-생성자-함수에-의한-프로토타입-교체)
+  - [5-2 인스턴스에 의한 프로토타입 교체](#5-2-인스턴스에-의한-프로토타입-교체)
+
 
 <br>
 
@@ -222,6 +225,12 @@ a.sayHellp(); // → Uncaught TypeError: a.sayHellp is not a function
 
 ## 5 프로토타입의 교체
 
+앞서 [프로토타입 체인 탐색](#2-프로토타입-체인-탐색) 파트의 예제에서 살펴봤듯이 `prototype` 객체는 다른 객체로도 변경이 가능하다. 즉, 특정 객체의 부모 객체인 `prototype` 객체를 동적으로 변경할 수 있는 것이며 이는 객체 간의 상속 관계 또한 동적으로 변경이 가능하다는 것을 의미한다
+
+### 5-1 생성자 함수에 의한 프로토타입 교체
+
+아래 예제를 살펴보자. 일반 함수 정의 방식으로 정의된 `User` 생성자 함수가 있다. 앞서 [프로토타입 객체의 프로퍼티 구성](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-1-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85-%EA%B0%9D%EC%B2%B4%EC%9D%98-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EA%B5%AC%EC%84%B1)에서 살펴봤듯이 `User` 생성자 함수의 프로퍼티로서 `User.prototype` 객체가 존재하며, `User.prototype` 객체의 프로퍼티는 `constructor` 프로퍼티가 존재한다. 그리고 `constructor` 프로퍼티 값은 `User` 생성자 함수에 대한 참조 값이다
+
 ```javascript
 function User(name) {
   this.name = name; 
@@ -229,22 +238,68 @@ function User(name) {
 
 // User 생성자 함수의 User.prototype 객체는 constructor 프로퍼티를 갖는다
 console.log(User.prototype); // → {constructor: ƒ User(name)}
+```
 
+여기서 위 예제와 이어지는 아래 예제를 다시 살펴보면, `User` 생성자 함수의 프로퍼티인 `User.prototype` 객체에 객체 리터럴을 통해 생성한 `obj` 객체를 할당했다. 즉 `User` 생성자 함수의 프로퍼티인 `User.prototype` 객체의 값을 동적으로 변경한 것이다. 프로토타입을 교체했기 때문에 객체 간의 상속 관계는 변경된다. 객체 리터럴을 통해 생성된 `obj` 객체의 프로퍼티인 `sayHello` 메서드를 `User` 생성자 함수에 의해 생성된 `a` 인스턴스가 사용할 수 있게 된다
+
+```javascript
+// sayHello 메서드를 갖는 obj 객체를 객체 리터럴을 통해 생성한다
 const obj = {
   sayHello() {
     console.log(`Hello, ${this.name}`);
   }
 };
 
-// User.prototype에 객체 리터럴 방식으로 생성한 obj 객체로 교체했다 
+// User.prototype을 객체 리터럴 방식으로 생성한 obj 객체로 교체했다 
 User.prototype = obj; 
-
-console.log(User.prototype); // → {sayHello: ƒ}
 
 const a = new User("Jace");
 
 a.sayHello(); // → Hello, Jace
 ```
+
+`User.prototype`을 참조해보면 `obj` 객체의 프로퍼티를 갖는 것을 확인할 수 있다. 이전에 `User.prototype` 객체가 갖던 `constructor` 프로퍼티는 더 이상 `User.prototype` 객체의 프로퍼티가 아닌 것이다
+
+```javascript
+console.log(User.prototype); // → {sayHello: ƒ}
+```
+
+이때 `User.prototype` 객체는 더 이상 `User` 생성자 함수의 참조 값을 갖지 않게 되기 때문에 `User` 생성자 함수, `User.prototype` 객체, `a` 인스턴스의 연결성은 유효하지 않게 된다. 즉 `a` 인스턴스의 생성자 함수는 `User` 생성자 함수가 아닌 `Object` 생성자 함수가 된다
+
+```javascript
+console.log(a.constructor === User); // → false
+console.log(a.constructor === Object); // → true
+```
+
+위 예제와 설명을 아래 그림과 같이 표현할 수 있다. 앞서 [constructor 프로퍼티](https://github.com/jacenam/WIL-archive/assets/92138751/231eb0b0-6aaa-4854-8a3e-c97e768c79c3) 파트에서 살펴본 대로 생성자 함수에 의해 생성된 인스턴스가 존재한다면 생성자 함수, 프로토타입, 인스턴스는 언제나 연결되어 존재해야 한다. 따라서 `User` 생성자 함수와 `a` 인스턴스의 관계가 유효하지 하지 않기 때문에 JS 엔진은 가상의 `Object` 생성자 함수를 만들어내어 `a` 인스턴스를 `Object.prototype` 객체의 자식 객체로 연결짓는다. 그리고 이 때문에 `User.prototype`은 더 이상 `constructor` 프로퍼티를 갖지 않지만, `a` 인스턴스와 `User.prototype` 객체는 `constructor` 프로퍼티를 `Object.prototype`으로부터 상속받아 사용할 수 있게 되는 것이다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/231eb0b0-6aaa-4854-8a3e-c97e768c79c3" width="100%">
+
+```javascript
+// User.prototype 객체는 자신에게서 없어진 constructor 프로퍼티를 상속받아 사용이 가능하다
+console.log(User.prototype.constructor === User); // → false
+console.log(User.prototype.constructor === Object); // → true
+```
+
+만약 `User` 생성자 함수, `User.prototype` 객체, `a` 인스턴스의 연결을 다시 되살리고자 하면 아래와 같이 실행할 수 있다
+
+> 프로퍼티의 동적 생성에 대해서는 [객체 타입](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20type.md#3-4-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0%EC%9D%98-%EB%8F%99%EC%A0%81-%EC%83%9D%EC%84%B1-%EC%82%AD%EC%A0%9C-%EB%B0%8F-%ED%99%95%EC%9D%B8) 파트를 참고하자
+
+```javascript
+// 현재 User.prototype에 obj 객체가 할당되어 있다
+console.log(User.prototype); // → {sayHello: ƒ}
+
+// User.prototype 객체에 동적으로 constructor 프로퍼티와 프로퍼티 값을 추가한다
+User.prototype.constructor = User;
+
+// a 인스턴스와 User.prototype 객체는 다시 User 생성자 함수와 연결된다
+console.log(a.constructor === Object); // → false
+console.log(a.constructor === User); // → true
+console.log(User.prototype.constructor === Object); // → false
+console.log(User.prototype.constructor === User); // → true
+```
+
+### 5-2 인스턴스에 의한 프로토타입 교체
 
 인스턴스의 프로토타입은 없다. 이걸 주의해야한다. 
 
