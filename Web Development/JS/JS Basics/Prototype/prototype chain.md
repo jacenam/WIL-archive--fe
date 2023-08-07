@@ -292,6 +292,9 @@ console.log(User.prototype); // → {sayHello: ƒ}
 // User.prototype 객체에 동적으로 constructor 프로퍼티와 프로퍼티 값을 추가한다
 User.prototype.constructor = User;
 
+// User.prototype 객체에는 constructor 프로퍼티가 다시 존재한다
+console.log(User.prototype); // → {sayHello: ƒ, constructor: ƒ}
+
 // a 인스턴스와 User.prototype 객체는 다시 User 생성자 함수와 연결된다
 console.log(a.constructor === Object); // → false
 console.log(a.constructor === User); // → true
