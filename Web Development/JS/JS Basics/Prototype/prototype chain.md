@@ -304,11 +304,9 @@ console.log(User.prototype.constructor === User); // → true
 
 ### 5-2 인스턴스에 의한 프로토타입 교체
 
-인스턴스의 프로토타입은 없다. 이걸 주의해야한다. 
+[생성자 함수에 의한 프로토타입 교체](5-1 생성자 함수에 의한 프로토타입 교체) 파트에서 살펴봤듯이, 생성자 함수를 통해 생성자 함수의 프로퍼티인  `prototype` 객체에 접근하여 `prototype ` 객체를 교체할 수 있었다. 여기에 추가로 생성자 함수에 의해 생성된 인스턴스도 `Object.prototype` 객체의 `__proto__` 접근자 프로퍼티를 통해 `prototype` 객체를 교체할 수 있다
 
-User 생성자 함수는 prototype을 프로퍼티로서 갖는다. 인스턴스는 prototype을 프로퍼티로서 갖는게 아니라 [[prototype]] 내부 메서드를 통해 User.prototype에 접근하는 것.
-
-객체 리터럴도 마찬가지. model.prototype은 없음. model은 인스턴스니까
+아래는 앞서 [프로토타입 체인 탐색](#2-프로토타입-체인-탐색) 파트에서 살펴본 예제다. `car`, `brand`, `model` 객체는 모두 객체 리터럴 방식으로 생성한 객체이므로 세 객체의 `prototype` 객체는 `Object.prototype` 객체다
 
 ```javascript
 const car = {
@@ -329,19 +327,50 @@ const model = {
   price: 5000,
 }
 
-undefined
-model.__proto__ === Object.prototype;
-true
-Object
-ƒ Object() { [native code] }
-model.prototype;
-undefined
+console.log(car.__proto__); // → {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
+console.log(brand.__proto__); // → {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
+console.log(model.__proto__); // → {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
 ```
 
+또한, 세 객체 모두 객체 리터럴 방식으로 생성된 객체이기 때문에 JS 엔진은 가상의 `Object` 생성자 함수를 생성해 세 객체와 연결한다
 
+```javascript
+console.log(car.constructor); // → ƒ Object() { [native code] }
+console.log(brand.constructor); // → ƒ Object() { [native code] }
+console.log(model.constructor); // → ƒ Object() { [native code] }
+```
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/8b924c9f-ee57-4965-b998-0672e45ff35f" width="100%">
+
+이때 `setPrototypeOf` 메서드를 통해 인스턴스와 연결되는 `prototype` 객체할 수 있다. `setPrototypeOf` 메서드의 첫 번째 매개변수에는 기준이 되는 객체, 두 번째 매개변수에는 `prototype` 객체로 교체할 객체를 지정한다
+
+```javascript
+// __proto__ 접근자 프로퍼티가 아닌 setPrototypeOf 메서드를 통해 프로토타입 교체
+// brand 객체의 프로토타입은 car 객체로 지정
+// model 객체의 프로토타입은 brand 객체로 지정
+Object.setPrototypeOf(brand, car);
+Object.setPrototypeOf(model, brand);
+
+console.log(brand.__proto__); // → {wheels: 4, drive: ƒ}
+console.log(model.__proto__); // → {name: 'benz', navigation: true}
+```
+
+교체된 `prototype` 객체와 각 객체의 관계는 아래와 같이 나타날 수 있다:
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/3a14658b-751c-43b0-8281-65396d01672d" width="100%">
+
+이때 (헷갈릴 수 있기 때문에) 주의해야 할 것은 객체 혹은 인스턴스의 `prototype` 객체를 갖지 않는다는 사실이다. 생성자 함수는 `prototype` 객체를 프로퍼티로서 갖는다. 그러나 객체 혹은 인스턴스의 경우, `prototype ` 객체를 직접적으로 소유하는 것이 아니라 `[[Prototype]]` 내부 메서드를 소유하고 있기 때문에 이를 통해 `prototype` 객체에 접근하는 것이다
+
+```javascript
+// 각 객체의 프로토타입에 접근하고자 해도 오류가 나지 않고 undefined가 반환된다
+console.log(brand.prototype); // → undefined
+console.log(model.prototype); // → undefined
+```
+
+하지만 `prototype` 객체를 동적으로 변경하는 것은 지양된다. 상속 관계를 인위적으로 조작할 때는 "직접 상속"을 통해 상속 관계를 설정하는 것이 안전하다. 이는 [클래스]() 파트에서 자세히 살펴볼 예정이다
 
 ***
 
 ### 참고
 
-- 
+- [모던 자바스크립트 Deep Dive](https://www.yes24.com/Product/Goods/92742567)
