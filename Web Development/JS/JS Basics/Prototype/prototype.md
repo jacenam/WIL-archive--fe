@@ -10,6 +10,7 @@ JS는 프로토타입 기반의 [객체지향 언어](https://github.com/jacenam
 - [2 프로토타입과 상속](#2-프로토타입과-상속)
   - [2-1 생성자 함수의 단점](#2-1-생성자-함수의-단점)
   - [2-2 상속](#2-2-상속)
+  - [2-3 정적 프로퍼티와 메서드](#2-3-정적-프로퍼티와-메서드)
 - [3 프로토타입 객체](#3-프로토타입-객체)
   - [3-1 프로토타입 객체의 프로퍼티 구성](#3-1-프로토타입-객체의-프로퍼티-구성)
     - [3-1-1 객체 리터럴](#3-1-1-객체-리터럴)
@@ -19,7 +20,6 @@ JS는 프로토타입 기반의 [객체지향 언어](https://github.com/jacenam
   - [3-2 constructor 프로퍼티(feat. 생성자 함수)](#3-2-constructor-프로퍼티(feat.-생성자-함수))
   - [3-3 constructor 프로퍼티(feat. 객체 리터럴)](#3-3-constructor-프로퍼티(feat.-객체-리터럴))
   - [3-4 proto 접근자 프로퍼티](#3-4-proto-접근자-프로퍼티)
-  
 - [4 함수 객체의 프로토타입](#4-함수-객체의-프로토타입)
   - [4-1 생성자 함수와 프로토타입](#4-1-생성자-함수와-프로토타입)
   - [4-2 Non-constructor 함수와 프로토타입](#4-2-Non-constructor-함수와-프로토타입)
@@ -205,6 +205,37 @@ console.log(Square.prototype); // → {double: 2, getDoulbedArea: [Function] }
 ```
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/d6a8982b-f59b-41c2-b2cb-bd305d2ad448" width="100%">
+
+### 2-3 정적 프로퍼티와 메서드
+
+만약 `prototype` 객체를 통한 프로퍼티 및 메서드 상속을 원하지 않는 경우 명시적으로 상속되지 않는 프로퍼티와 메서드를 지정할 수 있다. 아래 예제를 살펴보자
+
+```javascript
+function Square(sideLength) {
+  this.sideLength = sideLength;
+}
+
+// 생성자 함수 Sqaure의 prototype 프로퍼티 안에 있는 프로퍼티 getArea에 함수를 할당한 것
+Square.prototype.getArea = function() {
+	return Math.pow(this.sideLength, 2);
+};
+
+// 정적 프로퍼티 추가
+Square.staticProp = "a static property only for constructor function";
+// 정적 메서드 추가
+Square.staticMethod = function() {
+  console.log("a static method only for constructor function")
+};
+
+const square1 = new Square(5); 
+const square2 = new Square(10);
+const square3 = new Square(20);
+
+console.log(square1.staticProp); // → undefined
+console.log(square2.staticMethod()); // → Uncaught TypeError: square2.staticMethod is not a function
+```
+
+위 예제에서 살펴볼 수 있듯이, 정적 프로퍼티와 메서드란 생성자 함수에 한해서 사용 가능한 프로퍼티와 메서드를 의미한다. 다시 말해 `Square` 생성자 함수는 갖는 프로퍼티와 메서드이지만 생성자 함수에 의해 생성된 인스턴스는 참조 혹은 호출할 수 없는 프로퍼티와 메서드를 의미하는 것이다 
 
 <br>
 
