@@ -57,6 +57,7 @@
   - [프로토타입이란](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md)
   - [프로토타입의 생성 시점](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20creation.md)
   - [프로토타입 체인](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20chain.md)
+  - [프로토타입 관련 메서드](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20methods.md)
 - strict mode
   - [strict mode란(in progress)]()
 - this
