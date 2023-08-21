@@ -20,5 +20,13 @@
 `instanceof` 연산자는 좌항에 객체(식별자 이름), 우항에 생성자 함수(식별자 이름)을 지정하여 우항에 놓인 생성자 함수의 `prototype` 객체가 좌항 객체의 프로토타입 체인 상 존재 여부에 따라 불리언 타입의 값을 반환한다
 
 ```javascript
+function Square(sideLength) {
+  this.sideLength = sideLength;
+}
+
+const square = new Square(5);
+
+console.log(square instanceof Square); // → true
+console.log(square instanceof Object); // → true
 ```
 
