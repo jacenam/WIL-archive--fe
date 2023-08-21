@@ -138,4 +138,5 @@ console.log(user); // → { id-1: 1, id-2: 2, id-3: 3 }
 ### 참고 
 
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
+- [ES6 메서드 축약표현](https://goforit.tistory.com/167)
 
