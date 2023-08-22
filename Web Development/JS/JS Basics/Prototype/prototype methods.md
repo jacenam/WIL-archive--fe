@@ -26,7 +26,14 @@ function Square(sideLength) {
 
 const square = new Square(5);
 
+// square 인스턴스의 프로토타입 체인 상 Square 생성자 함수가 존재한다
 console.log(square instanceof Square); // → true
+// square 인스턴스의 프로토타입 체인 상 Object 생성자 함수가 존재한다
 console.log(square instanceof Object); // → true
 ```
 
+위 `instanceof` 예제를 아래 그림과 같이 표현할 수 있다
+
+<img src="" width="100%"
+
+앞서 [프로토타입 교체](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20chain.md#5-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85%EC%9D%98-%EA%B5%90%EC%B2%B4) 파트에서 살펴본대로 프로토타입 객체 상
