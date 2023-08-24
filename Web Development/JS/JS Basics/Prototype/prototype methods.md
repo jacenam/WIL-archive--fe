@@ -36,23 +36,27 @@ console.log(square instanceof Object); // → true
 
 <img src="" width="100%"
 
-앞서 [프로토타입 교체](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20chain.md#5-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85%EC%9D%98-%EA%B5%90%EC%B2%B4) 파트에서 살펴본대로 `prototype` 객체를 다른 객체로 변경할 경우 `instanceof` 연산자를 통해 피연산자들의 프로토타입 체인 상에서의 관계를 불리언 타입으로 확인할 수도 있다
+앞서 [프로토타입 교체](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20chain.md#5-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85%EC%9D%98-%EA%B5%90%EC%B2%B4) 파트에서 살펴본대로 `prototype` 객체를 다른 객체로 변경할 경우  프로토타입 체인의 구도도 변한다. 따라서 `instanceof` 연산자를 통해 피연산자들의 관계를 확인했을 때 결과 또한 바뀐다
 
 ```javascript
-function Person(name) {
-  this.name = name;
-}
+const car = {};
+const brand = {};
+const model = {};
 
-const me = new Person("Lee");
+// 세 객체 모두 객체 리터럴 방식으로 생성된 객체이기 때문에 JS 엔진은 가상의 Object 생성자 함수를 생성하여 세 객체와 연결된다
+console.log(car.constructor); // → ƒ Object() { [native code] }
+console.log(brand.constructor); // → ƒ Object() { [native code] }
+console.log(model.constructor); // → ƒ Object() { [native code] }
 
-const parent = {};
-
-Object.setPrototypeOf(me, parent);
-
-console.log(Person.prototype === parent); // → false
-console.log(parent.constructor === Person); // → false
-
-console.log(me instanceof Person); // → false
-console.log(me instanceof Object); // → true
+// prototype
+console.log(car.__proto__ === Object.prototype); // → true
+console.log(brand.__proto__ === Object.prototype); // → true
+console.log(model.__proto__ === Object.prototype); // → true
 ```
+
+
+
+
+
+
 
