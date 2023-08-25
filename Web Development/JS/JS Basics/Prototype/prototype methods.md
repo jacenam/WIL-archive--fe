@@ -54,7 +54,7 @@ console.log(brand.__proto__ === Object.prototype); // → true
 console.log(model.__proto__ === Object.prototype); // → true
 ```
 
-
+`me` 객체의 `prototype` 객체가 `parent` 객체로 변경되었으므로 `Person` 생성자 함수, `Person.prototype` 객체, `me` 객체 간의 연결이 파괴된다. 그러나 `me` 객체는 `Person` 생성자 함수에 의해 생성된 인스턴스라는 사실은 변하지 않는다. 다만 `me instanceof Person`은 `false`로 평가된다. 이는 `Person.prototype`이 `me` 객체의 프로토타입 체인 상에 더 이상 존재하지 않기 때문이다
 
 
 
