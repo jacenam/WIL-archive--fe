@@ -39,19 +39,7 @@ console.log(square instanceof Object); // → true
 앞서 [프로토타입 교체](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20chain.md#5-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85%EC%9D%98-%EA%B5%90%EC%B2%B4) 파트에서 살펴본대로 `prototype` 객체를 다른 객체로 변경할 경우  프로토타입 체인의 구도도 변한다. 따라서 `instanceof` 연산자를 통해 피연산자들의 관계를 확인했을 때 결과 또한 바뀐다
 
 ```javascript
-const car = {};
-const brand = {};
-const model = {};
-
-// 세 객체 모두 객체 리터럴 방식으로 생성된 객체이기 때문에 JS 엔진은 가상의 Object 생성자 함수를 생성하여 세 객체와 연결된다
-console.log(car.constructor); // → ƒ Object() { [native code] }
-console.log(brand.constructor); // → ƒ Object() { [native code] }
-console.log(model.constructor); // → ƒ Object() { [native code] }
-
-// prototype
-console.log(car.__proto__ === Object.prototype); // → true
-console.log(brand.__proto__ === Object.prototype); // → true
-console.log(model.__proto__ === Object.prototype); // → true
+const 
 ```
 
 `me` 객체의 `prototype` 객체가 `parent` 객체로 변경되었으므로 `Person` 생성자 함수, `Person.prototype` 객체, `me` 객체 간의 연결이 파괴된다. 그러나 `me` 객체는 `Person` 생성자 함수에 의해 생성된 인스턴스라는 사실은 변하지 않는다. 다만 `me instanceof Person`은 `false`로 평가된다. 이는 `Person.prototype`이 `me` 객체의 프로토타입 체인 상에 더 이상 존재하지 않기 때문이다
