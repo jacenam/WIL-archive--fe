@@ -34,7 +34,7 @@ console.log(square instanceof Object); // → true
 
 위 `instanceof` 예제를 아래 그림과 같이 표현할 수 있다
 
-<img src="" width="100%"
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/dabbc609-1823-4c2f-99f1-a9e19270e963" width="100%">
 
 앞서 [프로토타입 교체](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20chain.md#5-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85%EC%9D%98-%EA%B5%90%EC%B2%B4) 파트에서 살펴본대로 `prototype` 객체를 다른 객체로 변경할 경우  프로토타입 체인의 구도도 변한다. 따라서 `instanceof` 연산자를 통해 피연산자들의 관계를 확인했을 때 결과 또한 바뀐다
 
