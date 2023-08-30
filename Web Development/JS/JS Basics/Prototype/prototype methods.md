@@ -44,7 +44,18 @@ const
 
 `me` 객체의 `prototype` 객체가 `parent` 객체로 변경되었으므로 `Person` 생성자 함수, `Person.prototype` 객체, `me` 객체 간의 연결이 파괴된다. 그러나 `me` 객체는 `Person` 생성자 함수에 의해 생성된 인스턴스라는 사실은 변하지 않는다. 다만 `me instanceof Person`은 `false`로 평가된다. 이는 `Person.prototype`이 `me` 객체의 프로토타입 체인 상에 더 이상 존재하지 않기 때문이다
 
+아래 예제를 살펴보자. 일반 함수 정의 방식으로 정의된 `User` 생성자 함수가 있다. 앞서 [프로토타입 객체의 프로퍼티 구성](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-1-%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85-%EA%B0%9D%EC%B2%B4%EC%9D%98-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-%EA%B5%AC%EC%84%B1)에서 살펴봤듯이 `User` 생성자 함수의 프로퍼티로서 `User.prototype` 객체가 존재하며, `User.prototype` 객체의 프로퍼티는 `constructor` 프로퍼티가 존재한다. 그리고 `constructor` 프로퍼티 값은 `User` 생성자 함수에 대한 참조 값이다
 
+```javascript
+function User(name) {
+  this.name = name; 
+}
+
+// User 생성자 함수의 User.prototype 객체는 constructor 프로퍼티를 갖는다
+console.log(User.prototype); // → {constructor: ƒ User(name)}
+```
+
+여기서 위 예제와 이어지는 아래 예제를 다시 살펴보면, `User` 생성자 함수의 프로퍼티인 `User.prototype` 객체에 객체 리터럴을 통해 생성한 `obj` 객체를 할당했다. 즉 `User` 생성자 함수의 프로퍼티인 `User.prototype` 객체의 값을 동적으로 변경한 것이다. 프로토타입을 교체했기 때문에 객체 간의 상속 관계는 변경된다. 객체 리터럴을 통해 생성된 `obj` 객체의 프로퍼티인 `sayHello` 메서드를 `User` 생성자 함수에 의해 생성된 `a` 인스턴스가 사용할 수 있게 된다
 
 
 
