@@ -92,4 +92,6 @@ console.log(str.toUpperCase()); // → STRING
 
 원시 값은 불변 값으로 값을 변경할 수는 없다
 
+upperCase, lowerCase 변환된 결과를 재사용하려면 새로운 변수에 담아야 한다
+
 여권 번호 입력하는 경우: 입력된 모든 알파벳을 영어 대문자로 변환. 
