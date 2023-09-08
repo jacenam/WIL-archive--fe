@@ -127,3 +127,41 @@ console.log(str); // → string
 
 ## 3 전역 객체
 
+전역 객체(Global Object)란 JS 엔진에 의해 그 어떤 객체보다도 먼저 생성되는 특수한 객체다. 그리고 전역 객체는 어떤 객체에도 속하지 않는 최상위 객체다. 브라우저 환경에서는 `window`, `self`, `this`, `frames`, Node.js 환경에서는 `global`이 전역 객체를 가리킨다
+
+```javascript
+// 브라우저 환경
+console.log(window); // → Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+console.log(self)l // → Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+// Node.js 환경
+console.log(global); 
+/* 
+	→ Object [global] {
+  global: [Circular *1],
+  queueMicrotask: [Function: queueMicrotask],
+  clearImmediate: [Function: clearImmediate],
+	...
+	}
+*/
+```
+
+ECMAScript 11(ES11, 2020) 사양에서 도입된 `globalThis`는 브라우저 환경과 Node.js 환경에서 전역 객체를 가리키는 통일된 식별자다
+
+```javascript
+// 브라우저 환경
+console.log(globalThis); // → Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+// Node.js 환경
+console.log(globalThis); 
+/* 
+	→ Object [global] {
+  global: [Circular *1],
+  queueMicrotask: [Function: queueMicrotask],
+  clearImmediate: [Function: clearImmediate],
+	...
+	}
+*/
+```
+
