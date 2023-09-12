@@ -5,6 +5,9 @@
 - [1 표준 빌트인 객체](#1-표준-빌트인-객체)
 - [2 원시 값과 래퍼 객체](#2-원시-값과-래퍼-객체)
 - [3 전역 객체](#3-전역-객체)
+  - [3-1 빌트인 전역 프로퍼티](#3-1-빌트인-전역-프로퍼티)
+  - [3-2 빌트인 전역 함수(메서드)](#3-2-빌트인-전역-함수(메서드))
+
 
 <br>
 
@@ -127,7 +130,7 @@ console.log(str); // → string
 
 ## 3 전역 객체
 
-전역 객체(Global Object)란 JS 엔진에 의해 그 어떤 객체보다도 먼저 생성되는 특수한 객체다. 그리고 전역 객체는 어떤 객체에도 속하지 않는 최상위 객체다. 브라우저 환경에서는 `window`, `self`, `this`, `frames`, Node.js 환경에서는 `global`이 전역 객체를 가리킨다
+전역 객체(Global Object)란 JS 엔진에 의해 그 어떤 객체보다도 먼저 생성되는 특수한 객체다. 그리고 전역 객체는 어떤 객체에도 속하지 않는 최상위 객체다. 브라우저 환경에서는 `window`, `self`, `this`, `frames`, `Node.js` 환경에서는 `global`이 전역 객체를 가리킨다
 
 ```javascript
 // 브라우저 환경
@@ -147,7 +150,7 @@ console.log(global);
 */
 ```
 
-ECMAScript 11(ES11, 2020) 사양에서 도입된 `globalThis`는 브라우저 환경과 Node.js 환경에서 전역 객체를 가리키는 통일된 식별자다
+ECMAScript 11(ES11, 2020) 사양에서 도입된 `globalThis`는 브라우저 환경과 `Node.js` 환경에서 전역 객체를 가리키는 통일된 식별자다
 
 ```javascript
 // 브라우저 환경
@@ -164,4 +167,54 @@ console.log(globalThis);
 	}
 */
 ```
+
+전역 객체는 앞서 언급한 JS의 3가지 객체 표준 빌트인 객체, 호스트 객체, `var` 키워드로 선언한 사용자 정의 변수와 전역 함수를 프로퍼티로 갖는다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/1e25a083-c5ba-4ad6-ad4d-8f89215a541d" width="100%">
+
+아래 예제와 같이 `var`  키워드로 전역 변수 혹은 전역 함수를 선언하면 전역 객체의 프로퍼티로서 등록된다
+
+```javascript
+var globalVariable = "property of global object";
+```
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/af52ec83-2e6a-40d8-8ea6-a04d8a3b9ad5" width="100%">
+
+전역 객체는 최상위 객체다. 그러나 프로토타입 체인의 상속 관계상에서 최상위 객체라는 것을 의미하는 것은 아니다. 이는 전역 객체가 어떤 객체의 프로퍼티가 아니고 JS의 객체를 프로퍼티로 소유하는 최상위 객체라는 의미다
+
+전역 객체의 특징은 다음과 같다: 
+
+- 전역 객체는 개발자가 의도적으로 생성할 수 없다
+
+- 전역 객체의 프로퍼티(표준 빌트인 객체, 호스트 객체 등) 참조할 때 `window`, `global`, `globalThis` 등의 식별자를 생략할 수 있다
+
+  ```javascript
+  // 지정한 문자열 혹은 객체를 경고창을 띄우는 alert 빌트인 메서드
+  window.alert("Hello World"); 
+  
+  // window 식별자 없이 참조 가능하다
+  alert("Hello World")
+  ```
+
+- 전역 객체는 표준 빌트인 객체(`Object`, `String`, `Number`, `Boolean` 등)를 프로퍼티로 가진다
+
+- 전역 객체는 브라우저 환경과 `Node.js` 환경에 따라 추가적인 프로퍼티와 메서드인 호스트 객체를 프로퍼티로 가진다
+
+- 전역 객체는 `var` 키워드로 선언한 전역 변수와 전역 함수를 프로퍼티로 가진다
+
+- 전역 객체는 `let` 혹은 `const` 키워드로 선언한 전역 변수는 프로퍼티로 가지지 않는다. 이는 `let` 혹은 `const` 키워드로 선언한 변수가 [전역 렉시컬 환경]() 내에 존재하기 때문이다
+
+  ```javascript
+  let variable1 = "variable 1";
+  const variable2 = "variable 2";
+  
+  console.log(window.variable1); // → undefined
+  console.log(window.variable2); // → undefined
+  ```
+
+- 브라우저 환경에서 모든 JS 코드는 하나의 전역 객체를 공유한다. 즉, 여러 개의 `script` 태그를 통해 JS 코드를 분리해도 하나의 전역 객체 `window`를 공유한다는 의미다. 이를 통해 JS 코드 파일을 여러 개로 분리해도 하나의 전체 코드로서 활용이 가능해진다
+
+### 3-1 빌트인 전역 프로퍼티
+
+### 3-2 빌트인 전역 함수(메서드)
 
