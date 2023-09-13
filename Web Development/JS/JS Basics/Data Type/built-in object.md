@@ -216,5 +216,38 @@ var globalVariable = "property of global object";
 
 ### 3-1 빌트인 전역 프로퍼티
 
+빌트인 전역 프로퍼티(Built-in Global Property)란 전역 객체의 프로퍼티를 뜻한다. 
+
+- `Infinity` 전역 프로퍼티: 무한대를 나타내는 숫자값 `Infinity`를 프로퍼티 값으로 갖는다. `Infinity`는 양의 무한대 값을, `-Infinity`는 음의 무한대 값을 나타낸다. 
+
+  ```javascript
+  // 양의 무한대
+  console.log(1/0); // → Infinity
+  console.log(-1/0); // → -Infinity
+  
+  // 앞서 언급했듯이 Infinity는 숫자값이다
+  console.log(typeof Infinity); // → number
+  ```
+
+- `NaN` 전역 프로퍼티: 숫자가 아님(Not-a-Number)을 나타내는 숫자값 `NaN`을 프로퍼티 값으로 갖는다. `NaN` 프로퍼티는 전역 객체의 `Number.NaN` 프로퍼티와 같다
+
+  ```javascript
+  console.log(Number("abc")); // → NaN
+  console.log("string" * 123); // → NaN
+  
+  // 앞서 언급했듯이 NaN은 숫자값이다
+  console.log(typeof NaN); // → number
+  ```
+
+- `undefined` 프로퍼티: 정의되지 않은 값을 나타내는 `undefined`를 프로퍼티 값으로 갖는다
+
+  ```javascript
+  let a; 
+  console.log(a); // → undefined
+  
+  // undefined는 undefined 원시값이다
+  console.log(typeof undefined); // → undefined
+  ```
+
 ### 3-2 빌트인 전역 함수(메서드)
 
