@@ -251,3 +251,17 @@ var globalVariable = "property of global object";
 
 ### 3-2 빌트인 전역 함수(메서드)
 
+빌트인 전역 함수(Built-in Global Function)는 전역에서 호출 가능한 빌트인 함수로서 전역 객체의 메서드이기 때문에 빌트인 전역 메서드라고도 부른다
+
+### 3-2-1 eval 함수
+
+### 3-2-2 isInfinite 함수
+
+### 3-2-3 isNaN 함수
+
+### 3-2-4 parseFloat 함수
+
+### 3-2-5 parseInt 함수
+
+### 3-2-6 encodeURI와 decodeURI 함수
+
