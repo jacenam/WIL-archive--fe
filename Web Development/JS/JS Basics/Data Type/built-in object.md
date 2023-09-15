@@ -255,6 +255,8 @@ var globalVariable = "property of global object";
 
 ### 3-2-1 eval 함수
 
+`eval` 함수는 JS 코드를 문자열 형태로 나타내는 
+
 ### 3-2-2 isInfinite 함수
 
 ### 3-2-3 isNaN 함수
