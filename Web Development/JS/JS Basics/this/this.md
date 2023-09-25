@@ -3,6 +3,15 @@
 ### 목차
 
 - [1 this란](#1-this란)
+- [2 this 바인딩](#2-this-바인딩)
+- [3 this의 참조](#3-this의-참조)
+- [4 함수 호출 방식과 this 바인딩](#4-함수-호출-방식과-this-바인딩)
+- [5 this 바인딩 결정 방식](#5-this-바인딩-결정-방식)
+  - [5-1 일반 함수 호출](#5-1-일반-함수-호출)
+  - [5-2 메서드 호출](#5-2-메서드-호출)
+  - [5-3 생성자 함수 호출](#5-3-생성자-함수-호출)
+  - [5-4 Function.prototype.apply/call/bind 메서드에 의한 간접 호출](#5-4-Function.prototype.apply/call/bind-메서드에-의한-간접-호출)
+
 
 <br>
 
@@ -113,44 +122,218 @@ function Square(sideLength) {
 } // → Uncaught SyntaxError: Unexpected token '??'
 ```
 
+따라서 메서드 자신이 속한 객체 혹은 생성자 함수 자신이 생성할 인스턴스를 가리키는 식별자를 위해 JS는 `this` 라는 특수한 식별자를 제공하는 것이다. `this`는 메서드 자신이 속한 객체 또는 생성자 함수 자신이 생성할 인스턴스를 가리키는 자기 참조 변수(Self-referencing Variable)다
 
+<br>
 
+## 2 this 바인딩
 
+바인딩(Binding)이란 식별자와 값을 연결하는 것을 의미한다. 이미 앞서서 바인딩 현상을 살펴본 적이 있다. 바로 변수의 선언을 통해 변수 이름과 값을 저장할 메모리 공간의 주소를 연결하는 것이다. 따라서 `this` 바인딩은 `this` 식별자와 `this`가 가리킬 객체를 연결하는 것이다
+
+아래 에제를 살펴보자. 위 `this` 소개에서 살펴본 예제다. 아래 예제의 객체는 객체 리터럴 방식을 통해 생성된 객체이기 때문에 메서드 자신이 속한 객체를 가리키는 식별자 `square`를 통해 재귀적으로 프로퍼티에 접근할 수 있었다
+
+```javascript
+// 객체 리터럴 방식에 의해 생성된 객체
+const square = {
+  sideLength: 5, 
+  getArea() {
+    // 메서드 자신이 속한 객체를 가리키는 식별자를 통해 프로퍼티에 접근
+    return Math.pow(square.sideLength, 2);
+  }
+};
+
+console.log(square.getArea()); // → 25
+```
+
+`this`를 통해 위 예제를 수정하면 아래와 같다. 여기서 `this` 특수 식별자는 객체 리터럴 방식에 의해 생성된 객체의 메서드를 호출한 객체(즉 `square`)를 가리킨다
+
+```javascript
+const square = {
+  sideLength: 5, 
+  getArea() {
+    return Math.pow(this.sideLength, 2);
+  }
+}
+
+// this 식별자는 메서드를 호출한 객체를 가리킨다
+console.log(square.getArea()); // → 25
+```
+
+위 `this` 소개에서 살펴본 생성자 함수 예제도 살펴보자. 생성자 함수 자신이 생성할 인스턴스를 가리키는 식별자가 없었기 때문에 생성자 함수에 프로퍼티나 메서드를 추가해 사용할 수 없었다 
 
 ```javascript
 function Square(sideLength) {
+  // 생성자 함수 자신이 생성할 인스턴스를 가리키는 식별자를 알 수 없다
   ????.sideLength = sideLength;
 }
 
 Square.prototype.getArea = function () {
+  // 생성자 함수 자신이 생성할 인스턴스를 가리키는 식별자를 알 수 없다
   return Math.pow(????.sideLength, 2);
-}
+};
 
 const square = new Square(5);
 ```
 
-그렇다면 생성자 함수가 정의되는 시점과 프로토타입의 메서드가 생성되어 할당되는 시점 모두 생성자 함수 호출과 인스턴스 생성 시점보다 앞서 있다. 이런 경우 생성자 함수 내부의 `????.sideLength = sideLength;` 코드 문을 실행할 때 할당할 대상(식별자)이 없는 것이다
-
-
+`this`를 통해 위 예제를 수정하면 아래와 같다. 여기서 생성자 함수 내부의 `this` 식별자는 생성자 함수 자신이 생성할 인스턴스를 가리킨다
 
 ```javascript
-console.log(Square); 
-console.log(Square.prototype.getArea);
-console.log(square);
-
 function Square(sideLength) {
+  // 생성자 함수 자신이 생성할 인스턴스를 가리키는 식별자가 생겼다
   this.sideLength = sideLength;
 }
 
 Square.prototype.getArea = function () {
+  // 메서드를 호출할 객체를 가리키는 식별자가 생겼다
   return Math.pow(this.sideLength, 2);
-}
+};
 
+// 생성자 함수 호출
 const square = new Square(5);
-
-console.log(Square.prototype.getArea);
-console.log(square);
+// this 식별자는 메서드를 호출한 객체를 가리킨다
+console.log(square.getArea()); // → 25
 ```
 
+이처럼 `this` 식별자는 상황에 따라 가리키는 대상이 다르다는 것을 알 수 있다. 이는 `this`가 가리키는 값, 즉 `this` 바인딩은 함수 호출 방식에 의해 동적으로 결정된다. 따라서 함수 호출 방식에 따라 상이한다
+
+<br>
+
+## 3 this의 참조
+
+`this` 식별자는 전역, 함수 내부(지역) 등 코드 어디에서든 참조가 가능하다. 전역과 지역에서의 참조에 따라 반환되는 참조값도 다르다. 아래 예제를 살펴보자
+
+```javascript
+// 전역에서 this를 참조하면 전역 객체 window를 가리킨다
+console.log(this); // → Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+function triangle(base, height) {
+  // 함수 선언문 내부에서 this를 참조하면 전역 객체 window를 가리킨다
+  console.log(this); // → Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+  return (base * height) / 2
+}
+triangle(10, 5); 
+
+const circle = function(radius) {
+  // 함수 표현식 내부에서 this를 참조하면 전역 객체 window를 가리킨다
+  console.log(this); // → Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+  return Math.pow(radius, 2) * Math.PI;
+}
+circle(5);
+
+const user = {
+  name: "Jace",
+  getName() {
+    // 객체의 메서드 내부에서 this를 참조하면 메서드를 호출한 객체를 가리킨다
+    console.log(this); // → {name: 'Jace', getName: ƒ}
+    return this.name;
+  }
+}
+console.log(user.getName()); // → Jace
+
+function Square(sideLength) {
+  // 생성자 함수 내부에서 this를 참조하면 생성자 함수 자신이 생성할 인스턴스를 가리킨다
+  this.sideLength = sideLength;
+  console.log(this); // → Square {sideLength: 5}
+}
+const square = new Square(5);
+```
+
+예제에 대한 결과를 정리하자면 아래와 같다:
+
+- 전역에서 `this`를 참조하면 전역 객체 `window`를 가리키고 참조한다
+- 일반 함수(함수 선언문, 함수 표현식)내부에서 `this`를 참조하면 전역 객체 `window`를 가리키고 참조한다
+- 객체의 메서드 내부에서 `this`를 참조하면 메서드를 호출한 객체를 가리키고 참조한다
+- 생성자 함수 내부에서 `this`를 참조하면 생성자 함수 자신이 생성할 인스턴스를 가리키고 참조한다
+
+그러나 `this`는 객체의 프로퍼티 혹은 메서드를 참조하기 위한 자기 참조 변수이므로 일반적으로 객체의 메서드 내부 또는 생성자 함수 내부에서만 사용하는 것이 의미가 있다 
+
+<br>
+
+## 4 함수 호출 방식과 this 바인딩
+
+앞서 `this` 바인딩은 함수 호출 방식에 따라 동적으로 결정된다고 했다. 아래의 함수 호출 방식에 따라 `this` 바인딩 방식이 상이한다(위 `this` 참조와 유사하다): 
+
+1. 일반 함수(함수 선언문, 함수 표현식) 호출:
+
+   일반적인 함수 호출 시 `this`는 전역 객체 `window`에 바인딩된다
+
+   ```javascript
+   // 함수 선언문
+   function foo() {
+     console.log(this); // → Window
+   foo(); 
+   
+   // 함수 표현식
+   const bar = function() {
+     console.log(this); // → Window
+   };
+   bar();
+   ```
+
+2. 메서드 호출:
+
+   메서드 호출 시 `this`는 메서드를 호출한 객체에 바인딩된다
+
+   ```javascript
+   const obj = { 
+     foo() {}, 
+     bar() {
+       console.log(this); // → {foo: ƒ, bar: ƒ}
+     }
+   };
+   obj.bar(); 
+   ```
+
+3. 생성자 함수 호출
+
+   `new` 연산자와 함께 생성자 함수 호출 시 `this`는 생성자 함수 자신이 생성한 인스턴스를 가리킨다
+
+   ```javascript
+   function Foo(number) {
+     this.number = number;
+     console.log(this); // → Foo {number: 5}
+   }
+   
+   const foo = new Foo(5);
+   ```
+
+4. `Function.prototype.apply/call/bind` 메서드에 의한 간접 호출
+
+   > `Function.prototype.apply/call/bind`에 대해서는 [여기]()를 참고하자
+
+   ```javascript
+   const foo = function() {
+     console.log(this);
+   };
+   
+   const bar = { name: "bar" };
+   
+   foo.call(bar); // → { name: "bar" };
+   foo.apply(bar); // → { name: "bar" };
+   foo.bind(bar); // → ƒ () { console.log(this); }
+   ```
+
+<br>
+
+## 5 this 바인딩 결정 방식
+
+앞서 함수 호출 방식에 따라 `this` 바인딩의 방식이 상이한다고 했다. 그렇다면 `this` 바인딩이 어떻게 결정되는지 살펴보자
+
+### 5-1 일반 함수 호출
+
+### 5-2 메서드 호출
+
+### 5-3 생성자 함수 호출
+
+### 5-4 Function.prototype.apply/call/bind 메서드에 의한 간접 호출
 
 
+
+<br>
+
+***
+
+### 참고
+
+- [모던 자바스크립트 Deep Dive]()
+- [[JavaScript] this란 무엇일까](https://hanamon.kr/javascript-this%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/)
