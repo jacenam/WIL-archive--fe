@@ -255,7 +255,7 @@ const square = new Square(5);
 
 1. 일반 함수(함수 선언문, 함수 표현식) 호출:
 
-   일반적인 함수 호출 시 `this`는 전역 객체 `window`에 바인딩된다
+   일반적인 함수 호출 시 `this`는 전역 객체 `window`에 바인딩된다. `this`가 전역 객체 `window`에 바인딩되는 이유는 평가되어 객체를 생성하지 않는 일반 함수에서 자기 참조 변수가 필요없기 때문이다
 
    ```javascript
    // 함수 선언문
@@ -268,6 +268,17 @@ const square = new Square(5);
      console.log(this); // → Window
    };
    bar();
+   ```
+
+   다만 `strict mode` 상태에서 일반 함수 내부의 `this`에는 `undefined`가 바인딩된다
+
+   ```javascript
+   function foo() {
+     "use strict";
+     
+     console.log(this); // → undefined
+   }
+   foo();
    ```
 
 2. 메서드 호출:
@@ -320,6 +331,83 @@ const square = new Square(5);
 앞서 함수 호출 방식에 따라 `this` 바인딩의 방식이 상이한다고 했다. 그렇다면 `this` 바인딩이 어떻게 결정되는지 살펴보자
 
 ### 5-1 일반 함수 호출
+
+일반 함수(함수 선언문, 함수 표현식)를 일반적인 함수 호출 방식으로 호출할 경우 `this`는 전역 객체에 바인딩된다. 이는 [중첩함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/nested%20function.md), [콜백함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/callback%20function.md) 등에도 해당된다. 다시 말해, 어떠한 함수라도 일반 함수 호출 방식으로 함수를 호출하면 `this`는 전역 객체 `window`에 바인딩되는 것이다
+
+```javascript
+// 함수 표현식
+const foo = function() {
+  console.log(`foo: ${this}`); // → foo: [object window] 
+}
+foo();
+
+// 함수 선언문으로 정의한 중첩 함수
+function bar() {
+  console.log(`foo: ${this}`); // → bar: [object window] 
+  function baz() {
+    console.log(`bar: ${this}`); // → baz: [object window]
+  }
+  baz();
+}
+bar();
+```
+
+여기서 주의해야할 것은 메서드 내에서 정의한 중첩 함수도 일반적인 함수 호출 방식으로 호출되면 중첩 함수 내부의 `this`는 전역 객체 `window`에 바인딩된다
+
+```javascript
+// var 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 된다
+// const 키워드로 전역 변수를 선언하면 전역 객체의 프로퍼티가 되지 않는다
+var value = 1;
+
+const obj = {
+  value: 100,
+  foo() {
+    // 메서드를 호출하면 this는 자신을 호출한 객체에 바인딩된다
+    console.log(`foo: ${this}`); // → foo: {value: 100, foo: ƒ }
+    console.log(`foo this.value: ${this.value}`); // → foo this.value: 100
+    
+    // 메서드 내부에서 정의한 중첩 함수
+    function bar() {
+      // 메서드 내부에서 정의한 중첩 함수도 일반적인 함수 호출 방식으로 호출되면 this는 전역 객체 window에 바인딩 된다
+      console.log(`bar: ${this}`); // → bar: [object window]
+      // 따라서 메서드 내부의 중첩함수의 this는 전역 객체의 프로퍼티인 var 키워드로 선언한 변수의 값을 참조한다
+      console.log(`bar this.value: ${this.value}`); // → 1 
+    }
+    bar();
+  },
+};
+
+obj.foo();
+```
+
+위에서 언급했듯이 콜백 함수도 일반적인 함수 호출 방식으로 호출된다면 콜백 함수 내부의 `this`에도 전역 객체 `window`가 바인딩된다
+
+```javascript
+const obj = {
+  value: 100,
+  foo() {
+    console.log(`foo: ${this}`);
+    console.log(`foo this.value: ${this.value}`);
+    
+    function callback(number, extraLogic) {
+      console.log(`callback: ${this}`);
+      console.log(`callback this.value: ${this.value}`);
+      for (let i = 0; i < number; i++) {
+        extraLogic(i);
+      }
+    }
+    callback(10, returnNum);
+  },
+};
+
+const returnNum = function (i) {
+  console.log(i);
+};
+
+obj.foo(10, returnNum);
+```
+
+
 
 ### 5-2 메서드 호출
 
