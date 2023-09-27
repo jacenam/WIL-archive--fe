@@ -386,14 +386,14 @@ obj.foo();
 const obj = {
   value: 100,
   foo() {
-    console.log(`foo: ${this}`);
-    console.log(`foo this.value: ${this.value}`);
+    console.log(`foo: ${this}`); // → foo: {value: 100, foo: ƒ }
+    console.log(`foo this.value: ${this.value}`); // → foo this.value: 100
     
     function callback(number, extraLogic) {
-      console.log(`callback: ${this}`);
-      console.log(`callback this.value: ${this.value}`);
+      console.log(`callback: ${this}`); // → callback: [object window]
+      console.log(`callback this.value: ${this.value}`); // → callback this.value: undefined
       for (let i = 0; i < number; i++) {
-        extraLogic(i);
+        extraLogic(i); 
       }
     }
     callback(10, returnNum);
@@ -401,13 +401,13 @@ const obj = {
 };
 
 const returnNum = function (i) {
-  console.log(i);
+  console.log(i); // → 0 1 2 3 4 5 6 7 8 9
+  console.log(`returnNum: ${this}`); // → returnNum: [object window]
+  console.log(`returnNum this.value: ${this.value}`) // → returnNum this.value: undefined
 };
 
-obj.foo(10, returnNum);
+obj.foo();
 ```
-
-
 
 ### 5-2 메서드 호출
 
