@@ -386,11 +386,14 @@ obj.foo();
 const obj = {
   value: 100,
   foo() {
+    // 메서드를 호출하면 this는 자신을 호출한 객체에 바인딩된다
     console.log(`foo: ${this}`); // → foo: {value: 100, foo: ƒ }
     console.log(`foo this.value: ${this.value}`); // → foo this.value: 100
-    
+    // 메서드 내부에서 정의한 콜백 함수
     function callback(number, extraLogic) {
+       // 메서드 내부에서 정의한 콜백 함수도 일반적인 함수 호출 방식으로 호출되면 this는 전역 객체 window에 바인딩 된다
       console.log(`callback: ${this}`); // → callback: [object window]
+       // 따라서 메서드 내부의 중첩함수의 this는 전역 객체의 프로퍼티인 var 키워드로 선언한 변수의 값을 참조한다
       console.log(`callback this.value: ${this.value}`); // → callback this.value: undefined
       for (let i = 0; i < number; i++) {
         extraLogic(i); 
@@ -408,6 +411,12 @@ const returnNum = function (i) {
 
 obj.foo();
 ```
+
+메서드 내에서 정의한 중첩 함수 또는 메서드에게 전달되는 콜백 함수가 일반 함수로 호출될 때 메서드 내의 중첩 함수 또는 콜백 함수의 `this`가 전역 객체에 바인딩 되는 것은 문제가 있다. 중첩 함수 또는 콜백 함수는 헬퍼 함수의 역할을 하므로 외부 함수의 일부 로직을 대신하는 경우가 대부분이다. 하지만 외부 함수인 메서드와 중첩 함수 또는 콜백 함수의 `this`가 일치하지 않는다는 것은 중첩 함수 또는 콜백 함수를 헬퍼 함수로 동작하기 어렵게 만들기도 한다. 
+
+외부 함수(여기 예제에서는 메서드를 의미한다), 헬퍼 함수(메서드 내에서 정의된 중첩 함수 또는 메서드에게 전달되는 콜백 함수)를 도식화해서 이해해보도록 하자(어떠한 문제ㅗㄹ 인해 헬퍼 함수로서의 정상적인 동작을 어렵게 만든다는 것인지...?)
+
+그리고 난 뒤에 메서드 내부의 중첩 함수나 콜백 함수의 `this` 바인딩을 메서드의 `this` 바인딩과 일치시키기 위한 방법을 설명하자
 
 ### 5-2 메서드 호출
 
