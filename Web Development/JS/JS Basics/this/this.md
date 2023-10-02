@@ -419,12 +419,36 @@ obj.foo();
 이러한 문제를 해결하기 위해 외부 함수인 메서드 `this`와 헬퍼 함수인 중첩 함수 혹은 콜백 함수의 `this`의 바인딩을 일치시키는 방법은 다음과 같다: 
 
 ```javascript
+// var 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 된다
+// const 키워드로 전역 변수를 선언하면 전역 객체의 프로퍼티가 되지 않는다
 var value = 1;
 
+const obj = {
+  value: 100,
+  foo() {
+    // 메서드를 호출하면 this는 자신을 호출한 객체에 바인딩된다
+    console.log(this); // → { value: 100, foo: ƒ }
+		// this 바인딩을 that 변수에 할당한다
+    const that = this;
+    console.log(that); // → { value: 100, foo: ƒ }
+    
+    function callback(number, extraLogic) {
+      for(let i = 0; i < number; i++) {
+        console.log(that.value);
+        console.log(this.value);
+        extraLogic(i);
+      }
+    }
+    callback(10, returnNum);
+  }
+}
 
+const returnNum = function(i) {
+  console.log(i);
+}
+
+obj.foo(); 
 ```
-
-
 
 ### 5-2 메서드 호출
 
