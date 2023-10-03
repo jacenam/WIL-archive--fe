@@ -78,11 +78,11 @@
 
 ## Library
 
-- [라이브러리란]()
+- [라이브러리란](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/Library/library.md)
 
 <br>
 
 ## Package Managers
 
 - [패키지 매니저란]()
-- [npm]()
+- [npm](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/Package%20Manager/npm.md)
