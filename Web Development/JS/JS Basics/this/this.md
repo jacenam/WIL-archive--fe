@@ -418,6 +418,22 @@ obj.foo();
 
 이러한 문제를 해결하기 위해 외부 함수인 메서드 `this`와 헬퍼 함수인 중첩 함수 혹은 콜백 함수의 `this`의 바인딩을 일치시키는 방법은 다음과 같다: 
 
+-  `foo` 메서드 내부의  `this`(1)는 메서드 자신을 호출한 객체에 바인딩된다
+
+  → `{ value: 100, foo: ƒ }`
+
+-  `this`(2) 바인딩을 `that` 변수에 할당한다
+
+  →  `{ value: 100, foo: ƒ }`
+
+-  `foo` 메서드 내부의 `callback` 콜백 함수는 일반적인 방식으로 호출되면 `callback` 함수 내부의 `this`(3)는 전역 객체 `window`에 바인딩된다. 따라서 `this.value`를 참조하면 `var` 키워드로 선언한 전역 객체의 프로퍼티 `value`를 참조한다
+
+  → `1`
+
+- 그렇기에 `obj` 객체에 바인딩된 `this`(2)를 할당받은 `that`(4)을 기준으로 `value` 프로퍼티를 참조한다. 그러면 `obj` 객체의 `value` 프로퍼티를 참조하게 된다
+
+  → `100`
+
 ```javascript
 // var 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 된다
 // const 키워드로 전역 변수를 선언하면 전역 객체의 프로퍼티가 되지 않는다
@@ -426,17 +442,43 @@ var value = 1;
 const obj = {
   value: 100,
   foo() {
-    // 메서드를 호출하면 this는 자신을 호출한 객체에 바인딩된다
+    // 메서드를 호출하면 this(1)는 자신을 호출한 객체에 바인딩된다
     console.log(this); // → { value: 100, foo: ƒ }
-		// this 바인딩을 that 변수에 할당한다
+		// this(2) 바인딩을 that 변수에 할당한다
     const that = this;
     console.log(that); // → { value: 100, foo: ƒ }
     
     function callback(number, extraLogic) {
       for(let i = 0; i < number; i++) {
-        console.log(that.value);
-        console.log(this.value);
+        // 콜백 함수가 일반적인 방식으로 호출되면 this(3)는 전역 객체에 바인딩 된다
+        console.log(this.value); // → 1 1 1 1 1 1 1 1 1
+        // 따라서 obj 객체에 바인딩된 this(2)를 할당받은 that(4)을 참조한다
+        console.log(that.value); // → 100 100 100 100 100 100 100 100 100
         extraLogic(i);
+      }
+    }
+    callback(10, returnNum);
+  }
+}
+
+const returnNum = function(i) {
+  console.log(i); // → 0 1 2 3 4 5 6 7 8 9
+}
+
+obj.foo(); 
+```
+
+`this`를 명시적으로 대상을 지정해 바인딩할 수 있는 방법은 위 예제에서의 방법 외에도 `Function.prototype.apply/call/bind` 메서드도 존재한다
+
+```javascript
+var value = 1;
+
+const obj = {
+  value: 100,
+  foo() {
+    function callback(number, extraLogic) {
+      for(let i = 0; i < number; i++) {
+       extraLogic(i); 
       }
     }
     callback(10, returnNum);
@@ -447,8 +489,10 @@ const returnNum = function(i) {
   console.log(i);
 }
 
-obj.foo(); 
+obj.foo();
 ```
+
+
 
 ### 5-2 메서드 호출
 
