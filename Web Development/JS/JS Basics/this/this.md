@@ -382,6 +382,20 @@ obj.foo();
 
 위에서 언급했듯이 콜백 함수도 일반적인 함수 호출 방식으로 호출된다면 콜백 함수 내부의 `this`에도 전역 객체 `window`가 바인딩된다
 
+> `setTimeout` 메서드는 콜백 함수를 활용하는 대표적인 예다. 콜백 함수란 특정 함수의 매개변수를 통해 내부로 전달되는 함수로서 헬퍼 함수라고 부르기도 한다. `setTimeout` 메서드의 첫 번째 매개변수에는 실행시킬 콜백 함수, 두 번째 매개변수에는 콜백 함수 실행의 지연 시간을 밀리초 단위로 전달한다
+>
+> ```javascript
+> // setTimeout 메서드 사용법
+> setTimeout(콜백 함수, 지연시간); 
+> 
+> // setTimeout 메서드 예제
+> // setTimeout 메서드의 매개변수에 전달된 콜백 함수를 2초 뒤에 실행한다
+> setTimeout(function(){ console.log("콜백 함수") }, 2000); 
+> 
+> // 위 예제를 화살표 함수로 단순화
+> setTimeout(() => console.log("콜백 함수"), 2000);
+> ```
+
 ```javascript
 const obj = {
   value: 100,
@@ -390,23 +404,13 @@ const obj = {
     console.log(`foo: ${this}`); // → foo: {value: 100, foo: ƒ }
     console.log(`foo this.value: ${this.value}`); // → foo this.value: 100
     // 메서드 내부에서 정의한 콜백 함수
-    function callback(number, extraLogic) {
-       // 메서드 내부에서 정의한 콜백 함수도 일반적인 함수 호출 방식으로 호출되면 this는 전역 객체 window에 바인딩 된다
+  	setTimeout(function() {
+      // 메서드 내부에서 정의한 콜백 함수도 일반적인 함수 호출 방식으로 호출되면 this는 전역 객체 window에 바인딩 된다
       console.log(`callback: ${this}`); // → callback: [object window]
-       // 따라서 메서드 내부의 중첩함수의 this는 전역 객체의 프로퍼티인 var 키워드로 선언한 변수의 값을 참조한다
+      // 따라서 메서드 내부의 중첩함수의 this는 전역 객체의 프로퍼티인 var 키워드로 선언한 변수의 값을 참조한다
       console.log(`callback this.value: ${this.value}`); // → callback this.value: undefined
-      for (let i = 0; i < number; i++) {
-        extraLogic(i); 
-      }
-    }
-    callback(10, returnNum);
-  },
-};
-
-const returnNum = function (i) {
-  console.log(i); // → 0 1 2 3 4 5 6 7 8 9
-  console.log(`returnNum: ${this}`); // → returnNum: [object window]
-  console.log(`returnNum this.value: ${this.value}`) // → returnNum this.value: undefined
+    }, 2000);
+  }
 };
 
 obj.foo();
@@ -420,19 +424,27 @@ obj.foo();
 
 -  `foo` 메서드 내부의  `this`(1)는 메서드 자신을 호출한 객체에 바인딩된다
 
-  → `{ value: 100, foo: ƒ }`
+  ```javascript
+  console.log(this); // → { value: 100, foo: ƒ }
+  ```
 
 -  `this`(2) 바인딩을 `that` 변수에 할당한다
 
-  →  `{ value: 100, foo: ƒ }`
+  ```javascript
+  console.log(that); // → { value: 100, foo: ƒ }
+  ```
 
--  `foo` 메서드 내부의 `callback` 콜백 함수는 일반적인 방식으로 호출되면 `callback` 함수 내부의 `this`(3)는 전역 객체 `window`에 바인딩된다. 따라서 `this.value`를 참조하면 `var` 키워드로 선언한 전역 객체의 프로퍼티 `value`를 참조한다
+- `foo` 메서드 내부의 `callback` 콜백 함수는 일반적인 방식으로 호출되면 `callback` 함수 내부의 `this`(3)는 전역 객체 `window`에 바인딩된다. 따라서 `this.value`를 참조하면 `var` 키워드로 선언한 전역 객체의 프로퍼티 `value`를 참조한다
 
-  → `1`
+  ```javascript
+  console.log(this.value); // → 1
+  ```
 
 - 그렇기에 `obj` 객체에 바인딩된 `this`(2)를 할당받은 `that`(4)을 기준으로 `value` 프로퍼티를 참조한다. 그러면 `obj` 객체의 `value` 프로퍼티를 참조하게 된다
 
-  → `100`
+  ```javascript
+  console.log(that.value); // → 100
+  ```
 
 ```javascript
 // var 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 된다
@@ -448,51 +460,20 @@ const obj = {
     const that = this;
     console.log(that); // → { value: 100, foo: ƒ }
     
-    function callback(number, extraLogic) {
-      for(let i = 0; i < number; i++) {
-        // 콜백 함수가 일반적인 방식으로 호출되면 this(3)는 전역 객체에 바인딩 된다
-        console.log(this.value); // → 1 1 1 1 1 1 1 1 1
-        // 따라서 obj 객체에 바인딩된 this(2)를 할당받은 that(4)을 참조한다
-        console.log(that.value); // → 100 100 100 100 100 100 100 100 100
-        extraLogic(i);
-      }
-    }
-    callback(10, returnNum);
+    setTimeout(function() {
+      // 콜백 함수가 일반적인 방식으로 호출되면 this(3)는 전역 객체에 바인딩 된다
+      console.log(this.value); // → 1
+      // 따라서 obj 객체에 바인딩된 this(2)를 할당받은 that(4)을 참조한다
+      console.log(that.value); // → 100
+    }, 2000);
   }
-}
+};
 
-const returnNum = function(i) {
-  console.log(i); // → 0 1 2 3 4 5 6 7 8 9
-}
 
 obj.foo(); 
 ```
 
-`this`를 명시적으로 대상을 지정해 바인딩할 수 있는 방법은 위 예제에서의 방법 외에도 `Function.prototype.apply/call/bind` 메서드도 존재한다
-
-```javascript
-var value = 1;
-
-const obj = {
-  value: 100,
-  foo() {
-    function callback(number, extraLogic) {
-      for(let i = 0; i < number; i++) {
-       extraLogic(i); 
-      }
-    }
-    callback(10, returnNum);
-  }
-}
-
-const returnNum = function(i) {
-  console.log(i);
-}
-
-obj.foo();
-```
-
-
+`this`를 명시적으로 대상을 지정해 바인딩할 수 있는 방법은 위 예제에서의 방법 외에도 `Function.prototype.apply/call/bind` 메서드와 화살표 함수가 존재한다. 이에 대해서는 [Function.prototype.apply/call/bind 메서드](#5-4-Function.prototype.apply/call/bind-메서드에-의한-간접-호출)에 의한 간접 호출, [화살표 함수에 의한 `this` 바인딩]() 파트에서 살펴보자
 
 ### 5-2 메서드 호출
 
