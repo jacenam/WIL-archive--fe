@@ -477,6 +477,52 @@ obj.foo();
 
 ### 5-2 메서드 호출
 
+앞서 메서드 내부의 `this`는 메서드를 호출한 객체에 바인딩된다 했다. 다시 말해 메서드(`getName`)를 호출할 때 마침표 연산자(`.`) 앞에 기술한 객체(`user`)에 바인딩 되는 것이다
+
+```javascript
+const user = {
+    name: "Jace", 
+    getName() {
+        console.log(this); // → {name: 'Jace', getName: ƒ}
+        console.log(this.name); // → Jace
+    }
+};
+
+user.getName(); 
+```
+
+여기서 주의할 것은 메서드 내부의 `this`는 메서드를 소유한 객체가 아니라 메서드를 호출한 객체에 바인딩된다는 것이다. 아래 예제를 살펴보면 `user` 객체에 속하는 `getName` 메서드를 또 따른 객체인 `anotherUser` 객체의 메서드로 할당했다. 그리고 `anotherUser` 객체에서 `getName` 메서드를 호출했을 때 `this`는 `anotherUser` 객체에 바인딩되는 것을 확인할 수 있다. 앞서 언급한대로 메서드 내부의 `this`는 메서드를 본래 소유한 객체(`user`)에 바인딩되는 것이 아니라 메서드를 할당 받은 다른 객체(`anotherUser`)가 메서드를 호출했을 때 바인딩이 결정된다는 의미다
+
+```javascript
+const user = {
+    name: "Jace", 
+    getName() {
+        console.log(this); // → {name: 'Jace', getName: ƒ}
+        console.log(this.name); // → Jace
+    }
+};
+
+user.getName(); 
+
+// 또 다른 객체 생성
+const anotherUser = {
+    name: "Ju Hyung", 
+};
+
+// 마침표 접근 연산자를 통해 getName 메서드를 anotherUser 객체의 메서드로 할당
+anotherUser.getName = user.getName;
+
+// 다른 객체에서 getName 메서드를 호출했을 때 this는 해당 객체에 바인딩된다
+anotherUser.getName(); 
+/*
+→ {name: 'Ju Hyung', getName: ƒ}
+→ Ju Hyung 
+*/
+
+```
+
+
+
 ### 5-3 생성자 함수 호출
 
 ### 5-4 Function.prototype.apply/call/bind 메서드에 의한 간접 호출
