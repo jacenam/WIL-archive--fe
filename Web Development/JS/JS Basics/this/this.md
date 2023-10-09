@@ -518,7 +518,37 @@ anotherUser.getName();
 → {name: 'Ju Hyung', getName: ƒ}
 → Ju Hyung 
 */
+```
 
+`this`가 메서드를 소유하고 있는 객체가 아닌 자신을 호출한 객체에 바인딩되는 것은 메서드의 동작 원리를 살펴보면 이해할 수 있다. 메서드는 객체의 프로퍼티다. 엄밀히 따지면 메서드는 특정 객체의 프로퍼티에 바인딩된 함수라고 볼 수 있다. 아래 예제에 대한 설명으로, `user` 객체는 `name` 프로퍼티와 `getName` 프로퍼티(메서드)를 소유한다. 그러나 `getName` 프로퍼티의 값은 독립적인 함수 객체로서 존재한다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/87a1912a-997e-4ceb-a8d8-d2ac70507e1b" width="100%">
+
+따라서 `getName` 프로퍼티가 가리키는 함수 객체인 `getName` 메서드는 다른 객체의 프로퍼티에 할당하여 다른 객체의 메서드가 될 수도 있고 일반 변수에 할당하여 일반 함수로서 호출될 수도 있다
+
+```javascript
+// 위에서 살펴본 예제
+const user = {
+  name: "Jace",
+  getName() {
+    console.log(this);
+    console.log(this.name);
+  }
+}
+
+// 다른 객체에 getName 프로퍼티(메서드) 할당
+const anotherUser = {
+  name: "Ju Hyung",
+}
+anotherUser.getName = user.getName; 
+
+// 일반 변수에 할당, 일반 함수로서 호출
+const getUserName = user.getName;
+getUserName();
+/* window.name은 브라우저 창의 이름을 나타내는 빌트인 프로퍼티로서 기본값은 빈 문자열("")이다
+→ Window
+→ ""
+*/
 ```
 
 
