@@ -520,7 +520,7 @@ anotherUser.getName();
 */
 ```
 
-`this`가 메서드를 소유하고 있는 객체가 아닌 자신을 호출한 객체에 바인딩되는 것은 메서드의 동작 원리를 살펴보면 이해할 수 있다. 메서드는 객체의 프로퍼티다. 엄밀히 따지면 메서드는 특정 객체의 프로퍼티에 바인딩된 함수라고 볼 수 있다. 아래 예제에 대한 설명으로, `user` 객체는 `name` 프로퍼티와 `getName` 프로퍼티(메서드)를 소유한다. 그러나 `getName` 프로퍼티의 값은 독립적인 함수 객체로서 존재한다
+`this`가 메서드를 소유하고 있는 객체가 아닌 자신을 호출한 객체에 바인딩되는 것은 메서드의 동작 원리를 살펴보면 이해할 수 있다. 메서드는 객체의 프로퍼티다. 엄밀히 따지면 메서드는 특정 객체의 프로퍼티에 바인딩된 함수라고 볼 수 있다. 아래는 앞선 예제에 대한 설명으로, `user` 객체는 `name` 프로퍼티와 `getName` 프로퍼티(메서드)를 소유한다. 그러나 `getName` 프로퍼티의 값은 독립적인 함수 객체로서 존재한다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/87a1912a-997e-4ceb-a8d8-d2ac70507e1b" width="100%">
 
@@ -551,7 +551,48 @@ getUserName();
 */
 ```
 
+아래 그림을 보면 이해가 더 쉽다. `user` 객체의 `getName` 프로퍼티는 함수 객체를 가리키고 있고, `anotherUser`의 `getName` 프로퍼티에는 `user` 객체의 `getName` 메서드를 할당했기 때문에 `anotherUser`의 `getName` 프로퍼티는 같은 함수 객체를 공유하게 된다
 
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/647a1496-edd9-4ae4-9974-93fc482fe5cc" width="100%">
+
+따라서 `getName` 프로퍼티가 가리키는 함수 객체는 `user` 객체에서 `getName` 메서드를 호출한 것인지, `anotherUser` 객체에서 `getName` 메서드를 호출한 것인지 메서드 호출 이전까지 알 수 없기 때문에 자기 참조 변수인 `this` 정보를 가진다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/a66332d0-4b25-4c3c-8a9c-3e1fd1997174" width="100%">
+
+그리고 `this`는 메서드가 호출된 시점에 바인딩이 결정된다
+
+```javascript
+user.getName(); // → Jace
+```
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/83ff06c8-eb39-4e1a-a764-1605f2ec1836" width="100%">
+
+프로토타입 메서드 내부의 `this` 바인딩도 일반 객체의 메서드와 마찬가지로 메서드를 호출한 객체에 바인딩 된다. 아래 예제를 살펴보자
+
+```javascript
+function Square(sideLength) {
+  this.sideLength = sideLength; 
+}
+
+Square.prototype.getArea = function() {
+  console.log(Math.pow(this.sideLength, 2));
+};
+
+const square = new Square(5);
+
+// getArea 메서드를 호출한 객체는 인스턴스다
+square.getArea(); // → 25
+
+// Square 생성자 함수에 sideLength 프로퍼티 추가
+Square.prototype.sideLength = 10;
+
+// getArea 메서드를 호출한 객체는 Square 생성자 함수다
+Square.prototype.getArea(); // → 100
+```
+
+`Square` 생성자 함수에 의해 `square` 인스턴스를 생성했고, `square` 인스턴스가  `Square.prototype` 객체의 `getArea` 메서드를 호출했다. 이때 함수 객체의  `this`는 `square` 인스턴스에 바인딩된다. 그리고 `Square` 생성자 함수도 객체이기 때문에 직접 `getArea` 메서드를 호출할 수 있다. 이런 경우, 함수 객체의 `this`는 `Square` 생성자 함수에 바인딩 된다
+
+<img src="" width="100%">
 
 ### 5-3 생성자 함수 호출
 
