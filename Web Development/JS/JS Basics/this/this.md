@@ -590,13 +590,191 @@ Square.prototype.sideLength = 10;
 Square.prototype.getArea(); // → 100
 ```
 
-`Square` 생성자 함수에 의해 `square` 인스턴스를 생성했고, `square` 인스턴스가  `Square.prototype` 객체의 `getArea` 메서드를 호출했다. 이때 함수 객체의  `this`는 `square` 인스턴스에 바인딩된다. 그리고 `Square` 생성자 함수도 객체이기 때문에 직접 `getArea` 메서드를 호출할 수 있다. 이런 경우, 함수 객체의 `this`는 `Square` 생성자 함수에 바인딩 된다
+`Square` 생성자 함수에 의해 `square` 인스턴스를 생성했고, `square` 인스턴스가  `Square.prototype` 객체의 `getArea` 메서드를 호출했다. 이때 함수 객체의  `this`는 `square` 인스턴스에 바인딩된다. 따라서 `this.sideLength`는 `25`다
 
-<img src="" width="100%">
+ 그리고 `Square` 생성자 함수도 객체이기 때문에 직접 `getArea` 메서드를 호출할 수 있다. 이런 경우 함수 객체의 `this`는 `Square` 생성자 함수에 바인딩 된다. 따라서 `this.sideLength`는 `100`이다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/a192716b-df52-4957-b66e-a5b40ff2d678" width="100%">
 
 ### 5-3 생성자 함수 호출
 
+앞서 [함수 호출 방식과 this 바인딩](#4-함수-호출-방식과-this-바인딩)에서 살펴봤듯이 생성자 함수 내부에 정의된 `this`는 생성자 함수가 미래에 생성할 인스턴스에 바인딩된다
+
+```javascript
+// 생성자 함수 정의
+function Square(sideLength) {
+  this.sideLength = sideLength;
+  // 프로로타입이 아닌 생성자 함수에서 메서드 정의
+  // 모든 인스턴스가 프로퍼티와 메서드를 갖게 된다
+  this.getArea = function() {
+    return Math.pow(this.sideLength, 2);
+  };
+}
+
+// 따라서 Square.prototype 객체에는 메서드가 없다
+console.log(Square.prototype); // → {constructor: ƒ}
+
+const square1 = new Square(5);
+const square2 = new Square(10);
+
+console.log(square1, square2); 
+/* 
+→ Square {sideLength: 5, getArea: ƒ} 
+→ Square {sideLength: 10, getArea: ƒ}
+*/
+
+console.log(square1.getArea()); // → 25
+console.log(square2.getArea()); // → 100
+```
+
+만약 `new` 연산자와 함께 생성자 함수를 호출하지 않으면 일반 함수로 동작한다. 앞서 [함수 호출 방식과 this 바인딩](#4-함수-호출-방식과-this-바인딩)에서 살펴봤듯이 일반적인 방식으로 함수를 호출할 시 `this`는 전역 객체 `window`에 바인딩된다. 따라서 `getArea` 메서드는 전역 객체의 프로퍼티가 되기 때문에 `square.getArea()` 호출문은 에러가 발생한다 
+
+```javascript
+// 생성자 함수 정의
+function Square(sideLength) {
+  this.sideLength = sideLength;
+  this.getArea = function() {
+    return Math.pow(this.sideLength, 2);
+  };
+  // 일반 함수 호출 시 this는 전역 객체에 바인딩 된다
+  console.log(this); // → Window
+}
+
+const square = Square(5); 
+
+// getArea 메서드는 전역 객체의 프로퍼티가 된다
+console.log(window.getArea()); // → 25
+// 따라서 square 변수 식별자를 통해 getArea 메서드를 호출할 수 없다
+console.log(square.getArea()); // → Uncaught TypeError: Cannot read properties of undefined (reading 'getArea')
+```
+
 ### 5-4 Function.prototype.apply/call/bind 메서드에 의한 간접 호출
+
+`apply`, `call`, `bind` 메서드는 `Function` 생성자 함수에서 비롯된 `Function.prototype`의 메서드다. 즉 모든 함수가 `Function.prototype` 객체로부터 상속받아 사용할 수 있다. 먼저 `apply`와 `call` 메서드부터 살펴보자
+
+> [`constructor` 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-2-constructor-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0feat-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98), [`__proto__` 접근자 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-4-proto-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0), [`getPrototypeOf` 메서드](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-4-proto-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)에 대해서는 각 링크를 참고하자
+
+```javascript
+// 함수 정의문
+function sum(a, b, c) {
+  return a + b + c;
+}
+
+// sum 함수는 Function.prototype 객체의 constructor 프로퍼티를 통해 생성자 함수와 연결된다
+console.log(sum.constructor === Function); // → true
+
+// sum 함수는 Object.prototype 객체의 __proto__ 접근자 프로퍼티를 통해 Function.prototype 객체에 접근할 수 있다 
+console.log(sum.__proto__ === Function.prototype); // → true 
+
+// getPrototypeOf 메서드는 __proto__ 접근자 프로퍼티를 대신해서 사용한다
+console.log(Object.getPrototypeOf(sum) === Function.prototype); // → true
+
+// Function.prototype 객체로부터 상속 받은 apply/call 메서드를 사용할 수 있다
+console.log(Function.prototype.hasOwnProperty("apply")); // → true
+console.lop(Function.prototype.hasOwnProperty("call")); // → true
+console.log(sum.apply(null, [1, 2, 3])); // → 6
+console.log(sum.call(null, 1, 2, 3)); // → 6
+```
+
+함수는 호출되어야 실행할 수 있다. [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function%20invoke.md)의 가장 기본적인 방식은 함수 호출 연산자(`()`)를 활용하는 것이다. 그러나 앞서 언급한 `Function.prototype`의 `apply/call` 메서드를 통해서도 함수를 호출할 수 있다
+
+```javascript
+function sum(a, b, c) {
+  return a + b + c;
+}
+
+// 일반적인 함수 호출
+console.log(sum(1, 2, 3)); // → 6
+
+// apply 메서드를 통한 함수 호출
+console.log(sum.apply(null, [1, 2, 3])); // → 6
+console.log(sum.call(null, 1, 2, 3)); // → 6
+```
+
+아래는 `apply`와 `call` 메서드의 사용법이다. 위 예제에서는 각 메서드의 첫 번째 매개변수에는  `null`이 인수로 전달되었다
+
+```javascript
+/**
+apply 메서드
+* thisArg - this가 대체될 객체
+* argsArr - 함수에 전달할 인수(배열 또는 유사 배열 객체 형태)
+**/
+
+Function.prototype.apply(thisArg,[argsArr]); 
+함수명.(thisArg,[argsArr]); 
+
+/**
+call 메서드
+* thisArg - this가 대체될 객체
+* arg1, arg2, ... - 함수에 전달될 인수
+**/
+
+Function.prototype.call(thisArg, arg1, arg2, ...);
+함수명.call(thisArg, arg1, arg2, ...);
+```
+
+예제를 살펴보자
+
+```javascript
+const user = {
+  name: "Jace",
+  getName() {
+    console.log(this.name);
+  },
+};
+
+const anotherUser = {
+  name: "Ju Hyung"
+};
+
+user.getName(); // → Jace
+user.getName.apply(anotherUser); // // → Ju Hyung
+user.getName.call(anotherUser); // → Ju Hyung
+```
+
+
+
+```javascript
+function User(name) {
+	this.name = name;
+}
+
+function getName() {
+  console.log(this.name);
+}
+
+const user1 = new User("Jace");
+const user2 = new User("Ju Hyung");
+const user3 = new User("Zhou Heng");
+
+getName.call(user1); 
+getName.call(user2);
+getName.call(user3);
+```
+
+
+
+```javascript
+function User(name) {
+	this.name = name;
+}
+
+function defineUser(age, residence) {
+  console.log(`${this.name}은 ${age}세이며 ${residence}에 거주합니다`);
+}
+
+const user1 = new User("Jace");
+const user2 = new User("Ju Hyung");
+const user3 = new User("Zhou Heng");
+
+defineUser.call(user1, 30, "United States");
+defineUser.call(user2, 31, "South Korea");
+defineUser.call(user3, 32, "China");
+
+defineUser.apply(user1, [30, "United States"]);
+defineUser.apply(user2, [31, "South Korea"]);
+defineUser.apply(user3, [32, "China"]);
+```
 
 
 
