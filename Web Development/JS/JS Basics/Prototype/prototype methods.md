@@ -11,7 +11,7 @@
   - [3-2 Object.prototype.hasOwnProperty 메서드](#3-2-Object.prototype.hasOwnProperty-메서드)
 - [4 프로퍼티 열거](#4-프로퍼티-열거)
   - [4-1 for...in 문](#4-1-for...in-문)
-  - [4-2 Object.keys/values/entries 메서드](#4-1-Object.keys/values/entries-메서드)
+  - [4-2 Object.keys/values/entries 메서드](#4-2-Object.keys/values/entries-메서드)
 
 <br>
 
@@ -198,8 +198,6 @@ for (const element of arr) {
 
 arr.forEach(e => console.log(e)); // → 1 2 3
 ```
-
-### 4-2 Object.keys/values/entries 메서드
 
 ### 4-2 Object.keys/values/entries 메서드
 
