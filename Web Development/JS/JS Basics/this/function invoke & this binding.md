@@ -74,7 +74,7 @@
 
 4. `Function.prototype.apply/call/bind` 메서드에 의한 간접 호출
 
-   > `Function.prototype.apply/call/bind`에 대해서는 [여기]()를 참고하자
+   > `Function.prototype.apply/call/bind`에 대해서는 [여기](#2-4-Function.prototype.apply/call/bind-메서드에-의한-간접-호출)를 참고하자
 
    ```javascript
    const foo = function() {
@@ -237,7 +237,7 @@ const obj = {
 obj.foo(); 
 ```
 
-`this`를 명시적으로 대상을 지정해 바인딩할 수 있는 방법은 위 예제에서의 방법 외에도 `Function.prototype.apply/call/bind` 메서드와 화살표 함수가 존재한다. 이에 대해서는 [Function.prototype.apply/call/bind 메서드](#5-4-Function.prototype.apply/call/bind-메서드에-의한-간접-호출)에 의한 간접 호출, [화살표 함수에 의한 `this` 바인딩]() 파트에서 살펴보자
+`this`를 명시적으로 대상을 지정해 바인딩할 수 있는 방법은 위 예제에서의 방법 외에도 `Function.prototype.apply/call/bind` 메서드와 화살표 함수가 존재한다. 이에 대해서는 [Function.prototype.apply/call/bind 메서드](#2-4-Function.prototype.apply/call/bind-메서드에-의한-간접-호출)에 의한 간접 호출, [화살표 함수에 의한 `this` 바인딩]() 파트에서 살펴보자
 
 ### 2-2 메서드 호출
 
@@ -362,7 +362,7 @@ Square.prototype.getArea(); // → 100
 
 ### 2-3 생성자 함수 호출
 
-앞서 [함수 호출 방식과 this 바인딩](#4-함수-호출-방식과-this-바인딩)에서 살펴봤듯이 생성자 함수 내부에 정의된 `this`는 생성자 함수가 미래에 생성할 인스턴스에 바인딩된다
+앞서 [함수 호출 방식과 this 바인딩](#1-함수-호출-방식과-this-바인딩)에서 살펴봤듯이 생성자 함수 내부에 정의된 `this`는 생성자 함수가 미래에 생성할 인스턴스에 바인딩된다
 
 ```javascript
 // 생성자 함수 정의
@@ -391,7 +391,7 @@ console.log(square1.getArea()); // → 25
 console.log(square2.getArea()); // → 100
 ```
 
-만약 `new` 연산자와 함께 생성자 함수를 호출하지 않으면 일반 함수로 동작한다. 앞서 [함수 호출 방식과 this 바인딩](#4-함수-호출-방식과-this-바인딩)에서 살펴봤듯이 일반적인 방식으로 함수를 호출할 시 `this`는 전역 객체 `window`에 바인딩된다. 따라서 `getArea` 메서드는 전역 객체의 프로퍼티가 되기 때문에 `square.getArea()` 호출문은 에러가 발생한다 
+만약 `new` 연산자와 함께 생성자 함수를 호출하지 않으면 일반 함수로 동작한다. 앞서 [함수 호출 방식과 this 바인딩](#1-함수-호출-방식과-this-바인딩)에서 살펴봤듯이 일반적인 방식으로 함수를 호출할 시 `this`는 전역 객체 `window`에 바인딩된다. 따라서 `getArea` 메서드는 전역 객체의 프로퍼티가 되기 때문에 `square.getArea()` 호출문은 에러가 발생한다 
 
 ```javascript
 // 생성자 함수 정의
@@ -511,7 +511,7 @@ sum.apply(obj, [1, 2, 3]); // → { label: "object" } 6
 sum.call(obj, 1, 2, 3); // → { label: "object" } 6
 ```
 
-`apply`와 `call` 메서드를 활용한 예제를 살펴보자. 앞선 [메서드 호출](#5-2-메서드-호출) 파트처럼 `user` 객체의 `getName` 메서드를 다른 객체에 할당할 필요 없이, `anotherUser` 객체는 `apply` 혹은 `call` 메서드를 통해 `this`의 바인딩을 명시적으로 대체해  `user` 객체의 `getName` 메서드를 가져다 사용할 수 있게 된다. 원래 메서드 내부의 `this`는 메서드를 호출한 객체에 바인딩되지만, `apply`와 `call` 메서드는 `user` 객체에 바인딩되어야 할 ` this`를 인수로 전달된 `anotherUser` 객체에 바인딩한다
+`apply`와 `call` 메서드를 활용한 예제를 살펴보자. 앞선 [메서드 호출](#2-2-메서드-호출) 파트처럼 `user` 객체의 `getName` 메서드를 다른 객체에 할당할 필요 없이, `anotherUser` 객체는 `apply` 혹은 `call` 메서드를 통해 `this`의 바인딩을 명시적으로 대체해  `user` 객체의 `getName` 메서드를 가져다 사용할 수 있게 된다. 원래 메서드 내부의 `this`는 메서드를 호출한 객체에 바인딩되지만, `apply`와 `call` 메서드는 `user` 객체에 바인딩되어야 할 ` this`를 인수로 전달된 `anotherUser` 객체에 바인딩한다
 
 ```javascript
 const user = {
@@ -583,7 +583,7 @@ const bindMethod = user.getName.bind(anotherUser);
 bindMethod(); // → {name: "Ju Hyung"} Ju Hyung
 ```
 
-`bind` 메서드는 앞서 [일반 함수 호출](5-1 일반 함수 호출) 파트에서 언급한 메서드의  `this`와 중첩 함수 또는 콜백 함수의 `this` 불일치 문제를 해결하는데 사용된다. 먼저 중첩 함수의 예제를 살펴보자 
+`bind` 메서드는 앞서 [일반 함수 호출](2-1 일반 함수 호출) 파트에서 언급한 메서드의  `this`와 중첩 함수 또는 콜백 함수의 `this` 불일치 문제를 해결하는데 사용된다. 먼저 중첩 함수의 예제를 살펴보자 
 
 ```javascript
 // 일반 함수 호출 파트의 중첩 함수 예제
