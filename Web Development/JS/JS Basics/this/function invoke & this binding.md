@@ -583,7 +583,7 @@ const bindMethod = user.getName.bind(anotherUser);
 bindMethod(); // → {name: "Ju Hyung"} Ju Hyung
 ```
 
-`bind` 메서드는 앞서 [일반 함수 호출](#2-1 일반 함수 호출) 파트에서 언급한 메서드의  `this`와 중첩 함수 또는 콜백 함수의 `this` 불일치 문제를 해결하는데 사용된다. 먼저 중첩 함수의 예제를 살펴보자 
+`bind` 메서드는 앞서 [일반 함수 호출](#2-1-일반-함수-호출) 파트에서 언급한 메서드의  `this`와 중첩 함수 또는 콜백 함수의 `this` 불일치 문제를 해결하는데 사용된다. 먼저 중첩 함수의 예제를 살펴보자 
 
 ```javascript
 // 일반 함수 호출 파트의 중첩 함수 예제
