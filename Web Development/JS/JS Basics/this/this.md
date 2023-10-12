@@ -650,7 +650,7 @@ console.log(square.getArea()); // → Uncaught TypeError: Cannot read properties
 
 ### 5-4 Function.prototype.apply/call/bind 메서드에 의한 간접 호출
 
-`apply`, `call`, `bind` 메서드는 `Function` 생성자 함수에서 비롯된 `Function.prototype`의 메서드다. 즉 모든 함수가 `Function.prototype` 객체로부터 상속받아 사용할 수 있다. 먼저 `apply`와 `call` 메서드부터 살펴보자
+`apply`, `call`, `bind` 메서드는 `Function` 생성자 함수에서 비롯된 `Function.prototype`의 빌트인 메서드다. 즉 모든 함수가 `Function.prototype` 객체로부터 상속받아 사용할 수 있다. 먼저 `apply`와 `call` 메서드부터 살펴보자
 
 > [`constructor` 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-2-constructor-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0feat-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98), [`__proto__` 접근자 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-4-proto-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0), [`getPrototypeOf` 메서드](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-4-proto-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)에 대해서는 각 링크를 참고하자
 
@@ -676,10 +676,14 @@ console.log(sum.apply(null, [1, 2, 3])); // → 6
 console.log(sum.call(null, 1, 2, 3)); // → 6
 ```
 
-함수는 호출되어야 실행할 수 있다. [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function%20invoke.md)의 가장 기본적인 방식은 함수 호출 연산자(`()`)를 활용하는 것이다. 그러나 앞서 언급한 `Function.prototype`의 `apply/call` 메서드를 통해서도 함수를 호출할 수 있다
+함수는 호출되어야 실행할 수 있다. [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function%20invoke.md)의 가장 기본적인 방식은 함수 호출 연산자(`()`)를 활용하는 것이다. 그러나 앞서 언급한 `Function.prototype`의 `apply/call` 메서드를 통해서도 함수를 호출할 수 있다. 
 
 ```javascript
 function sum(a, b, c) {
+	// 일반적인 방식으로 함수가 호출될 시 this는 전역 객체 window에 바인딩된다
+  // apply/call 메서드의 첫 번째 매개변수에 null이 전달되면 this는 window 객체에 바인딩된다
+  // window 객체에 this 바인딩되는 것을 명시적으로 변경하려면 첫 번째 매개변수에 this가 바인딩될 객체를 인수로서 전달하면 된다
+  console.log(this);
   return a + b + c;
 }
 
@@ -691,7 +695,7 @@ console.log(sum.apply(null, [1, 2, 3])); // → 6
 console.log(sum.call(null, 1, 2, 3)); // → 6
 ```
 
-아래는 `apply`와 `call` 메서드의 사용법이다. 위 예제에서는 각 메서드의 첫 번째 매개변수에는  `null`이 인수로 전달되었다
+아래는 `apply`와 `call` 메서드의 사용법이다. 위 예제에서는 각 메서드의 첫 번째 매개변수에는  `null`이 인수로 전달되었다. 각 메서드의 첫 번째 매개변수는 `this`가 될 객체를 전달해야 한다. 위 예제처럼 ` null`을 인수로 전달하면 일반 함수 호출과 동일한 결과를 반환한다
 
 ```javascript
 /**
@@ -713,7 +717,7 @@ Function.prototype.call(thisArg, arg1, arg2, ...);
 함수명.call(thisArg, arg1, arg2, ...);
 ```
 
-예제를 살펴보자
+`apply`와 `call` 메서드를 활용한 예제를 살펴보자. 
 
 ```javascript
 const user = {
