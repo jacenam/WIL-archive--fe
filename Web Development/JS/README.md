@@ -59,7 +59,8 @@
   - [프로토타입 체인](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20chain.md)
   - [프로토타입 관련 메서드](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20methods.md)
 - this
-  - [this란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/this/this.md)
+  - [this란](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/this/this.md)
+  - [함수 호출 방식과 this 바인딩 결정 방식]()
 - 실행 컨텍스트
   - [실행 컨텍스트란(in progress)]()
 - 클로저
@@ -73,6 +74,16 @@
   - [비동기 프로그래밍(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Asynchronous/asynchronous%20programming.md)
   - [프로미스(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Asynchronous/promise.md)
   - [제네레이터와 async/await(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Asynchronous/async%2C%20await.md)
+
+<br>
+
+## JS Intermediate
+
+- Object.prototype 메서드
+- Function.prototype 메서드
+  - [Function.prototype.apply/call/bind]()
+- Array.prototype 메서드
+  - [Array.prototype.filter]()
 
 <br>
 
