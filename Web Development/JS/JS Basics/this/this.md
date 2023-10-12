@@ -11,7 +11,8 @@
   - [5-2 메서드 호출](#5-2-메서드-호출)
   - [5-3 생성자 함수 호출](#5-3-생성자-함수-호출)
   - [5-4 Function.prototype.apply/call/bind 메서드에 의한 간접 호출](#5-4-Function.prototype.apply/call/bind-메서드에-의한-간접-호출)
-
+    - [5-4-1 apply와 call 메서드](#5-4-1-apply와-call-메서드)
+    - [5-4-2 bind 메서드](#5-4-2-bind-메서드)
 
 <br>
 
@@ -650,14 +651,18 @@ console.log(square.getArea()); // → Uncaught TypeError: Cannot read properties
 
 ### 5-4 Function.prototype.apply/call/bind 메서드에 의한 간접 호출
 
-`apply`, `call`, `bind` 메서드는 `Function` 생성자 함수에서 비롯된 `Function.prototype`의 빌트인 메서드다. 즉 모든 함수가 `Function.prototype` 객체로부터 상속받아 사용할 수 있다. 먼저 `apply`와 `call` 메서드부터 살펴보자
+`apply`, `call`, `bind` 메서드는 `Function` 생성자 함수에서 비롯된 `Function.prototype`의 빌트인 메서드다. 즉 모든 함수가 `Function.prototype` 객체로부터 상속받아 사용할 수 있다
+
+### 5-4-1 apply와 call 메서드
+
+먼저 `apply`와 `call` 메서드부터 살펴보자
 
 > [`constructor` 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-2-constructor-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0feat-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98), [`__proto__` 접근자 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-4-proto-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0), [`getPrototypeOf` 메서드](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-4-proto-%EC%A0%91%EA%B7%BC%EC%9E%90-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0)에 대해서는 각 링크를 참고하자
 
 ```javascript
 // 함수 정의문
 function sum(a, b, c) {
-  return a + b + c;
+  console.log(a + b + c);
 }
 
 // sum 함수는 Function.prototype 객체의 constructor 프로퍼티를 통해 생성자 함수와 연결된다
@@ -672,30 +677,41 @@ console.log(Object.getPrototypeOf(sum) === Function.prototype); // → true
 // Function.prototype 객체로부터 상속 받은 apply/call 메서드를 사용할 수 있다
 console.log(Function.prototype.hasOwnProperty("apply")); // → true
 console.lop(Function.prototype.hasOwnProperty("call")); // → true
-console.log(sum.apply(null, [1, 2, 3])); // → 6
-console.log(sum.call(null, 1, 2, 3)); // → 6
+sum.apply(null, [1, 2, 3]); // → 6
+sum.call(null, 1, 2, 3); // → 6
 ```
 
-함수는 호출되어야 실행할 수 있다. [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function%20invoke.md)의 가장 기본적인 방식은 함수 호출 연산자(`()`)를 활용하는 것이다. 그러나 앞서 언급한 `Function.prototype`의 `apply/call` 메서드를 통해서도 함수를 호출할 수 있다. 
+함수는 호출되어야 실행할 수 있다. [함수 호출](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/function%20invoke.md)의 가장 기본적인 방식은 함수 호출 연산자(`()`)를 활용하는 것이다. 그러나 함수 호출 파트에서 언급하지 않은 함수 호출 방법이 더 존재한다. 바로 `Function.prototype`의 `apply/call` 메서드에 의한 함수 호출이다
 
 ```javascript
 function sum(a, b, c) {
-	// 일반적인 방식으로 함수가 호출될 시 this는 전역 객체 window에 바인딩된다
-  // apply/call 메서드의 첫 번째 매개변수에 null이 전달되면 this는 window 객체에 바인딩된다
-  // window 객체에 this 바인딩되는 것을 명시적으로 변경하려면 첫 번째 매개변수에 this가 바인딩될 객체를 인수로서 전달하면 된다
-  console.log(this);
-  return a + b + c;
+	console.log(a + b + c);
 }
 
 // 일반적인 함수 호출
-console.log(sum(1, 2, 3)); // → 6
+sum(1, 2, 3); // → 6
 
-// apply 메서드를 통한 함수 호출
-console.log(sum.apply(null, [1, 2, 3])); // → 6
-console.log(sum.call(null, 1, 2, 3)); // → 6
+// apply 메서드에 의한 함수 호출
+sum.apply(null, [1, 2, 3]); // → 6
+
+// call 메서드에 의한 함수 호출
+sum.call(null, 1, 2, 3); // → 6
 ```
 
-아래는 `apply`와 `call` 메서드의 사용법이다. 위 예제에서는 각 메서드의 첫 번째 매개변수에는  `null`이 인수로 전달되었다. 각 메서드의 첫 번째 매개변수는 `this`가 될 객체를 전달해야 한다. 위 예제처럼 ` null`을 인수로 전달하면 일반 함수 호출과 동일한 결과를 반환한다
+앞서 일반적인 함수 호출 시 `this`는 전역 객체 `window`에 바인딩된다고 했다. `apply`와 `call` 메서드의 첫 번째 매개변수에 `null` 값을 인수로 전달할 시 일반적인 함수 호출 방식과 동일한 결과를 반환하는 것을 확인할 수 있다
+
+```javascript
+function sum(a, b, c) {
+  console.log(this); // → Window
+	console.log(a + b + c); // → 6
+}
+
+sum(1, 2, 3);
+sum.apply(null, [1, 2, 3]); 
+sum.call(null, 1, 2, 3);
+```
+
+`apply`와 `call` 메서드의 사용법은 아래와 같다. 첫 번째 매개변수에 `null` 값이 아닌 객체(`thisArg`)를 전달할 시 `this`는 전역 객체 `window`가 아닌 인수로 전달된 객체(`thisArg`)에 바인딩된다. 다시 말해 `this`의 바인딩을 명시적으로 제어할 수 있는 것이다
 
 ```javascript
 /**
@@ -717,13 +733,28 @@ Function.prototype.call(thisArg, arg1, arg2, ...);
 함수명.call(thisArg, arg1, arg2, ...);
 ```
 
-`apply`와 `call` 메서드를 활용한 예제를 살펴보자. 
+`apply`와 `call` 메서드 사용법에 따라 앞선 `sum` 함수 예제를 다시 살펴보자. `obj` 객체를 `apply`와 `call`의 첫 번째 매개변수의 인수로서 전달했고 `sum` 함수 내부의 `this`는 `obj`에 바인딩되었다
+
+```javascript
+function sum(a, b, c) {
+  console.log(this, a + b + c);
+}
+
+console.log(sum(1, 2, 3)); // → Window 6
+
+const obj = { label: "object" };
+
+sum.apply(obj, [1, 2, 3]); // → { label: "object" } 6
+sum.call(obj, 1, 2, 3); // → { label: "object" } 6
+```
+
+`apply`와 `call` 메서드를 활용한 예제를 살펴보자. 앞선 [메서드 호출](#5-2-메서드-호출) 파트처럼 `user` 객체의 `getName` 메서드를 다른 객체에 할당할 필요 없이, `anotherUser` 객체는 `apply` 혹은 `call` 메서드를 통해 `this`의 바인딩을 명시적으로 대체해  `user` 객체의 `getName` 메서드를 가져다 사용할 수 있게 된다. 원래 메서드 내부의 `this`는 메서드를 호출한 객체에 바인딩되지만, `apply`와 `call` 메서드는 `user` 객체에 바인딩되어야 할 ` this`를 인수로 전달된 `anotherUser` 객체에 바인딩한다
 
 ```javascript
 const user = {
   name: "Jace",
   getName() {
-    console.log(this.name);
+    console.log(this, this.name);
   },
 };
 
@@ -731,56 +762,164 @@ const anotherUser = {
   name: "Ju Hyung"
 };
 
-user.getName(); // → Jace
-user.getName.apply(anotherUser); // // → Ju Hyung
-user.getName.call(anotherUser); // → Ju Hyung
+user.getName(); // → { name: "Jace", getName: ƒ } Jace
+user.getName.apply(anotherUser); // → { name: "Ju Hyung"} Ju Hyung
+user.getName.call(anotherUser); // → { name: "Ju Hyung"} Ju Hyung
 ```
 
-
+아래 예제처럼 `apply`와 `call` 메서드를 활용하면 프로토타입 없이 일반 함수를 호출해도 `this` 바인딩을 특정 객체에 명시적으로 지정할 수 있게 된다
 
 ```javascript
 function User(name) {
 	this.name = name;
-}
-
-function getName() {
-  console.log(this.name);
 }
 
 const user1 = new User("Jace");
 const user2 = new User("Ju Hyung");
-const user3 = new User("Zhou Heng");
-
-getName.call(user1); 
-getName.call(user2);
-getName.call(user3);
-```
-
-
-
-```javascript
-function User(name) {
-	this.name = name;
-}
 
 function defineUser(age, residence) {
   console.log(`${this.name}은 ${age}세이며 ${residence}에 거주합니다`);
 }
 
-const user1 = new User("Jace");
-const user2 = new User("Ju Hyung");
-const user3 = new User("Zhou Heng");
+// 일반 함수 호출의 this는 전역 객체 window에 바인딩된다
+// window.name은 브라우저 창의 이름을 나타내는 빌트인 프로퍼티로서 기본값은 빈 문자열("")이다
+defineUser(30, "no where");
 
-defineUser.call(user1, 30, "United States");
-defineUser.call(user2, 31, "South Korea");
-defineUser.call(user3, 32, "China");
-
+// 특정 함수를 호출할 때 매개변수의 인수로 배열을 전달해야한다면 apply 메서드를 활용
 defineUser.apply(user1, [30, "United States"]);
 defineUser.apply(user2, [31, "South Korea"]);
-defineUser.apply(user3, [32, "China"]);
+
+// 특정 함수를 호출할 때 매개변수의 인수를 지정해서 전달해야한다면 call 메서드를 활용
+defineUser.call(user1, 30, "United States");
+defineUser.call(user2, 31, "South Korea");
 ```
 
+### 5-4-2 bind 메서드
 
+`bind` 메서드는 `apply` 및 `call` 메서드와 동일하게 `this` 바인딩을 명시적으로 지정할 수 있다. 다만, 함수를 호출하지는 않는다. 따라서 `bind` 메서드를 호출하고 결과 값을 반환하려면 변수에 담아 변수를 함수로서 호출하면 된다
+
+```javascript
+const user = {
+  name: "Jace",
+  getName() {
+    console.log(this, this.name);
+  },
+};
+
+const anotherUser = {
+  name: "Ju Hyung"
+};
+
+user.getName.apply(anotherUser); // → { name: "Ju Hyung"} Ju Hyung
+user.getName.call(anotherUser); // → { name: "Ju Hyung"} Ju Hyung
+// 함수를 호출하지는 않기 때문에 함수가 실행되지 않는다
+user.getName.bind(anotherUser);  
+
+// bind 메서드를 호출하여 this가 바인딩된 객체와 호출된 메서드를 변수에 담아서 사용해야 한다
+const bindMethod = user.getName.bind(anotherUser);
+bindMethod(); // → {name: "Ju Hyung"} Ju Hyung
+```
+
+`bind` 메서드는 앞서 [일반 함수 호출](5-1 일반 함수 호출) 파트에서 언급한 메서드의  `this`와 중첩 함수 또는 콜백 함수의 `this` 불일치 문제를 해결하는데 사용된다. 먼저 중첩 함수의 예제를 살펴보자 
+
+```javascript
+// 일반 함수 호출 파트의 중첩 함수 예제
+var value = 1;
+
+const obj = {
+  value: 100, 
+  foo() {
+    // 중첩 함수의 외부 함수인 메서드 내의 this는 메서드를 호출한 객체에 바인딩된다 
+    console.log(this, this.value); // → {value: 100, foo: ƒ } 100
+    
+    // 메서드 내부의 중첩 함수는 헬퍼 함수지만, 메서드의 this와 중첩 함수의 this가 불일치한다
+    function bar() {
+      console.log(this, this.value); // → Window 1
+    }
+    bar();
+  },
+};
+
+obj.foo();
+```
+
+```javascript
+// bind 메서드로 외부 함수와 헬퍼 함수의 this 불일치 문제 해결
+var value = 1;
+
+const obj = {
+  value: 100, 
+  foo() {
+    console.log(this, this.value); // → {value: 100, foo: ƒ } 100
+    
+    function bar() {
+      console.log(this, this.value); // → {value: 100, foo: ƒ } 100
+    }
+
+    // bind 메서드의 매개변수로 전달되는 this(객체)는 foo 메서드의 this 바인딩과 동일한 obj 객체다
+    const bindMethod = bar.bind(this);
+    bindMethod(); 
+  },
+}
+
+obj.foo();
+```
+
+콜백 함수의 예제도 살펴보자
+
+```javascript
+// 일반 힘수 호출 파트의 콜백 함수 예제
+var value = 1;
+
+const obj = {
+  value: 100,
+  foo() {
+    // 콜백 함수의 외부 함수인 메서드 내의 this는 메서드를 호출한 객체에 바인딩된다
+    console.log(this, this.value); // → {value: 100, foo: ƒ } 100
+  	
+    // 메서드 내부의 콜백 함수는 헬퍼 함수지만, 메서드의 this와 콜백 함수의 this가 불일치한다
+    setTimeout(function() {
+      console.log(this, this.value); // → Window 1
+    }, 2000);
+  }
+};
+
+obj.foo();
+```
+
+```javascript
+var value = 1;
+
+const obj = {
+  value: 100, 
+  foo() {
+    console.log(this, this.value); // → {value: 100, foo: ƒ } 100
+    
+    setTimeout(function() { 
+      console.log(this, this.value); // → {value: 100, foo: ƒ } 100
+    }.bind(this), 2000); 
+  },
+};
+
+obj.foo();
+```
+
+위 `bind` 메서드 활용 예제는 아래처럼 조금 더 깔끔하게 변경할 수 있다
+
+```javascript
+var value = 1;
+
+const obj = {
+  value: 100, 
+  foo(callback) {
+    console.log(this, this.value); // → {value: 100, foo: ƒ } 100
+    
+    setTimeout(callback.bind(this), 2000); // → {value: 100, foo: ƒ } 100
+  },
+};
+
+obj.foo(function() { console.log(this, this.value) });
+```
 
 <br>
 
@@ -790,3 +929,6 @@ defineUser.apply(user3, [32, "China"]);
 
 - [모던 자바스크립트 Deep Dive]()
 - [[JavaScript] this란 무엇일까](https://hanamon.kr/javascript-this%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/)
+- [함수의 메서드와 arguments](https://www.zerocho.com/category/JavaScript/post/57433645a48729787807c3fd)
+- [함수의 기본 메서드 call(), apply(), bind()](https://mingoogle.tistory.com/11)
+
