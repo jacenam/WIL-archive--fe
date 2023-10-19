@@ -109,3 +109,4 @@ SVN(SubVersion)과 같은 중앙 집중식 버전 관리 시스템과 Git과 같
 - [소프트웨어의 형상 관리, 버전 관리 시스템](https://imgeeae.tistory.com/5)
 - [버전 관리 시스템(Version Control System)](https://heekangpark.github.io/git/vcs)
 - [버전 관리](https://taesung1993.tistory.com/89)
+- [버전 관리 시스템이란](https://yoongrammer.tistory.com/17)
