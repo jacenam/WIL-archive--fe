@@ -648,4 +648,4 @@ git log --all --oneline --graph
 - [Git의 다양한 브랜치 병합 방법(Merge, Squash, & Merge, Rebase & Merge)](https://hudi.blog/git-merge-squash-rebase/)
 - [GitHub의 Merge, Squash and Merge, Rebase and Merge 정확히 이해하기](https://meetup.nhncloud.com/posts/122)
 - [우린 Git-flow를 사용하고 있어요 - 우아한형제들 기술블로그](https://techblog.woowahan.com/2553/)
-
+- [git rebase란](https://myung-ho.tistory.com/91)
