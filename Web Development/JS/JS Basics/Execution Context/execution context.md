@@ -275,25 +275,57 @@ function outerFunc() {
 foo(); // → 6
 ```
 
+실행 컨텍스트 스택의 최상위에 쌓인 실행 컨텍스트는 언제나 현재 실행되어 처리되는 코드(전역, 함수, `eval`, 모듈)의 실행 컨텍스트라는 것을 알 수 있다(실행 컨텍스트 스택 최상위 = 현재 실행되는 코드)
+
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/e9d56636-5a55-46cf-83c4-a3e7a7796307" width="100%">
 
-실행 컨텍스트 스택의 최상위에 쌓인 실행 컨텍스트는 언제나 현재 실행되어 처리되는 코드(전역, 함수, `eval`, 모듈)의 실행 컨텍스트다
-
-앞서 [실행 컨텍스트의 역할](#1-3-실행-컨텍스트의-역할) 파트에서 실행 컨텍스트별 생성 및 실행 순서를 상세히 정리했다. 이를 이번 예제에 적용 후 간략히 정리하면 아래와 같다:
+위 예제를 단계별로 살펴보자
 
 1. **전역 코드의 평가 후 실행**
-   - 전역 코드의 평가 시 `x` 전역 변수, `outerFunc` 전역 함수, `innerFunc` 전역 함수가 호이스팅되고 전역 실행 컨텍스트가 생성되어 식별자들을 등록한다
+
+   - 전역 코드의 평가 시 `x` 전역 변수, `outerFunc` 전역 함수가 호이스팅되고 전역 실행 컨텍스트가 생성되어 식별자들을 등록한다. 그리고 전역 실행 컨텍스트는 실행 컨텍스트 스택에 추가된다
+
+     <img src="https://github.com/jacenam/WIL-archive/assets/92138751/5ab0ce0f-20de-441e-8dfc-b654555e06ed" width="100%">
+
    - 전역 코드의 실행 시 `x` 변수에 값의 할당이 이뤄지고, `outerFunc` 함수가 호출된다. 함수 호출로 인해서 코드의 실행 흐름은 `outerFunc` 함수 내부로 변경되며 추후 코드 실행 순서의 복귀를 위해 함수의 호출 시점은 전역 실행 컨텍스트에 등록된다
+
+     <img src="https://github.com/jacenam/WIL-archive/assets/92138751/f0ad353b-734e-4454-9c43-9fcccdf917d7" width="100%">
+
 2. **`outerFunc` 함수 코드의 평가 후 실행**
-   - `outerFunc` 함수의 내부 코드 평가 시 `y` 지역 변수와 `innerFunc` 중첩 함수가 호이스팅되고 함수 실행 컨텍스트가 생성되어 식별자들을 등록한다
+
+   - `outerFunc` 함수의 내부 코드 평가 시 `y` 지역 변수와 `innerFunc` 중첩 함수가 호이스팅되고 함수 실행 컨텍스트가 생성되어 식별자들을 등록한다. 그리고 함수 실행 컨텍스트는 실행 컨텍스트 스택에 추가된다
+
+     <img src="https://github.com/jacenam/WIL-archive/assets/92138751/aa3f073f-f48c-4e6c-bf1f-4bf9d8b32c19" width="100%">
+
    - `outerFunc` 함수 내부의 코드 실행 시 `y` 지역 변수에 값의 할당이 이뤄지고, `innerFunc` 중첩 함수가 호출된다. 함수 호출로 인해서 코드의 실행 흐름은 `innerFunc` 함수 내부로 변경되며 추후 코드 실행 순서의 복귀를 위해 함수의 호출 시점은 함수 실행 컨텍스트에 등록된다
+
+     <img src="https://github.com/jacenam/WIL-archive/assets/92138751/d7138b2e-fa0d-4386-a135-c283d62fbeab" width="100%">
+
 3. **`innerFunc`  함수 코드의 평가 후 실행**
-   - `innerFunc` 함수 내부의 코드 평가 시 `z` 지역 변수가 호이스팅되고 `innerFunc` 함수를 위한 함수 실행 컨텍스트가 생성되어 `z` 지역 변수를 등록한다
+
+   - `innerFunc` 함수 내부의 코드 평가 시 `z` 지역 변수가 호이스팅되고 `innerFunc` 함수를 위한 함수 실행 컨텍스트가 생성되어 `z` 지역 변수를 등록한다. 그리고 함수 실행 컨텍스트는 실행 컨텍스트 스택에 추가된다
+
+     <img src="https://github.com/jacenam/WIL-archive/assets/92138751/4a6fd682-2794-4b37-ac61-5f177a957360" width='100%'>
+
    - `innerFunc` 함수 내부의 코드 실행 시 `z` 지역 변수에 값의 할당이 이뤄지고, `console.log` 메서드가 호출된다. `console.log` 메서드의 실행을 위해 JS 엔진은 지역 스코프에서부터 전역 스코프까지 `console` 프로퍼티를 탐색한다. 전역 객체 `window`의 프로퍼티인 `console` 프로퍼티 검색 후 `console.prototype`의 프로토타입 체인을 통해 `log` 메서드를 상속받아 호출한다. `x`, `y`, `z` 식별자는 각 실행 컨텍스트가 관리하는 스코프 체인을 통해 검색하여 각 식별자에 바인딩된 값을 참조한다
+
+     <img src="https://github.com/jacenam/WIL-archive/assets/92138751/176302dc-6b32-4fc0-8a04-896fca316d05" width="100%">
+
+     그리고 `innerFunc` 함수 내부 코드가 모두 실행되면 실행 컨텍스트 스택에서 `innerFunc` 함수 실행 컨텍스트는 제거된다
+
+     <img src="https://github.com/jacenam/WIL-archive/assets/92138751/417cf0d1-7d36-47bd-9a98-246e002c7908" widht="100%">
+
 4. **`outerFunc` 함수 코드로의 복귀**
-   - `innerFunc` 함수가 종료되면 코드의 실행 흐름은 `outerFunc` 함수로 이동한다. JS 엔진은 `innerFunc` 함수 실행 컨텍스트를 실행 컨텍스트 스택에서 제거(Pop)한다
+
+   - `innerFunc` 함수가 종료되면 코드의 실행 흐름은 `outerFunc` 함수로 이동한다. 그리고 `outerFunc` 함수도 더 이상 실행할 코드가 없기 때문에 종료된다. 그럼 JS 엔진은 `innerFunc` 함수 실행 컨텍스트를 실행 컨텍스트 스택에서 제거(Pop)한다
+
+     <img src="https://github.com/jacenam/WIL-archive/assets/92138751/3c43e181-6cd9-4ae3-ac54-6545ef774720" width="100%">
+
 5. **전역 코드로의 복귀**
-   - `outerFunc` 함수도 더 이상 실행할 코드가 남아있지 않으므로 종료된다. `outerFunc` 함수가 종료되면 코드의 실행 흐름은 다시 전역 코드로 이동한다. JS 엔진은 `outerFunc` 함수 실행 컨텍스트를 스택에서 제거하고, 전역 코드도 더 이상 실행할 코드가 남아있지 않게되면 전역 실행 컨텍스트도 스택에서 제거하여 실행 컨텍스트 스택에는 아무것도 남아있지 않게 된다
+
+   -  `outerFunc` 함수가 종료되면 코드의 실행 흐름은 다시 전역 코드로 이동한다. 전역 코드도 더 이상 실행할 코드가 남아있지 않게되면 전역 실행 컨텍스트도 스택에서 제거되어 실행 컨텍스트 스택에는 아무것도 남아있지 않게 된다
+
+     <img src="https://github.com/jacenam/WIL-archive/assets/92138751/95887044-80d4-4a16-9ad0-b7fc8c8ab94f" width="100%">
 
 <br>
 
