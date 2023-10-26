@@ -346,7 +346,7 @@ function foo() {
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/a1976b03-4330-4877-8591-6325c4764e85" width="100%">
 
-
+실행 컨텍스트는 
 
 실행 컨텍스트는 렉시컬 환경(LexcialEnvironment)와 (VariableEnvironment)두 가지 컴포넌트(요소)로 구성된다.
 
