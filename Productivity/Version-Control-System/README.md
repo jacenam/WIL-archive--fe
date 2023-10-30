@@ -16,7 +16,7 @@
 - [Git Fetch](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Version%20Control%20System/Git%20Basics/git%20fetch.md)
 - [Git Pull Request(a.k.a PR)](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Version%20Control%20System/Git%20Basics/git%20pull%20request.md)
 
-## Git Advanced
+## Git Intermediate
 
 - [Git module, submodule, subtree](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Version%20Control%20System/Git%20Advanced/git%20module%2C%20submodule%20%26%20subtree.md)
 - [.gitignore](https://www.toptal.com/developers/gitignore/)
