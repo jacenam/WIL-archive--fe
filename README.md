@@ -17,6 +17,6 @@
 
 ## Productivity
 
-- [Version Control System](https://github.com/jacenam/WIL-archive/tree/main/Productivity/Version%20Control%20System)
-- [Tools](https://github.com/jacenam/WIL-archive/tree/main/Productivity/Tools)
+- [Version Control System](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Version-Control-System/README.md)
+- [Tools](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools/README.md)
 
