@@ -86,14 +86,3 @@
   - [Array.prototype.filter]()
 
 <br>
-
-## Library
-
-- [라이브러리란]()
-
-<br>
-
-## Package Managers
-
-- [패키지 매니저란]()
-- [npm]()
