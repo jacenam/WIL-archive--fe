@@ -7,7 +7,7 @@
 ## IDE
 
 - [IDE](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools-for-Code/IDE/ide.md)
-- [VSCode]()
+- [VSCode](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools-for-Code/VSCode/vscode%20settings.md)
 
 ## Linters
 

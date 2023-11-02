@@ -8,12 +8,15 @@
 
 - [CS](https://github.com/jacenam/WIL-archive/tree/main/Foundations/CS)
 - [Data Structure](https://github.com/jacenam/WIL-archive/tree/main/Foundations/Data%20Structure)
+- [Algorithm]()
 
 ## Web Development
 
-- [HTML](https://github.com/jacenam/WIL-archive/tree/main/Web%20Development/HTML)
-- [CSS](https://github.com/jacenam/WIL-archive/tree/main/Web%20Development/CSS)
-- [JS](https://github.com/jacenam/WIL-archive/tree/main/Web%20Development/JS)
+- [HTML](https://github.com/jacenam/WIL-archive/tree/main/Web-Development/HTML)
+- [CSS](https://github.com/jacenam/WIL-archive/tree/main/Web-Development/CSS)
+- [JS](https://github.com/jacenam/WIL-archive/tree/main/Web-Development/JS)
+- [Package Manager]()
+- [Framework/Library]()
 
 ## Productivity
 
