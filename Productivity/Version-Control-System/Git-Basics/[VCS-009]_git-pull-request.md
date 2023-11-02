@@ -1,20 +1,16 @@
-<img src="" style="max-width: 100%" align="center">
+# Git Pull Request(PR)
 
-### 목차
+**Table of Contents**
 
-- [1 Git Pull Request(PR)](#1-Git-Pull-Request(PR))
-
-***
+- [Git Pull Request(PR)](#Git-Pull-Request(PR))
 
 <br>
 
-## 1 Git Pull Request(PR)
+## Git Pull Request(PR)
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [Git 공식문서](https://git-scm.com/docs)
 - [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)

@@ -1,24 +1,24 @@
 # 빌트인 객체
 
-### 목차
+**Table of Contents**
 
-- [1 표준 빌트인 객체](#1-표준-빌트인-객체)
-- [2 원시 값과 래퍼 객체](#2-원시-값과-래퍼-객체)
-- [3 전역 객체](#3-전역-객체)
-  - [3-1 빌트인 전역 프로퍼티](#3-1-빌트인-전역-프로퍼티)
-  - [3-2 빌트인 전역 함수(메서드)](#3-2-빌트인-전역-함수(메서드))
-    - [3-2-1 eval 함수](#3-2-1-eval-함수)
-    - [3-2-2 isInfinite 함수](#3-2-2-isInfinite-함수)
-    - [3-2-3 isNaN 함수](#3-2-3-isNaN-함수)
-    - [3-2-4 parseFloat 함수](#3-2-4-parseFloat-함수)
-    - [3-2-5 parseInt 함수](#3-2-5-parseInt-함수)
-    - [3-2-6 encodeURI와 decodeURI 함수](#3-2-6-encodeURI와-decodeURI-함수)
+- [표준 빌트인 객체](#표준-빌트인-객체)
+- [원시 값과 래퍼 객체](#원시-값과-래퍼-객체)
+- [전역 객체](#전역-객체)
+  - [빌트인 전역 프로퍼티](#빌트인-전역-프로퍼티)
+  - [빌트인 전역 함수(메서드)](#빌트인-전역-함수(메서드))
+    - [eval 함수](#eval-함수)
+    - [isInfinite 함수](#isInfinite-함수)
+    - [isNaN 함수](#isNaN-함수)
+    - [parseFloat 함수](#parseFloat-함수)
+    - [parseInt 함수](#parseInt-함수)
+    - [encodeURI와 decodeURI 함수](#encodeURI와-decodeURI-함수)
 
-- [4 암묵적 전역](#4-암묵적-전역)
+- [암묵적 전역](#암묵적-전역)
 
 <br>
 
-## 1 표준 빌트인 객체
+## 표준 빌트인 객체
 
 JS의 객체는 크게 3개의 객체로 분류된다:
 
@@ -82,7 +82,7 @@ boolObj.staticMethod(); // → Uncaught TypeError: boolObj.staticMethod is not a
 
 <br>
 
-## 2 원시 값과 래퍼 객체
+## 원시 값과 래퍼 객체
 
 JS에서 문자열, 숫자, 불리언 등의 원시 값이 존재하는데도 원시 값 형태의 문자열, 숫자, 불리언을 객체로 생성하는 `String`, `Number`, `Boolean` 등의 표준 빌트인 객체(생성자 함수)가 필요한 이유가 무엇일까?
 
@@ -135,7 +135,7 @@ console.log(str); // → string
 
 <br>
 
-## 3 전역 객체
+## 전역 객체
 
 전역 객체(Global Object)란 JS 엔진에 의해 그 어떤 객체보다도 먼저 생성되는 특수한 객체다. 그리고 전역 객체는 어떤 객체에도 속하지 않는 최상위 객체다. 브라우저 환경에서는 `window`, `self`, `this`, `frames`, `Node.js` 환경에서는 `global`이 전역 객체를 가리킨다
 
@@ -221,7 +221,7 @@ var globalVariable = "property of global object";
 
 - 브라우저 환경에서 모든 JS 코드는 하나의 전역 객체를 공유한다. 즉, 여러 개의 `script` 태그를 통해 JS 코드를 분리해도 하나의 전역 객체 `window`를 공유한다는 의미다. 이를 통해 JS 코드 파일을 여러 개로 분리해도 하나의 전체 코드로서 활용이 가능해진다
 
-### 3-1 빌트인 전역 프로퍼티
+### 빌트인 전역 프로퍼티
 
 빌트인 전역 프로퍼티(Built-in Global Property)란 전역 객체의 프로퍼티를 뜻한다. 
 
@@ -256,11 +256,11 @@ var globalVariable = "property of global object";
   console.log(typeof undefined); // → undefined
   ```
 
-### 3-2 빌트인 전역 함수(메서드)
+### 빌트인 전역 함수(메서드)
 
 빌트인 전역 함수(Built-in Global Function)는 전역에서 호출 가능한 빌트인 함수로서 전역 객체의 메서드이기 때문에 빌트인 전역 메서드라고도 부른다
 
-### 3-2-1 eval 함수
+#### eval 함수
 
 `eval` 함수는 문자열을 인수(Argument)로서 전달받으며, 이 문자열은 JS 코드를 문자열 형태로 나타낸 것이다
 
@@ -383,7 +383,7 @@ console.log(x); // → 1
 
 이렇게 `eval` 함수에 대해 살펴봤지만, 사실 모던 JS에서는 `eval` 함수를 사용하지 않는다. 이전의 JS는 문자 값을 객체로 만드는 방법이 없어서 자주 사용되었던 함수다. 그러나 현재는 JS에서는 새롭고 완성도 높은 기능들이 제공되기도 하고, 보안적인 이슈로 사용하지 않는 함수이니 참고만 해두자
 
-### 3-2-2 isInfinite 함수
+#### isInfinite 함수
 
 전달받은 인수가 유한수이면 불리언 `true` 값을 반환하고, 무한수이면 불리언 `false` 값을 반환한다
 
@@ -412,7 +412,7 @@ isFinite(NaN); // → false
 isFinite("Hello World"); // → false
 ```
 
-### 3-2-3 isNaN 함수
+#### isNaN 함수
 
 전달받은 인수가 `NaN`인지 검사하여 결과에 따라 불리언 타입 `true` 혹은 `false`를 반환한다
 
@@ -433,9 +433,7 @@ isFinite([]); // → false
 isNaN(""); // → false
 ```
 
-### 3-2-3 isNaN 함수
-
-### 3-2-4 parseFloat 함수
+#### parseFloat 함수
 
 전달받은 문자열 형태의 인수를 부동 소수점 숫자(실수)로 파싱(해석)해서 반환한다
 
@@ -470,7 +468,7 @@ parseFloat("I am 30 years old"); // → NaN
 parseFloat(" 30 "); // → 30
 ```
 
-### 3-2-5 parseInt 함수
+#### parseInt 함수
 
 `parseInt` 빌트인 함수는 첫 번째 인수에 문자열, 두 번째 인수에 기수(Radix)를 전달한다. 두 번째 인수인 기수를 생략하면 첫 번째 인수로 전달된 문자열을 10진수로 파싱해서 반환한다
 
@@ -564,11 +562,11 @@ parseInt(" 30 "); // → 30
 parseInt("30 years old"); // → 30
 ```
 
-### 3-2-6 encodeURI와 decodeURI 함수
+#### encodeURI와 decodeURI 함수
 
 <br>
 
-## 4 암묵적 전역
+## 암묵적 전역
 
 선언하지 않은 변수에 대해서 JS 엔진이 암묵적으로 전역 객체의 프로퍼티로 동적 생성하는 것을 암묵적 전역(Implicit Global)이라 부른다
 
@@ -638,9 +636,7 @@ console.log(window.x); // → 10
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [모던 자바스크립트 Deep Dive]()
 - [eval() 사용과 문제점](https://webclub.tistory.com/512)

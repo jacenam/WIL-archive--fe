@@ -1,21 +1,21 @@
 # 프로토타입 관련 메서드
 
-### 목차 
+**Table of Contents**
 
-- [1 instanceof 연산자](#1-instanceof-연산자)
-- [2 직접 상속](#2-직접-상속)
-  - [2-1 Object.create에 의한 직접 상속](#2-1-Object.create에-의한-직접-상속)
-  - [2-2 proto 접근자 프로퍼티에 의한 직접 상속](#2-2-proto-접근자-프로퍼티에-의한-직접-상속)
-- [3 프로퍼티 존재 확인](#3-프로퍼티-존재-확인)
-  - [3-1 in 연산자](#3-1-in-연산자)
-  - [3-2 Object.prototype.hasOwnProperty 메서드](#3-2-Object.prototype.hasOwnProperty-메서드)
-- [4 프로퍼티 열거](#4-프로퍼티-열거)
-  - [4-1 for...in 문](#4-1-for...in-문)
-  - [4-2 Object.keys/values/entries 메서드](#4-2-Object.keys/values/entries-메서드)
+- [instanceof 연산자](#instanceof-연산자)
+- [직접 상속](#직접-상속)
+  - [Object.create에 의한 직접 상속](#Object.create에-의한-직접-상속)
+  - [proto 접근자 프로퍼티에 의한 직접 상속](#proto-접근자-프로퍼티에-의한-직접-상속)
+- [프로퍼티 존재 확인](#프로퍼티-존재-확인)
+  - [in 연산자](#in-연산자)
+  - [Object.prototype.hasOwnProperty 메서드](#Object.prototype.hasOwnProperty-메서드)
+- [프로퍼티 열거](#프로퍼티-열거)
+  - [for...in 문](#for...in-문)
+  - [Object.keys/values/entries 메서드](#Object.keys/values/entries-메서드)
 
 <br>
 
-## 1 instanceof 연산자
+## instanceof 연산자
 
 `instanceof` 연산자는 좌항에 객체(식별자 이름), 우항에 생성자 함수(식별자 이름)을 지정하여 우항에 놓인 생성자 함수의 `prototype` 객체가 좌항 객체의 프로토타입 체인 상 존재 여부에 따라 불리언 타입의 값을 반환한다
 
@@ -60,17 +60,17 @@ console.log(square instanceof Object); // → true
 
 <br>
 
-## 2 직접 상속
+## 직접 상속
 
-### 2-1 Object.create에 의한 직접 상속
+### Object.create에 의한 직접 상속
 
-### 2-2 proto 접근자 프로퍼티에 의한 직접 상속
+### proto 접근자 프로퍼티에 의한 직접 상속
 
 <br>
 
-## 3 프로퍼티 존재 확인
+## 프로퍼티 존재 확인
 
-### 3-1 in 연산자
+### in 연산자
 
 `in` 연산자는 특정 프로퍼티가 객체에 존재하는지 여부에 따라 불리언 타입을 반환한다
 
@@ -99,7 +99,7 @@ console.log("hasOwnProperty" in user); // → true
 console.log("constructor" in user); // → true
 ```
 
-### 3-2 Object.prototype.hasOwnProperty 메서드
+### Object.prototype.hasOwnProperty 메서드
 
 `Object.prototype.hasOwnProperty` 메서드는 앞서 자주 살펴봤듯이, `Object` 생성자 함수와 연결된  `Object.prototype` 객체의 메서드로 모든 객체가 상속받아 사용할 수 있다
 
@@ -121,9 +121,9 @@ console.log(user.hasOwnProperty("constructor")); // → false
 
 <br>
 
-## 4 프로퍼티 열거
+## 프로퍼티 열거
 
-### 4-1 for...in 문
+### for...in 문
 
 객체에 존재하는 모든 프로퍼티를 순회하며 열거할 때는 `for...in` 문을 사용한다
 
@@ -199,7 +199,7 @@ for (const element of arr) {
 arr.forEach(e => console.log(e)); // → 1 2 3
 ```
 
-### 4-2 Object.keys/values/entries 메서드
+### Object.keys/values/entries 메서드
 
 `for...in` 문은 객체의 프로퍼티뿐만 아니라 프로토타입으로부터 상속받은 프로퍼티도 순회하며 열거하기 때문에 `Object.prototype.hasOwnProperty` 메서드를 통해 객체만의 프로퍼티인지 추가 확인하는 작업이 필요하다. 따라서 이런 경우, `Object.keys`, `Object.values`, `Object.entries` 메서드를 사용하면 추가 작업 없이 객체 고유의 프로퍼티만을 확인할 수 있게 된다
 
@@ -229,9 +229,7 @@ arr.forEach(e => console.log(e)); // → 1 2 3
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [모던 자바스크립트 Deep Dive]()
 

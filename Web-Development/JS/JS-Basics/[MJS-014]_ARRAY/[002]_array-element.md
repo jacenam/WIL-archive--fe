@@ -1,10 +1,8 @@
 # 배열 요소의 관리
 
-### 목차
+**Table of Contents**
 
 - 
-
-***
 
 <br>
 
@@ -83,10 +81,9 @@
   - `Array.prototype.flatMap`
 
 <br>
-<br>
 
-***
-### 참고
+## 참고
+
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
 - [JavaScript MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript)
 - [배열 제대로 알고 쓰자. 자바스크립트 배열 개념과 APIs 총정리](https://youtu.be/yOdAVDuHUKQ)

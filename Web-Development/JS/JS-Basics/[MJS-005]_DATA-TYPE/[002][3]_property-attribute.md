@@ -1,21 +1,21 @@
 # 프로퍼티 어트리뷰트
 
-### 목차
+**Table of Contents**
 
-- [1 내부 슬롯과 내부 메서드](#1-내부-슬롯과-내부-메서드)
-- [2 프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체](#2-프로퍼티-어트리뷰트와-프로퍼티-디스크립터-객체)
-  - [2-1 프로퍼티 어트리뷰트](#2-1-프로퍼티-어트리뷰트)
-  - [2-2 프로퍼티 디스크립터 객체](#2-2-프로퍼티-디스크립터-객체)
-- [3 데이터 프로퍼티와 접근자 프로퍼티](#3-데이터-프로퍼티와-접근자-프로퍼티)
-  - [3-1 접근자 프로퍼티](#3-1-접근자-프로퍼티)
-  - [3-2 getter 함수](#3-2-getter-함수)
-  - [3-3 setter 함수](#3-3-setter-함수)
-- [4 프로퍼티 정의](#4-프로퍼티-정의)
-- [5 객체 변경 방지](#5-객체-변경-방지)
+- [내부 슬롯과 내부 메서드](#내부-슬롯과-내부-메서드)
+- [프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체](#프로퍼티-어트리뷰트와-프로퍼티-디스크립터-객체)
+  - [프로퍼티 어트리뷰트](#프로퍼티-어트리뷰트)
+  - [프로퍼티 디스크립터 객체](#프로퍼티-디스크립터-객체)
+- [데이터 프로퍼티와 접근자 프로퍼티](#데이터-프로퍼티와-접근자-프로퍼티)
+  - [접근자 프로퍼티](#접근자-프로퍼티)
+  - [getter 함수](#getter-함수)
+  - [setter 함수](#setter-함수)
+- [프로퍼티 정의](#프로퍼티-정의)
+- [객체 변경 방지](#객체-변경-방지)
 
 <br>
 
-## 1 내부 슬롯과 내부 메서드
+## 내부 슬롯과 내부 메서드
 
 프로퍼티 어트리뷰트를 이해하기 앞서 먼저 내부 슬롯(Internal Slot)과 내부 메서드(Internal Method)의 개념에 대한 이해가 필요하다
 
@@ -48,9 +48,9 @@ console.log(obj.__proto__); // → [Object: null prototype] {}
 
 <br>
 
-## 2 프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체
+## 프로퍼티 어트리뷰트와 프로퍼티 디스크립터 객체
 
-### 2-1 프로퍼티 어트리뷰트
+### 프로퍼티 어트리뷰트
 
 프로퍼티 어트리뷰트(Property Attritube)는 단어 의미 그대로 "[객체 프로퍼티](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20type.md#3-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EA%B5%AC%EC%84%B1-%EC%9A%94%EC%86%8C)가 가지는 속성"이라는 뜻으로, JS 엔진에 의해 객체의 프로퍼티가 생성될 때 프로퍼티의 상태를 나타내는 속성 값이라 이해하면 된다. 프로퍼티 어트리뷰트에는 아래와 같은 기본값을 갖으며 이는 모두 내부 슬롯의 일종이다
 
@@ -71,7 +71,7 @@ console.log(Object.getOwnPropertyDescriptor(user, "name")); // → { value: 'Jac
 console.log(Object.getOwnPropertyDescriptor(user, "age")); // → { value: 31, writable: true, enumerable: true, configurable: true }
 ```
 
-### 2-2 프로퍼티 디스크립터 객체
+### 프로퍼티 디스크립터 객체
 
 바로 위 `Object.getOwnPropertyDescriptor` 메서드 이름의 뜻은 '객체의 프로퍼티 디스크립터(Property Descriptor)를 가져온다'라는 의미다. `Object.getOwnPropertyDescriptor` 메서드를 호출하면 프로퍼티 어트리뷰트 정보가 기술되어 있는 프로퍼티 디스크립터 객체를 반환한다
 
@@ -95,7 +95,7 @@ console.log(Object.getOwnPropertyDescriptors(user));
 
 <br>
 
-## 3 데이터 프로퍼티와 접근자 프로퍼티
+## 데이터 프로퍼티와 접근자 프로퍼티
 
 객체의 프로퍼티는 아래와 같이 두 가지 형태로 구분된다:
 
@@ -111,7 +111,7 @@ console.log(Object.getOwnPropertyDescriptors(user));
 
 - 접근자 프로퍼티(Accessor Property): 다른 데이터 프로퍼티의 값을 읽거나 저장할 때 호출되는 접근자 함수(Accessor Function)으로 구성된 프로퍼티다. 즉, 접근자 함수 형태의 키는 존재하지만, 자체적인 값은 갖지 않는 프로퍼티의 형태다
 
-### 3-1 접근자 프로퍼티
+### 접근자 프로퍼티
 
 데이터 프로퍼티는 현재까지 살펴본 객체의 일반적인 프로퍼티다. 바로 위에서 언급했듯이, 접근자 프로퍼티는 자체적인 값을 갖고 있지 않기 때문에 데이터 프로퍼티 키의 값을 읽어들이거나 새로운 값을 저장할 때 사용되는 함수 형태의 프로퍼티다
 
@@ -193,7 +193,7 @@ const user = {
 console.log(Object.getOwnPropertyDescriptor(user, "fullName")) // → { get: f, set: f, enumerable: true, configurable: true } 
 ```
 
-### 3-2 getter 함수
+### getter 함수
 
 접근자 프로퍼티는 `getter`와 `setter` 함수를 모두 정의할 수도 있고 아래와 같이 하나만 정의할 수도 있다.  `getter` 함수는 이름 그대로 '(값을) 가져오는 함수'라고 생각하면 된다. 접근자 프로퍼티의 이름을 사용하여 **마침표 프로퍼티 접근 연산자를 통해 객체에 접근하면 데이터 프로퍼티의 값을 반환하는 `getter` 함수가 호출**된다
 
@@ -212,7 +212,7 @@ const user = {
 console.log(person.fullName); // → Jace Nam
 ```
 
-### 3-3 setter 함수
+### setter 함수
 
 `setter` 함수는 이름 그대로 '(값을) 설정하는 함수'라고 생각하면 된다. `setter` 함수는 `getter` 함수와는 다르게, `setter` 함수 호출 시 값을 `setter` 함수에 전달해야하기 때문에 최소 1개의 매개변수가 필수적으로 필요하다. **`setter` 함수에 값을 전달하면 `getter` 함수가 아닌 `setter` 함수가 호출**된다
 
@@ -244,7 +244,7 @@ console.log(user) // → { firstName: "Jace", lastName: "Nam" }
 
 <br>
 
-## 4 프로퍼티 정의
+## 프로퍼티 정의
 
 프로퍼티 정의란 특정 객체에 새로운 프로퍼티를 추가할 때 프로퍼티 어트리뷰트를 개발자가 명시적으로 정의하거나 기존 프로퍼티 어트리뷰트를 재정의(수정)하는 것을 의미한다
 
@@ -312,7 +312,6 @@ console.log(Object.getOwnPropertyDescriptor(user, "fullName")); // → { get: f,
   console.log(Object.getOwnPropertyDescriptor(user, "lastName")); // → { value: undefined, writable: false, enumerable: false, configurable: false }
   ```
   
-
 - `enumerable`: `false`인 경우
 
   ```javascript
@@ -345,7 +344,7 @@ console.log(Object.getOwnPropertyDescriptor(user, "fullName")); // → { get: f,
 
 <br>
 
-## 5 객체 변경 방지
+## 객체 변경 방지
 
 [객체는 변경 가능한 값](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/primitive%20%26%20object%20type.md)이다. 프로퍼티를 추가, 삭제 및 갱신할 수 있으며 `Object.defineProperty`를 통해 프로퍼티의 프로퍼티 어트리뷰트도 재정의할 수도 있다. 이때 JS는 객체 값의 변경을 방지하는 다양한 메서드를 아래와 같이 제공하기도 한다:
 
@@ -359,7 +358,7 @@ console.log(Object.getOwnPropertyDescriptor(user, "fullName")); // → { get: f,
 | `Object.seal`              | 객체 밀봉      | X             | X             | O                | O                | X                 |
 | `Object.freeze`            | 객체 동결      | X             | X             | O                | X                | X                 |
 
-### 5-1 객체 확장 금지
+### 객체 확장 금지
 
 먼저, `Object.isExtensible` 메서드를 통해 확장이 가능한 객체인지 확인해볼 수 있다
 
@@ -402,7 +401,7 @@ delete user.name;
 console.log(user); // → {}
 ```
 
-### 5-2 객체 밀봉
+### 객체 밀봉
 
 먼저, `Object.isSealed` 메서드를 통해 밀봉된 객체인지 확인해볼 수 있다
 
@@ -440,7 +439,7 @@ user.name = "Ju Hyung"
 console.log(user); // → { name: "Ju Hyung" }
 ```
 
-### 5-3 객체 동결
+### 객체 동결
 
 먼저, `Object.isFrozen` 메서드를 통해 동결된 객체인지 확인해 볼 수 있다
 
@@ -470,9 +469,7 @@ console.log(user); // → { name: "Jace" }
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
 

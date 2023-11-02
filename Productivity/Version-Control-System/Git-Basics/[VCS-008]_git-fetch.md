@@ -1,17 +1,15 @@
-<img src="https://ifh.cc/g/xmybLo.png" style="max-width: 100%" align="center">
+# Git Fetch
 
-### 목차
+**Table of Contents**
 
-- [1 Git Fetch](#1-Git-Fetch)
-- [2 FETCH_HEAD](#2-FETCH_HEAD)
-- [3 fetch와 pull의 차이](#3-fetch와-pull의-차이)
-- [4 Git Fetch의 활용](#4-Git-Fetch의-활용)
-
-***
+- [Git Fetch](#1-Git-Fetch)
+- [FETCH_HEAD](#2-FETCH_HEAD)
+- [fetch와 pull의 차이](#3-fetch와-pull의-차이)
+- [Git Fetch의 활용](#4-Git-Fetch의-활용)
 
 <br>
 
-## 1 Git Fetch
+## Git Fetch
 
 `git fetch [원격 저장소 이름]` 명령어는 대상 원격 저장소의 변경된 이력만을 로컬 저장소로 가져와서 변경 정보만을 확인시켜주는 기능이 있다. 보통  `clone` 혹은 `remote add`를 통해 원격 저장소와 로컬 저장소를 연결시킨 상태에서 원격 저장소에 변경된 이력이 있다면, 로컬 저장소로 그 변경 사항을 전부 가져오기 전에 먼저 변경 이력을 확인할 때 사용된다 
 
@@ -58,7 +56,7 @@ git log --all --oneline
 
 ### <br>
 
-## 2 FETCH_HEAD
+## FETCH_HEAD
 
 위 로그를 살펴보면 `0b5345e` 커밋 ID는 `(origin/main, origin/HEAD)`, `0416553` 커밋 ID는 `(HEAD -> main)`으로 되어있다. 이는 원격 저장소에서 로컬 저장소로 커밋 정보만 가져왔음을 나타낸다. 즉, 로컬 저장소의 `HEAD`는 `0416553` 커밋을 가리키고 있고, `fetch`해온 원격 저장소의  `HEAD`는 `0b5345e` 커밋을 가리키고 있는 것이다. 이때 `fetch`해온 원격 저장소의 `HEAD`를 `FETCH_HEAD`라고 부른다
 
@@ -90,7 +88,7 @@ git log --all --oneline
 
 <br>
 
-## 3 fetch와 pull의 차이
+## fetch와 pull의 차이
 
 앞서 `fetch` 명령어는 원격 저장소의 최신 커밋 이력이 로컬 저장소에 적용되지 않았을 때 로컬 저장소로 먼저 커밋 정보만 가져오는 기능을 수행한다 했다. 그에 반해, `pull` 명령어는 원격 저장소의 최신 커밋 이력을 로컬 저장소로 가져와 커밋 이력을 동기화한다. 이를 세부 과정으로 나타냈을 때: 
 
@@ -101,7 +99,7 @@ git log --all --oneline
 
 <br>
 
-## 4 Git Fetch의 활용
+## Git Fetch의 활용
 
 현재 [코드스쿼드 마스터즈](https://codesquad.kr/masters)에서 활동을 하며 `git fetch` 명령어를 활용해 볼 기회가 있어 내용을 정리한다
 
@@ -161,9 +159,7 @@ git log --all --oneline
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [Git 공식문서](https://git-scm.com/docs)
 - [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)

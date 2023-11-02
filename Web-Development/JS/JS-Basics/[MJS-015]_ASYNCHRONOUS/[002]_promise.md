@@ -1,17 +1,14 @@
 # 프로미스
 
-### 목차
+**Table of Contents**
 
 - 
 
-***
-
 <br>
 <br>
 
-***
+## 참고
 
-### 참고
 - [JavaScript MDN - 프로미스](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise), [Promise() 생성자](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise), [Error() 생성자](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error)
 - [모던 JavaScript 튜토리얼 - 프로미스](https://ko.javascript.info/promise-basics)
 - [모던 JavaScript 튜토리얼 - 프라미스 체이닝](https://ko.javascript.info/promise-chaining)

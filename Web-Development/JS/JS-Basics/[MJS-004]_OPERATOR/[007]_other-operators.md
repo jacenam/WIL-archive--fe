@@ -1,20 +1,18 @@
 # 그 외의 연산자들
 
-### 목차
+**Table of Contents**
 
-- [1 쉼표 연산자](#1-쉼표-연산자)
-- [2 그룹 연산자](#2-그룹-연산자)
-- [3 typeof 연산자](#3-typeof-연산자)
-  - [3-1 typeof NaN](#3-1-typeof-NaN)
-  - [3-2 typeof null](#3-2-typeof-null)
-  - [3-3 typeof 연산자와 undefined](#3-3-typeof-연산자와-undefined)
-- [4 그 외의 연산자](#4-그-외의-연산자)
-
-***
+- [쉼표 연산자](#쉼표-연산자)
+- [그룹 연산자](#그룹-연산자)
+- [typeof 연산자](#typeof-연산자)
+  - [typeof NaN](#typeof-NaN)
+  - [typeof null](#typeof-null)
+  - [typeof 연산자와 undefined](#typeof-연산자와-undefined)
+- [그 외의 연산자](#그-외의-연산자)
 
 <br>
 
-## 1 쉼표 연산자
+## 쉼표 연산자
 
 쉼표(Comma, `,`) 연산자는 좌측 피연산자부터 각각 차례대로 평가하고, 평가까지 끝나면 마자막 피연산자의 평가 결과를 반환한다. 배열, 객체, 함수의 매개변수와 호출 인수에서 사용하는 쉼표와 동일하지 않다. 쉼표(`,`) 연산자는 `for` 반복문, 함수(`map()`, `reduce()` 등)에서 사용될 때가 있다
 
@@ -30,7 +28,7 @@ console.log(x); // → 6
 
 <br>
 
-## 2 그룹 연산자
+## 그룹 연산자
 
 그룹(`()`) 연산자로 감싸여진 피연산자는 가장 먼저 평가된다. 즉, 그룹 연산자를 사용하면 연산자와 평가될 피연산자의 우선순위를 조절할 수 있다. 그룹 연산자는 연산자 중 우선순위가 가장 높다
 
@@ -41,7 +39,7 @@ console.log(x); // → 6
 
 <br>
 
-## 3 `typeof` 연산자
+## typeof 연산자
 
 **`typeof` 연산자는 피연산자의 데이터 타입을 문자열로 변경해서 반환**한다. 문자열로 반환되는 데이터 타입은 총 7가지로 `'string'`, `‘number'`, `‘boolean’`, `‘undefined’`, `‘symbol’`, `‘object’`, `‘function’`을 반환한다. `typeof` 연산자는 보통 다른 개발자와 협업을 할 때, 다른 개발자의 코드 중 데이터 타입이 명확하게 파악이 안될 경우 데이터 타입을 파악하는 용도로 자주 쓰인다. 중요한 것은 `typeof` 연산자를 통해 반환되는 데이터 타입의 문자열은 7개의 데이터 타입과 항상 정확히 일치하지는 않는다.
 
@@ -56,7 +54,7 @@ typeof {}; // → 'object'
 typeof function() // → 'function'
 ```
 
-### 3-1 typeof NaN
+### typeof NaN
 
 `NaN`은 데이터 타입이 숫자가 아니라는 숫자 판명을 위해 쓰이므로 숫자 타입에 속한다
 
@@ -64,7 +62,7 @@ typeof function() // → 'function'
 typeof NaN; // → 'number'
 ```
 
-### 3-2 typeof null
+### typeof null
 
 `null`은 `‘object'`로 반환되는데 이것은 첫 번째 JS 버전의 버그다. 기존 코드에 영향을 줄 수 있다는 이유에 아직까지 수정되지 못하고 있다.
 
@@ -81,7 +79,7 @@ typeof x === null; // → false
 x === null; // → true
 ```
 
-### 3-3 typeof 연산자와 undefined
+### typeof 연산자와 undefined
 
 선언하지 않은 것(undeclared)과 정의하지 않은 것(undefined)는 완전히 다른 개념이다.
 
@@ -109,7 +107,7 @@ typeof z; // → 'undefined'
 
 <br>
 
-## 4 그 외의 자주 쓰이는 연산자 (추후 공부 후 내용 추가 예정)
+## 그 외의 자주 쓰이는 연산자 (추후 공부 후 내용 추가 예정)
 
 앞서 언급된 [산술 연산자](), [할당 연산자](), [비교 연산자](), [삼항 조건 연산자](), [논리 연산자](), [쉼표 연산자](), [그룹 연산자](), `typeof` 연산자, [지수 연산자]()를 제외하고 추가적으로 6가지의 연산자가 더 존재한다
 
@@ -124,9 +122,7 @@ typeof z; // → 'undefined'
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
 - [[Javascript] You Don't Know JS: 타입과 값](https://baeharam.github.io/posts/javascript/jsyou-dont-know-js-value-and-type/)

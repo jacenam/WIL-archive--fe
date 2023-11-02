@@ -1,16 +1,14 @@
 # 재귀 함수
 
-### 목차
+**Table of Contents**
 
-- [1 재귀 함수란](#1-재귀-함수란)
-- [2 팩토리얼 재귀 함수](#2-팩토리얼-재귀-함수)
-- [3 재귀 함수와 반복문](#3-재귀-함수와-반복문)
-
-***
+- [재귀 함수란](#재귀-함수란)
+- [팩토리얼 재귀 함수](#팩토리얼-재귀-함수)
+- [재귀 함수와 반복문](#재귀-함수와-반복문)
 
 <br>
 
-## 1 재귀 함수란
+## 재귀 함수란
 
 함수 내부에서 자기 자신을 반복해서 호출하는 함수를 재귀 함수(Recursive Function)라고 부른다. 재귀 함수는 보통 반복되는 처리를 위해 사용한다
 
@@ -44,7 +42,7 @@ recursiveFunc(0); // → 0 1 2 3 4 5 6 7 8 9 10
 <img src="https://ifh.cc/g/7hWATB.png" style="max-width: 100%" align="center"/>
 <br>
 
-## 2 팩토리얼 재귀 함수
+## 팩토리얼 재귀 함수
 
 재귀 함수의 활용 예제로 팩토리얼 재귀 함수가 가장 대표적이다 
 ```javascript
@@ -79,7 +77,7 @@ console.log(factorial(5)); // → 120
 <img src="https://ifh.cc/g/WB8bba.jpg" style="max-width: 100%" align="center"/>
 <br>
 
-## 3 재귀 함수와 반복문
+## 재귀 함수와 반복문
 
 위 팩토리얼 재귀 함수 예제를 아래 예제 코드처럼 반복문을 통해 코드 길이를 최소화할 수도 있다
 ```javascript
@@ -114,8 +112,10 @@ for (var i = 0; i <= 5; i++) {
   console.log(factorial(i)); // → 1 1 2 6 24 120
 }
 ```
-***
-### 참고
+<br>
+
+## 참고
+
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
 - [재귀(Recursion) 함수 사용 방법](https://koonsland.tistory.com/135)
 - [재귀 패턴(Recursive Pattern)](https://window6kim.tistory.com/31)

@@ -1,22 +1,20 @@
-<img src="https://ifh.cc/g/ffcGp7.png" style="max-width: 100%" align="center">
+# Git Fork
 
-### 목차
+**Table of Contents**
 
-- [1 Fork란]()
-- [2 Fork와 Branch의 차이](#2-Fork와-Branch의-차이)
-  - [2-1 Branch의 분기 특성](#2-1-Branch의-분기-특성)
-  - [2-2 Fork의 분기 특성](#2-2-Fork의-분기-특성)
-- [3 Fork하는 방법](#3-Fork하는-방법)
-- [4 Fork를 위한 remote와 upstream에 대해 이해하기](#4-Fork를-위한-remote와-upstream에-대해-이해하기)
-  - [4-1 remote](#4-1-remote)
-  - [4-2 upstream](#4-2-upstream)
-  - [4-3 Fork와 remote, upstream](#4-3-Fork와-remote,-upstream)
-
-***
+- [Fork란](#Fork란)
+- [Fork와 Branch의 차이](#Fork와-Branch의-차이)
+  - [Branch의 분기 특성](#Branch의-분기-특성)
+  - [Fork의 분기 특성](#Fork의-분기-특성)
+- [Fork하는 방법](#Fork하는-방법)
+- [Fork를 위한 remote와 upstream에 대해 이해하기](#Fork를-위한-remote와-upstream에-대해-이해하기)
+  - [remote](#remote)
+  - [upstream](#upstream)
+  - [Fork와 remote, upstream](#Fork와-remote,-upstream)
 
 <br>
 
-## 1 Fork란
+## Fork란
 
 일반적으로 저장소를 생성한 사람만이 생성한 원본 저장소에 커밋 내역을 업데이트(`push`)할 권한이 있다. 권한 등록이 되지 않은 다른 사람이 이곳에 커밋 내역을 업데이트하면 에러가 발생한다. 이때 1) 권한 등록 없이 다른 사람이 원본 저장소를 복사(`Fork`)해 변경 사항을 원본 저장소에 2) 허락(`Pull Request`)을 받고 업데이트할 수 있다
 
@@ -31,17 +29,17 @@
 
 <br>
 
-## 2 Fork와 Branch의 차이
+## Fork와 Branch의 차이
 
 Fork와 Branch는 기존 커밋 내역에서 새로운 분기점을 생성해서 기존 커밋 내역과는 별개의 작업이 가능하다는 공통점이 있지만 특성이 다르다
 
-### 2-1 Branch의 분기 특성
+### Branch의 분기 특성
 
 브랜치는 새로운 저장소를 생성하는게 아닌, 기존 작업 브랜치의 `base`를 기준으로부터 새로운 브랜치가 분기되기 때문에 모든 커밋 이력이 연결되어 있다. 따라서 원본 저장소(`main` 브랜치와 `feature` 브랜치)의 커밋 이력에 모두 접근이 가능하다
 
 <img src="https://ifh.cc/g/nDTlYK.png" style="max-width: 100%" align="center">
 
-### 2-2 Fork의 분기 특성
+### Fork의 분기 특성
 
 반면, Fork는 브랜치와는 원본 저장소를 통째로 복사해서 아예 다른 저장소에 저장하는 것이다. 이때 원본 저장소의 주소와 Fork해서 새로 생성한 저장소의 주소가 아래와 같이 다르다. 따라서 원본 저장소와 Fork로 생성한 저장소는 연결이 끊겨있기 때문에 새롭게 생성한 저장소에서는 원본 저장소의 커밋 이력을 볼 수 없다. 즉, Fork로 생성한 저장소에서 변경 이력이 발생해도 원본 저장소에는 어떠한 영향을 끼치지 않는 점도 이 때문이다
 
@@ -65,7 +63,7 @@ Fork로 생성한 저장소 주소: github.com/jacenam/fe-max--wise-wallet
 
 <br>
 
-## 3 Fork하는 방법
+## Fork하는 방법
 
 Fork를 하는 방법은 아래와 같다:
 
@@ -142,9 +140,9 @@ Fork를 하는 방법은 아래와 같다:
 
 <br>
 
-## 4 Fork를 위한 remote와 upstream에 대해 이해하기
+## Fork를 위한 remote와 upstream에 대해 이해하기
 
-### 4-1 remote
+### remote
 
 나의 로컬 저장소를 원격 저장소와 연결하는 방법은 두 가지가 있다: 
 
@@ -170,7 +168,7 @@ git remote -v
 
 그렇다면 `git push -u origin main`에서 `-u`는 무엇을 의미하는 것일까?
 
-### 4-2 upstream
+### upstream
 
 위에서 언급한  `git push -u origin main` 명령어에서 `-u`는 `--set-upstream` 명령어와 동일한 의미를 지니며 upstream을 설정한다는 뜻이다. 그렇다면 upstream은 무슨 의미일까? `push`, `pull` 명령어를 살펴보자: 
 
@@ -183,7 +181,7 @@ git remote -v
 
 `-u` 명령어로 upstream을 설정한다는 것은 커밋 이력이 어디서 어디로 흐르는지 방향을 설정한다는 의미다. 즉, `git push -u origin main` 명령어를 통해 로컬 저장소에서 원격 저장소(`origin`)로 데이터를 보내는 방향은 upstream, 반대로 원격 저장소에서 로컬 저장소의 방향은 downstream으로 설정한다는 뜻이다
 
-### 4-3 Fork와 remote, upstream
+### Fork와 remote, upstream
 
 여기서 주의해야 할 점은 upstream/downstream 개념은 상대적이라는 것이다. 아래와 같이 다른 사람의 원본 원격 저장소를 나의 원격 저장소로 통째로 복사해오는 Fork의 과정을 살펴보자:
 
@@ -205,9 +203,7 @@ git remote -v
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [Git 공식문서](https://git-scm.com/docs)
 - [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)

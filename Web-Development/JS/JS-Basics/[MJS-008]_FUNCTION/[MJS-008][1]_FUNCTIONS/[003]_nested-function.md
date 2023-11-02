@@ -1,14 +1,12 @@
 # 중첩 함수
 
-### 목차
+**Table of Contents**
 
-- [1 중첩 함수란](#1-중첩-함수란)
-
-***
+- [중첩 함수란](#중첩-함수란)
 
 <br>
 
-## 1 중첩 함수란
+## 중첩 함수란
 
 JS에서는 함수 내부에 또 다른 함수를 정의(선언)할 수 있다. 함수 내부에 정의된 함수를 중첩 함수(Nested Function) 또는 내부 함수(Inner Function)이라 부른다. 그리고 내부에 있는 함수를 감싸는 함수를 외부 함수(Outer Function)이라 부른다
 ```javascript
@@ -52,8 +50,8 @@ outerFunc();
 
 <br>
 
-***
-### 참고 
+## 참고 
+
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
 - [자바스크립트의 중첩 함수(Nested Fuctions)는 언제 사용해야 할까](https://siyoon210.tistory.com/162)
 - [[JS] 클로저란? 중첩함수?](https://velog.io/@hahaha/JS-%ED%81%B4%EB%A1%9C%EC%A0%80)

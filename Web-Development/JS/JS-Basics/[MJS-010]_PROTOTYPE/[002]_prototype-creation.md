@@ -1,21 +1,21 @@
 # 프로토타입의 생성 시점
 
-### 목차
+**Table of Contents**
 
-- [1 프로토타입의 생성 시점](#1-프로토타입의-생성-시점)
-  - [1-1 사용자 정의 생성자 함수와 프로토타입 생성 시점](#1-1-사용자-정의-생성자-함수와-프로토타입-생성-시점)
-  - [1-2 빌트인 생성자 함수와 프로토타입 생성 시점](#1-2-빌트인-생성자-함수와-프로토타입-생성-시점)
-- [2 객체 생성 방식과 프로토타입의 결정](#2-객체-생성-방식과-프로토타입의-결정)
+- [프로토타입의 생성 시점](#프로토타입의-생성-시점)
+  - [사용자 정의 생성자 함수와 프로토타입 생성 시점](#사용자-정의-생성자-함수와-프로토타입-생성-시점)
+  - [빌트인 생성자 함수와 프로토타입 생성 시점](#빌트인-생성자-함수와-프로토타입-생성-시점)
+- [객체 생성 방식과 프로토타입의 결정](#객체-생성-방식과-프로토타입의-결정)
 
 <br>
 
-## 1 프로토타입의 생성 시점
+## 프로토타입의 생성 시점
 
 생성자 함수와 `prototype` 객체는 언제나 쌍으로 존재한다. 따라서 `prototype` 객체는 생성자 함수가 생성되는 시점에 함께 생성된다
 
 생성자 함수는 개발자가 직접 정의한 '사용자 정의 생성자 함수'와 JS에서 내장되어 기본 제공하는 '빌트인 생성자 함수'로 구분된다. 그리고 `prototype` 객체는 생성자 함수 종류에 따라 생성 시점이 상이한다
 
-### 1-1 사용자 정의 생성자 함수와 프로토타입 생성 시점
+### 사용자 정의 생성자 함수와 프로토타입 생성 시점
 
 [내부 메서드 `[[Construct]]`를 갖는 함수 객체](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/constructor%20function.md#6-1-call%EA%B3%BC-construct), 즉 함수 선언문, 함수표현식과 같이 일반 함수 정의 방식으로 정의한 함수 객체만이 `new` 연산자와 함께 생성자 함수로서 사용될 수 있다
 
@@ -66,7 +66,7 @@ User.prototype.__proto__ === Object.prototype; // → true
 
 이렇게 여러 개의 `prototype` 객체가 생성되고 연결되는 것에 혼란스러울 수 있다. 이는 [프로토타입 체인](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype%20chain.md) 파트에서 살펴볼 예정이다
 
-### 1-2 빌트인 생성자 함수와 프로토타입 생성 시점
+### 빌트인 생성자 함수와 프로토타입 생성 시점
 
 앞서 일반 함수 정의 방식으로 정의한 생성자 함수의 `prototype` 객체는 생성자 함수의 생성 시점과 동일하다 했다. `Object`, `String`, `Number`, `Function`, `Array` 등의 빌트인 생성자 함수의 `prototype` 객체도 빌트인 생성자 함수가 생성되는 시점에 생성된다
 
@@ -99,7 +99,7 @@ User.prototype.__proto__ === Object.prototype; // → true
 
 <br>
 
-## 2 객체 생성 방식과 프로토타입의 결정
+## 객체 생성 방식과 프로토타입의 결정
 
 앞서 객체 리터럴 방식에 의해 생성된 객체는 따로 인스턴스를 생성하지 않기 때문에 `prototype` 객체와 연결되려면 [가상의 생성자 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Prototype/prototype.md#3-2-constructor-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0feat-%EA%B0%9D%EC%B2%B4-%EB%A6%AC%ED%84%B0%EB%9F%B4)와 연결된다고 했다. 그리고 객체 리터럴 방식에 의해 생성된 객체는 가상의 생성자 함수의 인스턴스 역할을 한다
 
@@ -117,8 +117,6 @@ console.log(user.constructor); // → ƒ Object() { [native code] }
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [모던 자바스크립트 Deep Dive]()

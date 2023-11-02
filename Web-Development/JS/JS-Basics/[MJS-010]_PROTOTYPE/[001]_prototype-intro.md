@@ -2,35 +2,31 @@
 
 JS는 프로토타입 기반의 [객체지향 언어](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/object%20oriented%20programming.md)다. JS를 이루고 있는 값 중 원시 타입을 제외한 모든 값이 객체다. 따라서 모든 객체 연결되어 있는 프로토타입은 JS에서 가장 중요한 개념 중 하나이며, JS를 C++, Java 같은 클래스 기반의 객체지향 언어와 구분하는 가장 핵심적인 요소라고 볼 수 있다. 
 
-<br>
+**Table of Contents**
 
-### 목차
+- [프로토타입이란](#프로토타입이란)
+- [프로토타입과 상속](#프로토타입과-상속)
+  - [생성자 함수의 단점](#생성자-함수의-단점)
+  - [상속](#상속)
+  - [정적 프로퍼티와 메서드](#정적-프로퍼티와-메서드)
 
-- [1 프로토타입이란](#1-프로토타입이란)
-- [2 프로토타입과 상속](#2-프로토타입과-상속)
-  - [2-1 생성자 함수의 단점](#2-1-생성자-함수의-단점)
-  - [2-2 상속](#2-2-상속)
-  - [2-3 정적 프로퍼티와 메서드](#2-3-정적-프로퍼티와-메서드)
+- [프로토타입 객체](#프로토타입-객체)
+  - [프로토타입 객체의 프로퍼티 구성](#프로토타입-객체의-프로퍼티-구성)
+    - [객체 리터럴](#객체-리터럴)
+    - [생성자 함수](#생성자-함수)
+    - [그 외의 생성자 함수](#그-외의-생성자-함수)
 
-- [3 프로토타입 객체](#3-프로토타입-객체)
-  - [3-1 프로토타입 객체의 프로퍼티 구성](#3-1-프로토타입-객체의-프로퍼티-구성)
-    - [3-1-1 객체 리터럴](#3-1-1-객체-리터럴)
-    - [3-1-2 생성자 함수](#3-1-2-생성자-함수)
-    - [3-1-3 그 외의 생성자 함수](#3-1-3-그-외의-생성자-함수)
+  - [constructor 프로퍼티(feat. 생성자 함수)](#constructor-프로퍼티(feat.-생성자-함수))
+  - [constructor 프로퍼티(feat. 객체 리터럴)](#constructor-프로퍼티(feat.-객체-리터럴))
+  - [proto 접근자 프로퍼티](#proto-접근자-프로퍼티)
 
-  - [3-2 constructor 프로퍼티(feat. 생성자 함수)](#3-2-constructor-프로퍼티(feat.-생성자-함수))
-  - [3-3 constructor 프로퍼티(feat. 객체 리터럴)](#3-3-constructor-프로퍼티(feat.-객체-리터럴))
-  - [3-4 proto 접근자 프로퍼티](#3-4-proto-접근자-프로퍼티)
-
-- [4 함수 객체의 프로토타입](#4-함수-객체의-프로토타입)
-  - [4-1 생성자 함수와 프로토타입](#4-1-생성자-함수와-프로토타입)
-  - [4-2 Non-constructor 함수와 프로토타입](#4-2-Non-constructor-함수와-프로토타입)
-
-
+- [함수 객체의 프로토타입](#함수-객체의-프로토타입)
+  - [생성자 함수와 프로토타입](#생성자-함수와-프로토타입)
+  - [Non-constructor 함수와 프로토타입](#Non-constructor-함수와-프로토타입)
 
 <br>
 
-## 1 프로토타입이란 
+## 프로토타입이란 
 
 아래 예제와 같이 브라우저 환경에서 특정 객체를 참조하면 할당한 프로퍼티가 포함된 객체가 반환된다. 그러나  할당하지 않은 `[[Prototype]]` 내부 슬롯 또한 반환되는 것을 확인할 수 있다
 
@@ -74,9 +70,9 @@ JS에서는 '상속'이라는 특성이 프로토타입을 통해 구현되며, 
 
 <br>
 
-## 2 프로토타입과 상속
+## 프로토타입과 상속
 
-### 2-1 생성자 함수의 단점
+### 생성자 함수의 단점
 
 [생성자 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/constructor%20function.md) 파트에서 살펴봤듯이, 객체 리터럴은 하나의 리터럴로 단 하나의 객체만을 생성할 수 있다
 
@@ -134,7 +130,7 @@ console.log(square3); // → Square { sideLength: 20, getArea: [Function] }
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/d6b2e87b-0645-403f-b4ec-dd5c7de1ef6d" width="100%">
 
-### 2-2 상속
+### 상속
 
 생성자 함수를 통해 생성된 인스턴스 내의 불필요한 중복을 줄이기 위해서는 프로토타입을 활용하면 된다. JS는 프로토타입을 기반으로 원형으로부터 변화된 상태의 인스턴스(원형 → 인스턴스)들로 특정 요소들을 상속시킬 수 있다. 예를 들어, 위 예제에서 각 인스턴스에 중복으로 할당된 메서드 `getArea`를 프로토타입 상속으로 제거해보자:
 
@@ -209,7 +205,7 @@ console.log(Square.prototype); // → {double: 2, getDoulbedArea: [Function] }
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/d6a8982b-f59b-41c2-b2cb-bd305d2ad448" width="100%">
 
-### 2-3 정적 프로퍼티와 메서드
+### 정적 프로퍼티와 메서드
 
 만약 `prototype` 객체를 통한 프로퍼티 및 메서드 상속을 원하지 않는 경우 명시적으로 상속되지 않는 프로퍼티와 메서드를 지정할 수 있다. 아래 예제를 살펴보자
 
@@ -242,7 +238,7 @@ console.log(square2.staticMethod()); // → Uncaught TypeError: square2.staticMe
 
 <br>
 
-## 3 프로토타입 객체
+## 프로토타입 객체
 
 `prototype` 객체는 생성자 함수 측면에서 봤을 때 생성자 함수의 프로퍼티가 되는 것이며, `prototype` 객체 측면에서 봤을 때는 특정 데이터와 로직이 담겨있는 객체 되는 것이다. 다시 말해, 생성자 함수의 `prototype` 프로퍼티이자 `prototype` 자체적으로는 객체가 되는 것이다. 그럼  `prototype` 객체의 구조를 살펴보자
 
@@ -269,9 +265,9 @@ const user = { name: "Jace" }
 ......
 ```
 
-### 3-1 프로토타입 객체의 프로퍼티 구성
+### 프로토타입 객체의 프로퍼티 구성
 
-### 3-1-1 객체 리터럴
+#### 객체 리터럴
 
 먼저 객체 리터럴에 의해 생성된 일반 객체의 `prototype` 객체를 살펴보자. 브라우저 환경에서 실행된 아래 예제를 살펴보면 객체 리터럴로 빈 객체(`{}`)를 생성했다. 그리고 살펴보면 `[[Prototype]]` 내부 슬롯이 가리키는 `prototype` 객체는 `Object`이며, 프로퍼티 구성이 다양하다
 
@@ -281,7 +277,7 @@ const user = { name: "Jace" }
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/85157efe-a3db-40a4-87ff-aa578d2a008f" width="100%">
 
-### 3-1-2 생성자 함수
+#### 생성자 함수
 
 다음은 일반 함수 정의 방식으로 정의된 생성자 함수의 `prototype` 객체를 살펴보자. 프로퍼티가 `constructor` 프로퍼티 1개 뿐이다. 그리고 `[[Prototype]]` 내부 슬롯이 존재하며, 이 내부 슬롯은 `Object`를 가리키고 있다.  [앞서 언급했듯이](#1-프로토타입이란), 이는 일반 함수 정의 방식으로 정의된 생성자 함수의 `prototype` 객체도 객체로서 `[[Prototype]]` 내부 슬롯을 가지기 때문이다 
 
@@ -305,7 +301,7 @@ Square.prototype.__proto__ === Object.prototype; // → true
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/a75f5905-64b6-49a6-8c9c-0f856760d524" width="100%">
 
-### 3-1-3 그 외의 생성자 함수
+#### 그 외의 생성자 함수
 
 `Object`, `String`, `Number`, `Array` 등의 생성자 함수는 아래와 같은 `prototype` 객체 구조를 갖는다:
 
@@ -335,7 +331,7 @@ arr.prototype; // → undefined
 
 이는 `prototype` 객체가 생성되었을 때 바인딩되는 주체가 다르기 때문이며, 이는 추후에 다뤄볼 예정이다
 
-### 3-2 constructor 프로퍼티(feat. 생성자 함수)
+### constructor 프로퍼티(feat. 생성자 함수)
 
 모든 `prototype` 객체는 `constructor` 프로퍼티를 갖는다. `constructor` 프로퍼티는 `prototype` 객체를 참조하고 있는 생성자 함수를 가리킨다
 
@@ -359,7 +355,7 @@ console.log(square.constructor); // → ƒ Square(sideLength) { this.sideLength 
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/06cf01e9-07e2-42c2-b1e4-1a4165008ac3" width="100%">
 
-### 3-3 constructor 프로퍼티(feat. 객체 리터럴)
+### constructor 프로퍼티(feat. 객체 리터럴)
 
 앞서 살펴본대로, 생성자 함수에 의해 생성된 인스턴스는 `prototype` 객체의 `constructor` 프로퍼티를 통해 생성자 함수와 연결된다
 
@@ -417,7 +413,7 @@ console.log(user.constructor === Object); // → true
 | 배열 리터럴        | `Array` 생성자 함수    | `Array.prototype`    |
 | 정규 표현식 리터럴 | `RegExp` 생성자 함수   | `RegExp.prototype`   |
 
-### 3-4 proto 접근자 프로퍼티
+### proto 접근자 프로퍼티
 
 모든 객체, 프로토타입과 생성자 함수는 서로 연결되어 있는 것을 살펴보았다. `prototype` 객체의 `constructor` 프로퍼티를 통해서 생성자 함수와 연결되고, 인스턴스는 `[[Prototype]]` 내부 슬롯에 저장되어 `prototype` 객체를 가리키는 참조 값을 통해 `prototype` 객체와 연결된다
 
@@ -472,9 +468,9 @@ console.log(user1.name); // → Jace
 
 <br>
 
-## 4 함수 객체의 프로토타입
+## 함수 객체의 프로토타입
 
-### 4-1 생성자 함수와 프로토타입
+### 생성자 함수와 프로토타입
 
 앞서 모든 객체는 `[[Prototype]]` 내부 슬롯을 가지며, 이 내부 슬롯 내부에는 `prototype` 객체를 가리키는 참조 값이 저장되어 있다 했다. 즉, 객체는 `prototype` 객체를 프로퍼티로서 직접적으로 소유하지 않는다
 
@@ -533,7 +529,7 @@ console.log(sayHello2.hasOwnProperty("prototype")); // → false
 console.log(sayHello2 === "Hello"); // → true
 ```
 
-### 4-2 Non-constructor 함수와 프로토타입
+### Non-constructor 함수와 프로토타입
 
 앞서 [생성자 함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/constructor%20function.md#6-2-constructor%EC%99%80-non-constructor)에서 살펴봤듯이, Non-constructor 함수는 호출할 수 있는 객체이지만 `[[Construct]]`  내부 메서드를 갖지 않는 함수로서, 생성자 함수로 생성할 수 없는 함수다. 즉, non-constructor 함수인 메서드 축약 표현과 화살표 함수는 생성자 함수와 연결되지 않는 함수이기 때문에 `prototype` 객체와도 연결될 수 없다
 
@@ -562,9 +558,7 @@ console.log(User.hasOwnProperty("prototype"));
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [모던 자바스크립트 Deep Dive]()
 - [함수의 프로토타입 핵심 정리](https://webclub.tistory.com/509)

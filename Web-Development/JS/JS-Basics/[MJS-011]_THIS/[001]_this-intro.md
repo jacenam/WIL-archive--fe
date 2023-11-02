@@ -1,14 +1,14 @@
 # this
 
-### 목차
+**Table of Contents**
 
-- [1 this란](#1-this란)
-- [2 this 바인딩](#2-this-바인딩)
-- [3 this의 참조](#3-this의-참조)
+- [this란](#this란)
+- [this 바인딩](#this-바인딩)
+- [this의 참조](#this의-참조)
 
 <br>
 
-## 1 this란
+## this란
 
 앞서 [객체의 구성 요소](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Data%20Type/object%20type.md#3-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EA%B5%AC%EC%84%B1-%EC%9A%94%EC%86%8C) 파트에서 객체는 객체의 상태를 나타내는 정적 데이터 프로퍼티와 동작을 나타내는 동적 데이터 메서드를 하나의 단위로 묶은 자료구조라 했다
 
@@ -119,7 +119,7 @@ function Square(sideLength) {
 
 <br>
 
-## 2 this 바인딩
+## this 바인딩
 
 바인딩(Binding)이란 식별자와 값을 연결하는 것을 의미한다. 이미 앞서서 바인딩 현상을 살펴본 적이 있다. 바로 변수의 선언을 통해 변수 이름과 값을 저장할 메모리 공간의 주소를 연결하는 것이다. 따라서 `this` 바인딩은 `this` 식별자와 `this`가 가리킬 객체를 연결하는 것이다
 
@@ -191,7 +191,7 @@ console.log(square.getArea()); // → 25
 
 <br>
 
-## 3 this의 참조
+## this의 참조
 
 `this` 식별자는 전역, 함수 내부(지역) 등 코드 어디에서든 참조가 가능하다. 전역과 지역에서의 참조에 따라 반환되는 참조값도 다르다. 아래 예제를 살펴보자
 
@@ -242,9 +242,7 @@ const square = new Square(5);
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [모던 자바스크립트 Deep Dive]()
 - [[JavaScript] this란 무엇일까](https://hanamon.kr/javascript-this%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/)

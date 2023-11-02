@@ -1,38 +1,35 @@
-<img src="https://ifh.cc/g/NLYOyZ.png" style="max-width: 100%" align="center">
+# Git Branch
 
-### 목차
+**Table of Contents**
 
-- [1 브랜치란](#1-브랜치란)
-- [2 포인터란](#2-포인터란)
-- [3 브랜치 상태, 생성 및 이동](#2-브랜치-상태,-생성-및-이동)
-  - [3-1 브랜치 상태 확인하기](#3-1-브랜치-상태-확인하기)
-  - [3-2 브랜치 생성하기](#3-2-브랜치-생성하기)
-  - [3-3 브랜치 이동하기](#3-3-브랜치-이동하기)
-  - [3-4 모든 브랜치 상태 확인하기](#3-4-모든-브랜치-상태-확인하기)
+- [브랜치란](#브랜치란)
+- [포인터란](#포인터란)
+- [브랜치 상태, 생성 및 이동](#브랜치-상태,-생성-및-이동)
+  - [브랜치 상태 확인하기](#브랜치-상태-확인하기)
+  - [브랜치 생성하기](#브랜치-생성하기)
+  - [브랜치 이동하기](#브랜치-이동하기)
+  - [모든 브랜치 상태 확인하기](#모든-브랜치-상태-확인하기)
 
-- [4 변경사항 복원하기](#4-변경사항-복원하기)
-  - [4-1 restore 명령어로 변경사항 되돌리기](#4-1-restore-명령어로-변경사항-되돌리기)
-  - [4-2 checkout 명령어로 변경사항 되돌리기](#4-2-checkout-명령어로-변경사항-되돌리기)
+- [변경사항 복원하기](#변경사항-복원하기)
+  - [restore 명령어로 변경사항 되돌리기](#restore-명령어로-변경사항-되돌리기)
+  - [checkout 명령어로 변경사항 되돌리기](#checkout-명령어로-변경사항-되돌리기)
 
-- [5 브랜치 삭제, 복구하기](#5-브랜치-삭제,-복구하기)
-  - [5-1 브랜치 삭제하기](#5-1-브랜치-삭제하기)
-  - [5-2 브랜치 복구하기](#5-2-브랜치-복구하기)
+- [브랜치 삭제, 복구하기](#브랜치-삭제,-복구하기)
+  - [브랜치 삭제하기](#브랜치-삭제하기)
+  - [브랜치 복구하기](#브랜치-복구하기)
 
-- [6 브랜치 병합하기](#6-브랜치-병합하기)
-  - [6-1 Fast-forward Merge](#6-1-Fast-forward-Merge)
-  - [6-2 Merge Commit(feat. No Fast-forward)](#6-2-Merge-Commit(feat.-No-Fast-Forward))
-  - [6-3 Squash Merge](#6-3-Squash-Merge)
-  - [6-4 Rebase Merge](#6-4-Rebase-Merge)
-  - [6-5 Conflict](#6-5-Conflict)
+- [브랜치 병합하기](#브랜치-병합하기)
+  - [Fast-forward Merge](#Fast-forward-Merge)
+  - [Merge Commit(feat. No Fast-forward)](#Merge-Commit(feat.-No-Fast-Forward))
+  - [Squash Merge](#Squash-Merge)
+  - [Rebase Merge](#Rebase-Merge)
+  - [Conflict](#Conflict)
 
-- [7 최적의 브랜치 Merge 전략](#7-최적의-브랜치-Merge-전략)
-
-
-***
+- [최적의 브랜치 Merge 전략](#최적의-브랜치-Merge-전략)
 
 <br>
 
-## 1 브랜치란
+## 브랜치란
 
 브랜치는 Git을 활용해 협업할 때 가장 핵심적인 개념 중 하나다. 작업물(코드)의 버전 관리를 여러 사람이 함께한다면 한 명의 작업이 끝날때까지 기다리고 그 다음 사람이 작업하는 것은 비효율적일 것이다. Git에서는 오류나 충돌 없이 독립적인 공간에서 여러 기능들을 별도로 동시에 작업하고 이를 다시 하나의 결과물로 합칠 수 있도록 하는 기능들이 마련되어 있다. 이를 브랜치(Branch)와 머지(Merge)라고 부른다. 먼저 브랜치를 살펴보자: 
 
@@ -46,7 +43,7 @@ Git에서는 기본적으로 설정되어 있는 브랜치가 존재한다. 바�
 
 <br>
 
-## 2 포인터란
+## 포인터란
 
 앞서 [`git log`](https://github.com/jacenam/WIL-archive/blob/main/Git/Git%20%EC%83%81%ED%83%9C%EC%99%80%20%EB%B3%80%EA%B2%BD%EC%82%AC%ED%95%AD%20%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0.md#2-%EC%BB%A4%EB%B0%8B-%EB%82%B4%EC%97%AD-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0) 명령어 대해 언급한 적이 있다. 최근 커밋한 내역을 출력받아 최근 커밋 사항들을 조회할 수 있다. 이때 `(HEAD -> main)`이라 출력된 부분을 보면 이는 가장 최근에 커밋된 내역을 가리키며 이를 포인터(Pointer)라고 부른다. 즉, 포인터(`HEAD`)는 현재 작업 중인 브랜치의 최신 작업 버전을 가리킨다
 
@@ -82,9 +79,9 @@ git checkout 3fcc857
 
 <br>
 
-## 3 브랜치 상태, 생성 및 이동
+## 브랜치 상태, 생성 및 이동
 
-### 3-1 브랜치 상태 확인하기
+### 브랜치 상태 확인하기
 
 현재 파일(코드)의 브랜치 목록과 현재 브랜치를 확인할 수 있다. 만약 그동안 브랜치를 따로 생성하지 않고 커밋을 해왔다면, 현재 브랜치는 `main` 브랜치다
 
@@ -94,7 +91,7 @@ git branch
 → * main
 ```
 
-### 3-2 브랜치 생성하기
+### 브랜치 생성하기
 
 브랜치를 현재의 `HEAD` 시점에서 새로 생성하려면 `git branch [브랜치 이름]`의 형태로 명령어를 입력하면 된다
 
@@ -102,7 +99,7 @@ git branch
 git branch feature/1
 ```
 
-### 3-3 브랜치 이동하기
+### 브랜치 이동하기
 
 여기서 주의해야 할 점은 브랜치를 생성한다고 해서 `HEAD`는 변경되지 않는다. 새로운 브랜치를 생성해서  `HEAD`를 변경하려면 `git switch [브랜치 이름]`의 형태로 명령어를 입력해야 한다
 
@@ -120,7 +117,7 @@ git switch feature/2
 git switch -c feature/3
 ```
 
-### 3-4 모든 브랜치 상태 확인하기
+### 모든 브랜치 상태 확인하기
 
 위 3-1~3-3 작업을 완료하면 브랜치는 총 3개(`main`, `feature/1`, `feature/2`)가 생성된다. 이때 `git log` 명령어로 브랜치별 상황을 참고하려 하면 `HEAD` 기준의 브랜치 1개 그리고 `main` 브랜치 1개, 총 2개의 브랜치의 로그만 출력된다(`HEAD` 기준은 `feature/1` 브랜치다)
 
@@ -154,7 +151,7 @@ git log --all --decorate --oneline --graph
 
 <br>
 
-## 4 변경사항 복원하기
+## 변경사항 복원하기
 
 사실 파일 복원하는 방법은 브랜치와 무관하다고 보일 수 있다. 그러나 파일 복원의 방식 중 브랜치와 연관이 있는 부분이 있어 브랜치 대주제에 파일 복원 내용을 추가했다. 파일(버전)을 복원하는 방법은 두 가지다: 
 
@@ -162,7 +159,7 @@ git log --all --decorate --oneline --graph
 
 - `checkout` 명령어를 통해 변경 사항을 되돌릴 수 있다
 
-### 4-1 restore 명령어로 변경사항 되돌리기
+### restore 명령어로 변경사항 되돌리기
 
 `restore` 명령어는 파일의 변경 사항을 복원하는 것과 `add` 명령어로 스테이지에 올라간 파일을 스테이지에서 내릴 때 사용된다
 
@@ -245,7 +242,7 @@ git log --all --decorate --oneline --graph
      no changes added to commit (use "git add" and/or "git commit -a")
    ```
 
-### 4-2 checkout 명령어로 변경사항 되돌리기
+### checkout 명령어로 변경사항 되돌리기
 
 `git checkout -- [파일 이름]` 형태의 명령어를 사용하면 대상 파일의 내용이 최신 커밋 바로 이전으로 복원된다. 단, `checkout`되어진 파일의 지워진 내용은 커밋을 하지 않았기 때문에 다시 복원할 수 없다
 
@@ -259,9 +256,9 @@ git status
 
 <br>
 
-## 5 브랜치 삭제, 복구하기
+## 브랜치 삭제, 복구하기
 
-### 5-1 브랜치 삭제하기
+### 브랜치 삭제하기
 
  `git branch -D [삭제할 브랜치 이름]` 형태의 명령어를 입력하면 브랜치 삭제가 가능하다
 
@@ -275,7 +272,7 @@ git branch
 → * main
 ```
 
-### 5-2 브랜치 복구하기
+### 브랜치 복구하기
 
 삭제된 브랜치는 복구하기 위해서는 먼저  `reflog` 명령어를 사용해야 한다. `reflog`의 출력 결과의 맨 앞줄 `c3900cd`는 [해시]() 값이다. 각각의 커밋 내역은 해당 해시 값과 연결되어 있으므로 `reflog` 명령어를 통해 삭제한 브랜치를 어느 시점으로 되돌릴 것인지 먼저 정하려면 해시 값을 확인해야 된다. 그 다음 `restore practice` 시점으로 브랜치를 복구하기 위해 해당 시점의 해시 값을 찾는다
 
@@ -306,11 +303,11 @@ git branch
 
 <br>
 
-## 6 브랜치 병합하기
+## 브랜치 병합하기
 
 브랜치 병합은 기본적으로 브랜치 두 개를 하나로 병합하는 것이다. 브랜치별로 나누어서 작업했던 결과물을 하나의 브랜치로 병합(Merge)시켜주는 것이다. 단순히 하나의 브랜치로 합치는 것은 아니고, 각각의 브랜치에 대한 합집합을 구해서 합치는 것이다. 만약 merge가 정상적으로 이뤄지지 않을 시 충돌(Conflict)가 발생할 수 있으므로 브랜치 간 merge에 대해서 조심히 다뤄야 한다
 
-### 6-1 Fast-forward Merge
+### Fast-forward Merge
 
 Fast-forward Merge(빨리 감기 병합)은 가장 기본적인 merge 형태다. `main` 브랜치에서 `feature/1` 브랜치를 분기한 이후 `main` 브랜치에 추가적인 커밋이 없다면 `feature/1` 브랜치의 커밋 이력(변경 사항)을 `main` 브랜치에 그대로 merge 할 수 있다. 아래 예제를 살펴보자: 
 
@@ -365,7 +362,7 @@ git log --oneline
   67c904b A commit
 ```
 
-### 6-2 Merge Commit(feat. No Fast-forward)
+### Merge Commit(feat. No Fast-forward)
 
 Merge commit은 `main` 브랜치에서 `feature/1` 브랜치를 분기한 이후 `main` 브랜치에 추가적인 커밋이 있다면, 두 브랜치의 커밋 이력(변경사항) 전체를 하나로 병합하여 새로운 커밋을 생성하는 형태의 merge다. 아래 예제를 살펴보자: 
 
@@ -426,7 +423,7 @@ git log --oneline
 >
 > <img src="https://ifh.cc/g/LhN38V.png" style="max-width: 100%" align="center">
 
-### 6-3 Squash Merge
+### Squash Merge
 
 Squash merge은 `main` 브랜치에서 `feature/1` 브랜치를 분기한 이후 `main` 브랜치에 추가적인 커밋이 있는 Merge Commit과 동일한 상태에서, Incoming 브랜치의 모든 커밋 내역을 squash하여 하나의 새로운 커밋을 Receiving 브랜치에 추가하는 방식으로 이뤄진다
 
@@ -452,7 +449,7 @@ git merge --squash feature/1
 
 <img src="https://ifh.cc/g/lhBfDD.jpg" style="max-width: 100%" align="center">
 
-### 6-4 Rebase Merge
+### Rebase Merge
 
 'Rebase'의 사전적 의미는 '새로운 기준을 설정하다'이다. 버전 관리 측면에서의 `rebase`는 base를 다시(re) 지정한다는 의미의 명령어다. 아래 예제를 살펴보자:
 
@@ -550,7 +547,7 @@ git log --oneline
 
 <img src="https://ifh.cc/g/mza47w.jpg" style="max-width: 100%" align="center">
 
-### 6-5 Conflict
+### Conflict
 
 브랜치를 merge(Fast-forward, Merge Commit, Rebase, Squash 등)할 시 변경사항에 따라 conflict가 발생할 수도 있다. Conflict는 브랜치를 merge할 때 변경사항 중 같은 곳에 각각의 수정사항이 존재한다면 conflict가 일어난다. 예를 들어, 공통적으로  `main` 브랜치의 커밋 내역을 base로 두는  `feature/1` 브랜치와 `feature/2`의 변경 사항이 아래와 같다고 가정하자:  
 
@@ -611,7 +608,7 @@ git log --all --oneline --graph
 
 <br>
 
-## 7 최적의 브랜치 Merge 전략
+## 최적의 브랜치 Merge 전략
 
 사실 개발 프로젝트 그룹 혹은 회사의 팀별로 모두 선택하는 개발 및 배포 방식이 상이하기 때문에 최적의 브랜치 Merge 전략은 없다고 할 수 있다. 개발 포지션으로 실무에서의 경험이 없기 때문에 추후 실무에서 어떤 전략이 가장 나을지 다시 살펴보기 위해 그동안 검색해본 여러 정보를 정리해보려 한다. 아래 그림은 [우아한형제들 기술블로그](https://techblog.woowahan.com/2553/)에서 가져온 Git-flow를 가장 잘 대표하는 차트의 일부다: 
 
@@ -631,9 +628,7 @@ git log --all --oneline --graph
 
 <br>
 
----
-
-### 참고
+## 참고
 
 - [Git 공식문서](https://git-scm.com/docs)
 - [W3docs - Git Merge](https://www.w3docs.com/learn-git/git-merge.html)

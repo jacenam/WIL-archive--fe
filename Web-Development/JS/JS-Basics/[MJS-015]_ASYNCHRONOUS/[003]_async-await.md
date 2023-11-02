@@ -1,10 +1,8 @@
 # 제네레이터와 async/await
 
-### 목차
+**Table of Contents**
 
 - 
-
-***
 
 <br>
 
@@ -12,8 +10,8 @@ ES8(2017)에서는 제네레이터(`function*`)보다 더 간단하고 가독성
 
 <br>
 
-***
-### 참고
+## 참고
+
 - [모던 자바스크립트 Deep Dive]()
 - [JavaScript MDN - async function](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/async_function)
 - [모던 JavaScript 튜토리얼 - async/await](https://ko.javascript.info/async-await)

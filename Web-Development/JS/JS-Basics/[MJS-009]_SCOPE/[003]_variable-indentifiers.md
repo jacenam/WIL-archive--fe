@@ -1,35 +1,32 @@
 # var, let, const 키워드의 차이
 
-### 목차
+**Table of Contents**
 
-- [1 var 키워드의 문제점](#1-var-키워드의-문제점)
-  - [1-1 변수 중복 선언](#1-1-변수-중복-선언) 
-  - [1-2 함수 레벨 스코프](#1-2-함수-레벨-스코프)
-  - [1-3 변수 호이스팅](#1-3-변수-호이스팅)
-  - [1-4 전역 변수의 긴 생명 주기](#1-4-전역-변수의-긴-생명-주기)
+- [var 키워드의 문제점](#var-키워드의-문제점)
+  - [변수 중복 선언](#변수-중복-선언) 
+  - [함수 레벨 스코프](#함수-레벨-스코프)
+  - [변수 호이스팅](#변수-호이스팅)
+  - [전역 변수의 긴 생명 주기](#전역-변수의-긴-생명-주기)
   
-- [2 let 키워드](#2-let-키워드)
-  - [2-1 변수 중복 선언 금지](#2-1-변수-중복-선언-금지) 
-  - [2-2 블록 레벨 스코프](#2-2-블록-레벨-스코프) 
-  - [2-3 변수 호이스팅](#2-3-변수-호이스팅)
-  - [2-4 전역 객체와 let](#2-4-전역-객체와-let)
+- [let 키워드](#let-키워드)
+  - [변수 중복 선언 금지](#변수-중복-선언-금지) 
+  - [블록 레벨 스코프](#블록-레벨-스코프) 
+  - [변수 호이스팅](#변수-호이스팅)
+  - [전역 객체와 let](#전역-객체와-let)
   
-- [3 const 키워드](#3-const-키워드)
-  - [3-1 const와 let 키워드](#3-1-const와-let-키워드)
-  - [3-2 const 키워드와 원시 값](#3-2-const-키워드와-원시-값)
-  - [3-3 const 키워드와 객체 값](#3-3-const-키워드와-객체-값)
-  - [3-4 전역 객체와 const](#3-4-전역-객체와-const)
-
-
-***
+- [const 키워드](#const-키워드)
+  - [const와 let 키워드](#const와-let-키워드)
+  - [const 키워드와 원시 값](#const-키워드와-원시-값)
+  - [const 키워드와 객체 값](#const-키워드와-객체-값)
+  - [전역 객체와 const](#전역-객체와-const)
 
 <br>
 
-## 1 var 키워드의 문제점
+## var 키워드의 문제점
 
 ES5까지 변수를 선언할 수 있는 방법은 변수 선언 키워드인 `var` 키워드가 유일했다. 그러나 `var` 키워드로 선언된 변수에는 부작용이 있기 때문에 ES6(2015) 이후부터는 `let`, `const` 키워드가 추가되어 상황과 필요에 따라 변수를 선언할 수 있게 되었다. 먼저 `var` 키워드로 변수를 선언했을 경우 어떠한 부작용이 있는지 살펴보자
 
-### 1-1 변수 중복 선언
+### 변수 중복 선언
 `var` 키워드로 선언한 변수는 중복 선언이 가능하다. 아래 예제와 같이 동일한 이름의 변수가 이미 선언된 경우라도 변수를 중복 선언하면서 기존 변수의 값까지 변경하게 되는 부작용이 발생한다 
 
 ```javascript 
@@ -45,7 +42,7 @@ var variable;
 
 console.log(variable); // → a
 ```
-### 1-2 함수 레벨 스코프
+### 함수 레벨 스코프
 
 `var` 키워드로 선언한 변수는 제어문이 아닌 [함수의 코드 블록](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/scope.md#4-%ED%95%A8%EC%88%98-%EB%A0%88%EB%B2%A8-%EC%8A%A4%EC%BD%94%ED%94%84)만을 지역 스코프로 인정한다. 따라서 함수 외부에서 `var` 키워드로 선언한 변수는 모두 전역 변수가 된다. 다시 말해, 제어문에서 쓰이는 변수도 전역 변수이기 때문에 변수 네이밍에도 주의를 기울이지 않으면 변수의 중복 선언으로 인해 의도치 않게 변수 값이 변경될 위험이 높다는 의미다. 앞서 [전역 변수의 문제점](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/global%20variable.md)에서도 언급했듯이, 전역 변수는 생명 주기가 길어 오류가 발생될 가능성 또한 크다
 
@@ -59,7 +56,7 @@ for (var i = 0; i < 10; i++ ) {
 
 console.log(i); // → 10
 ```
-### 1-3 변수 호이스팅
+### 변수 호이스팅
 `var` 키워드로 변수를 선언하면 변수 선언이 [호이스팅](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/variable.md#6-%ED%98%B8%EC%9D%B4%EC%8A%A4%ED%8C%85)된다. 따라서 `var` 키워드로 선언한 변수는 참조 코드보다 순서적으로 밑에 위치해도 변수 선언문을 참조할 수 있다. 물론 이러한 이른 참조는 에러를 발생시키지는 않지만 프로그램의 가독성을 떨어뜨리고 원리를 이해하는데 어려움을 남긴다
 
 ```javascript 
@@ -70,22 +67,22 @@ var variable = "값의 할당은 런타임 이후에 실행된다";
 console.log(variable); // → 값의 할당은 런타임 이후에 실행된다 
 ```
 
-### 1-4 전역 변수의 긴 생명 주기
+### 전역 변수의 긴 생명 주기
 
 앞서 [전역 변수의 문제점](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Scope/global%20variable.md#1-2-%EC%A0%84%EC%97%AD-%EB%B3%80%EC%88%98%EC%9D%98-%EC%83%9D%EB%AA%85-%EC%A3%BC%EA%B8%B0)에서도 살펴보았듯이, `var` 키워드로 선언한 전역 변수는 브라우저 환경에서는 `window` 객체, node.js 환경에서는 `global` 객체에 프로퍼티가 되어 전역 객체와 생명 주기가 동일하다. 따라서 생명 주기가 긴 만큼 오류가 발생할 가능성도 높아지고, 메모리 소비 효율도 떨어진다
 
 <br>
 
-## 2 let 키워드
+## let 키워드
 `var` 키워드의 단점을 보완하기 위한 ES6(2015) 이후 처음 도입된 첫 번째 변수 선언 키워드다 
 
-### 2-1 변수 중복 선언 금지 
+### 변수 중복 선언 금지 
 `let` 키워드로 이름이 같은 변수를 중복 선언하면 `SyntaxError`가 발생한다
 ```javascript
 let variable = 1; 
 let variable = 10; // → SyntaxError: Identifier 'variable' has already been declared 
 ```
-### 2-2 블록 레벨 스코프
+### 블록 레벨 스코프
 `let` 키워드로 선언한 변수는 함수(함수 레벨 스코프)를 포함해 모든 코드 블록(`if`문, `for`문, `while`문, `try`/`catch`문 등)을 지역 스코프로 인정하는 블록 레벨 스코프를 따른다. 즉, `let` 키워드로 선언한 변수는 모든 코드 블록 내부에서는 지역 변수로 취급된다
 
 ```javascript
@@ -101,7 +98,7 @@ if (true) {
 console.log(variable); // → 1
 console.log(variable2); // → ReferenceError: variable2 is not defined
 ```
-### 2-3 변수 호이스팅
+### 변수 호이스팅
 `let` 키워드로 선언한 변수는 변수 호이스팅이 발생하지 않는 것처럼 동작한다 
 ```javascript
 console.log(variable); // → ReferenceError: variable is not defined
@@ -137,7 +134,7 @@ foo = 1;
 console.log(foo); // → 1
 ```
 
-### 2-4 전역 객체와 let
+### 전역 객체와 let
 
 앞서 `var` 키워드로 선언한 전역 변수는 브라우저 환경에서는 전역 객체 `window`의 프로퍼티가 된다고 했다
 
@@ -165,11 +162,11 @@ console.log(x); // → 1
 
 <br>
 
-## 3 const 키워드
+## const 키워드
 `const` 키워드는 상수를 선언하기 위해 사용한다. 상수란 일반적으로 '변하지 않는 값'을 나타낼 때 사용되지만, 프로그래밍에서 상수는 '재할당이 금지된 변수'를 의미한다. 즉, `const` 키워드로 선언한 변수는 **재할당이 금지된 변수일 뿐 실제 값의 변경이 '불변'하다는 의미는 아니다**. 이에 대해서는 `const` 키워드의 후반부 내용을 참고하자
 
 
-### 3-1 const와 let 키워드
+### const와 let 키워드
 `const` 키워드의 특징은 `let` 키워드와 대부분 동일하다. `const` 키워드도 변수 중복 선언이 불가하며 함수를 포함한 모든 코드 블록에 대해 블록 레벨 스코프를 가진다
 ```javascript
 // 변수 중복 선언 금지
@@ -211,7 +208,7 @@ const constant = 1;
 
 console.log(constant); // → 1
 ```
-### 3-2 const 키워드와 원시 값
+### const 키워드와 원시 값
 앞서 `const` 키워드로 선언한 변수에 기존 값과 다른 다른 값을 재할당할 수 없다고 했다. 거기에 `const` 키워드로 선언한 변수에 원시 값을 할당하는 경우 값 자체도 변경할 수 없게 된다. 이러한 `const` 키워드의 특성을 활용해 가독성, 유지보수성을 개선할 수 있다
 ```javascript
 // INCH를 CM로 변환하는 함수
@@ -239,8 +236,9 @@ function convertToCM(inputInch) {
 
 convertToCM(50); // → 50인치는 127cm 입니다
 ```
-### 3-3 const 키워드와 객체 값
+### const 키워드와 객체 값
 `const` 키워드는 재할당을 금지할 뿐 값의 절대적 '불변'을 의미하지 않는다. 따라서 `const` 키워드로 선언된 변수에 객체를 할당한 경우 변수 값을 변경할 수 있다. [원시 값과 객체의 비교]()에서 다루었듯이, 객체의 값이 변경된다 하더라도 변수에 할당된 참조 값은 변경되지 않기 때문이다. 
+
 ```javascript 
 const userInfo = { 
   name: "Jace", 
@@ -253,7 +251,7 @@ delete userInfo["age"];
 
 console.log(userInfo); // → {name: 'Ju Hyung', residence: 'Seoul'}
 ```
-### 3-4 전역 객체와 const
+### 전역 객체와 const
 
 앞서 [전역 객체와 let](#2-4-전역-객체와-let)에서 살펴보았듯이 `let` 키워드로 선언한 변수는 전역 객체 `window`의 프로퍼티로 등록되지 않는다. `const` 키워드 또한 `let` 키워드와 동일하다. `const` 키워드로 선언한 변수는 전역 변수여도 전역 객체 `window`에 등록되지 않는다
 
@@ -269,8 +267,8 @@ console.log(x); // → 1
 ***앞으로 이후 모든 변수 선언은 `var` 키워드가 아닌 `let` 혹은 `const` 키워드를 사용할 예정이다*** 
 <br>
 
-***
-### 참고
+## 참고
+
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
 - [JavaScript MDN - let, const 키워드](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/const)
 - [모던 JavaScript 튜토리얼 - 변수와 상수](https://ko.javascript.info/variables)

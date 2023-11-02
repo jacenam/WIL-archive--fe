@@ -1,16 +1,15 @@
-<img src="https://ifh.cc/g/Y4tH2V.png" style="max-width: 100%" align="center">
+# Github 초기 설정 및 기초 명령어(feat. 원격 저장소)
 
-### 목차
-- [1 Github 원격 저장소 생성 및 연동하기](#1-Github-원격-저장소-생성-및-연동하기)
-- [2 Github 원격 저장소에서 로컬 저장소로 내려받기](#2-Github-원격-저장소에서-로컬-저장소로-내려받기)
-  - [2-1 git clone](#2-1-git-clone)
-  - [2-2 git pull](#2-2-git-pull)
+**Table of Contents**
 
-***
+- [Github 원격 저장소 생성 및 연동하기](#Github-원격-저장소-생성-및-연동하기)
+- [Github 원격 저장소에서 로컬 저장소로 내려받기](#Github-원격-저장소에서-로컬-저장소로-내려받기)
+  - [git clone](#git-clone)
+  - [git pull](#git-pull)
 
 <br>
 
-## 1 Github 원격 저장소 생성 및 연동하기
+## Github 원격 저장소 생성 및 연동하기
 앞서 Git으로 버전 관리할 [로컬 저장소](https://github.com/jacenam/WIL-archive/blob/main/Git/Git%20%EC%B4%88%EA%B8%B0%20%EC%84%A4%EC%A0%95%20%EB%B0%8F%20%EA%B8%B0%EC%B4%88%20%EB%AA%85%EB%A0%B9%EC%96%B4(feat.%20%EB%A1%9C%EC%BB%AC%20%EC%A0%80%EC%9E%A5%EC%86%8C).md#4-%EB%A1%9C%EC%BB%AC-%EC%A0%80%EC%9E%A5%EC%86%8C-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%BB%A4%EB%B0%8B)에 대해 살펴봤다. 로컬 저장소에서도 작업물에 대한 버전 관리를 할 수 있지만 다른 개발자와 협업하려면 Git 호스팅 서비스인 Github에 원격 저장소(Remote Repository)를 생성하고 로컬 저장소와 동기화해야 한다. Github에서 원격 저장소와 하위 파일들을 직접 생성하는 법은 간단하니 터미널에서 파일을 생성하고 Github에 업로드(동기화)하는 방법을 살펴볼 예정이다
 
 1. **[원격 저장소에서]** 먼저 Github에서 `README.md` 마크다운 파일 없이 새로운 원격 저장소를 생성한다(원격 저장소 이름: `practice`)
@@ -84,8 +83,8 @@
 
 <br>
 
-## 2 Github 원격 저장소에서 로컬 저장소로 내려받기
-### 2-1 git clone
+## Github 원격 저장소에서 로컬 저장소로 내려받기
+### git clone
 원격 저장소의 코드와 파일 버전(최신/구) 전체를 동일하게 로컬 저장소(컴퓨터)로 내려받는 작업을 클론(clone)이라 부른다
 
 <img src="https://ifh.cc/g/jOkDO5.jpg" style="max-width: 100%" align="center">
@@ -118,9 +117,7 @@ git clone https://github.com/jacenam/WIL-archive.git .
 
 >  만약 특정 브랜치만 클론하고 싶다면 `git clone -b [브랜치 이름] [해당 저장소 URL]`의 형태로 명령어를 입력하면 된다
 
-
-
-### 2-2 git pull
+### git pull
 
 만약 원경 저장소에서 업데이트된 변경사항은 있지만 로컬 저장소에는 해당 변경사항이 존재하지 않는다면 어떻게 동기화할 수 있을까? `pull` 명령어를 통해 로컬 저장소에 업데이트되지 않은 변경사항만 가져올 수 있다. 이는 팀 협업 시 타인이 원격 저장소로 업데이트한 변경사항을 나의 로컬 저장소로 동기화할 때도 사용된다
 
@@ -147,9 +144,8 @@ git pull origin main
 
 <br>
 
-***
+## 참고
 
-### 참고
 - [Git 공식문서](https://git-scm.com/docs)
 - [팀 개발을 위한 Git, Github 시작하기](http://www.yes24.com/Product/Goods/85382769)
 - [알아서 잘 딱 깔끔하고 센스있게 정리하는 Github 핵심 개념](https://m.yes24.com/Goods/Detail/108203273)

@@ -1,6 +1,6 @@
 # 객체의 얕은 복사와 깊은 복사
 
-### 목차
+**Table of Contents**
 
 - 
 
@@ -14,9 +14,7 @@
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [모던 자바스크립트 Deep Dive](http://www.yes24.com/Product/Goods/92742567)
 

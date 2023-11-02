@@ -1,19 +1,19 @@
 # 함수 호출 방식과 this 바인딩 결정 방식
 
-### 목차
+**Table of Contents**
 
-- [1 함수 호출과 this 바인딩](#1-함수-호출과-this-바인딩)
-- [2 this 바인딩 결정 방식](#2-this-바인딩-결정-방식)
-  - [2-1 일반 함수 호출](#2-1-일반-함수-호출)
-  - [2-2 메서드 호출](#2-2-메서드-호출)
-  - [2-3 생성자 함수 호출](#2-3-생성자-함수-호출)
-  - [2-4 Function.prototype.apply/call/bind 메서드에 의한 간접 호출](#2-4-Function.prototype.apply/call/bind-메서드에-의한-간접-호출)
-    - [2-4-1 apply와 call 메서드](#2-4-1-apply와-call-메서드)
-    - [2-4-2 bind 메서드](#2-4-2-bind-메서드)
+- [함수 호출과 this 바인딩](#함수-호출과-this-바인딩)
+- [this 바인딩 결정 방식](#this-바인딩-결정-방식)
+  - [일반 함수 호출](#일반-함수-호출)
+  - [메서드 호출](#메서드-호출)
+  - [생성자 함수 호출](#생성자-함수-호출)
+  - [Function.prototype.apply/call/bind 메서드에 의한 간접 호출](#Function.prototype.apply/call/bind-메서드에-의한-간접-호출)
+    - [apply와 call 메서드](#apply와-call-메서드)
+    - [bind 메서드](#bind-메서드)
 
 <br>
 
-## 1 함수 호출과 this 바인딩
+## 함수 호출과 this 바인딩
 
 앞서 `this` 바인딩은 함수 호출 방식에 따라 동적으로 결정된다고 했다. 아래의 함수 호출 방식에 따라 `this` 바인딩 방식이 상이한다(위 `this` 참조와 유사하다): 
 
@@ -90,11 +90,11 @@
 
 <br>
 
-## 2 this 바인딩 결정 방식
+## this 바인딩 결정 방식
 
 앞서 함수 호출 방식에 따라 `this` 바인딩의 방식이 상이한다고 했다. 그렇다면 `this` 바인딩이 어떻게 결정되는지 살펴보자
 
-### 2-1 일반 함수 호출
+### 일반 함수 호출
 
 일반 함수(함수 선언문, 함수 표현식)를 일반적인 함수 호출 방식으로 호출할 경우 `this`는 전역 객체에 바인딩된다. 이는 [중첩함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/nested%20function.md), [콜백함수](https://github.com/jacenam/WIL-archive/blob/main/Web%20Development/JS/JS%20Basics/Function/callback%20function.md) 등에도 해당된다. 다시 말해, 어떠한 함수라도 일반 함수 호출 방식으로 함수를 호출하면 `this`는 전역 객체 `window`에 바인딩되는 것이다
 
@@ -239,7 +239,7 @@ obj.foo();
 
 `this`를 명시적으로 대상을 지정해 바인딩할 수 있는 방법은 위 예제에서의 방법 외에도 `Function.prototype.apply/call/bind` 메서드와 화살표 함수가 존재한다. 이에 대해서는 [Function.prototype.apply/call/bind 메서드](#2-4-Function.prototype.apply/call/bind-메서드에-의한-간접-호출)에 의한 간접 호출, [화살표 함수에 의한 `this` 바인딩]() 파트에서 살펴보자
 
-### 2-2 메서드 호출
+### 메서드 호출
 
 앞서 메서드 내부의 `this`는 메서드를 호출한 객체에 바인딩된다 했다. 다시 말해 메서드(`getName`)를 호출할 때 마침표 연산자(`.`) 앞에 기술한 객체(`user`)에 바인딩 되는 것이다
 
@@ -360,7 +360,7 @@ Square.prototype.getArea(); // → 100
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/a192716b-df52-4957-b66e-a5b40ff2d678" width="100%">
 
-### 2-3 생성자 함수 호출
+### 생성자 함수 호출
 
 앞서 [함수 호출 방식과 this 바인딩](#1-함수-호출-방식과-this-바인딩)에서 살펴봤듯이 생성자 함수 내부에 정의된 `this`는 생성자 함수가 미래에 생성할 인스턴스에 바인딩된다
 
@@ -412,11 +412,11 @@ console.log(window.getArea()); // → 25
 console.log(square.getArea()); // → Uncaught TypeError: Cannot read properties of undefined (reading 'getArea')
 ```
 
-### 2-4 Function.prototype.apply/call/bind 메서드에 의한 간접 호출
+### Function.prototype.apply/call/bind 메서드에 의한 간접 호출
 
 `apply`, `call`, `bind` 메서드는 `Function` 생성자 함수에서 비롯된 `Function.prototype`의 빌트인 메서드다. 즉 모든 함수가 `Function.prototype` 객체로부터 상속받아 사용할 수 있다
 
-### 2-4-1 apply와 call 메서드
+#### apply와 call 메서드
 
 먼저 `apply`와 `call` 메서드부터 살펴보자
 
@@ -557,7 +557,7 @@ defineUser.call(user1, 30, "United States");
 defineUser.call(user2, 31, "South Korea");
 ```
 
-### 2-4-2 bind 메서드
+#### bind 메서드
 
 `bind` 메서드는 `apply` 및 `call` 메서드와 동일하게 `this` 바인딩을 명시적으로 지정할 수 있다. 다만, 함수를 호출하지는 않는다. 따라서 `bind` 메서드를 호출하고 결과 값을 반환하려면 변수에 담아 변수를 함수로서 호출하면 된다
 
@@ -686,9 +686,7 @@ obj.foo(function() { console.log(this, this.value) });
 
 <br>
 
-***
-
-### 참고
+## 참고
 
 - [모던 자바스크립트 Deep Dive]()
 - [함수의 메서드와 arguments](https://www.zerocho.com/category/JavaScript/post/57433645a48729787807c3fd)

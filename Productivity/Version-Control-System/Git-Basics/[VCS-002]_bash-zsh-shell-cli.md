@@ -1,6 +1,12 @@
-***
+# bash, zsh, shell and CLI
 
-### 참고
+**Table of Contents**
+
+- 
+
+<br>
+
+## 참고
 
 - [mac 터미널에서 특정 앱으로 파일 열기](https://m.blog.naver.com/hanccii/221283453777)
 - [mac 터미널에서 파인더 열기](https://juntcom.tistory.com/84)
