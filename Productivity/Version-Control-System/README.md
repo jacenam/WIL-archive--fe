@@ -19,5 +19,5 @@
 
 ## Git Error Handling
 
-- [OS에서 Git 완전 삭제하기]()
+- [OS에서 Git 완전 삭제하기](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Version-Control-System/Git-Error-Handling/removing-git.md)
 
