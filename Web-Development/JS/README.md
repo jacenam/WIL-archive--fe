@@ -62,7 +62,9 @@
   - [this란](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/%5BMJS-011%5D_THIS/%5B001%5D_this-intro.md)
   - [함수 호출 방식과 this 바인딩 결정 방식](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/%5BMJS-011%5D_THIS/%5B002%5D_function-invoke-this-binding.md)
 - 실행 컨텍스트
-  - [실행 컨텍스트란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/%5BMJS-012%5D_EXECUTION-CONTEXT/execution%20context.md)
+  - [실행 컨텍스트란](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/%5BMJS-012%5D_EXECUTION-CONTEXT/execution%20context.md)
+  - [실행 컨텍스트 스택과 렉시컬 환경]()
+  - [실행 컨텍스트의 생성과 식별자 검색 과정]()
 - 클로저
   - [클로저란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/%5BMJS-013%5D_CLOSURE/closure.md)
 - 클래스
