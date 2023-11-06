@@ -7,8 +7,8 @@
 ## IDE
 
 - [IDE](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools-for-Code/IDE/ide.md)
-- [VSCode](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools-for-Code/VSCode/vscode%20settings.md)
+- [VSCode](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools-for-Code/VSCode/vscode-settings.md)
 
 ## Linters
 
-- [Prettier & ESLint](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools-for-Code/Linters/prettier%20%26%20eslint.md)
+- [Prettier & ESLint](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Tools-for-Code/Linters/prettier-eslint.md)
