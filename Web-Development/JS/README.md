@@ -62,9 +62,9 @@
   - [this란](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/11-This/01-this-intro.md)
   - [함수 호출 방식과 this 바인딩 결정 방식](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/11-This/02-function-invoke-this-binding.md)
 - 실행 컨텍스트
-  - [실행 컨텍스트란](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-context/01-execution-context.md)
-  - [실행 컨텍스트 스택과 렉시컬 환경](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-context/02-stack-lexcial.md)
-  - [실행 컨텍스트의 생성과 식별자 검색 과정](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-context/03-execution-context-identifier.md)
+  - [실행 컨텍스트란](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/01-execution-context.md)
+  - [실행 컨텍스트 스택과 렉시컬 환경](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/02-stack-lexical.md)
+  - [실행 컨텍스트의 생성과 식별자 검색 과정](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/03-execution-context-identifier.md)
 - 클로저
   - [클로저란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/13-Closure/closure.md)
 - 클래스
