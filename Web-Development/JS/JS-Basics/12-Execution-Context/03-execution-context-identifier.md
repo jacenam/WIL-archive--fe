@@ -85,11 +85,17 @@ outerFunc(20);
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/f7a6a9c7-e264-4d27-9df7-3d9ce132f0f8" width="100%"> 
 
+`var` 키워드로 선언한 `x` 전역 변수는 선언 단계와 초기화 단계가 동시에 진행되기 때문에 암묵적으로 `undefined`를 할당받게 된다. 현 시점은 코드 평가 단계이기 때문에 값(`1`)은 아직 할당되기 전이다
+
 #### 선언적 환경 레코드 생성
 
-선언적 환경 레코드는 `let`, `const` 키워드로 선언한 전역 변수를 관리한다. 
+선언적 환경 레코드는 `let`, `const` 키워드로 선언한 전역 변수를 관리한다. 즉 `var` 키워드로 선언한 전역 변수와 함수 선언문으로 정의한 전역 함수 이외의 모든 선언은 선언적 환경 레코드에 등록되어 관리 되는 것이다. [위 예제](#실행-컨텍스트의-생성과-식별자-검색-과정)의 `y` 전역 변수는 `const` 키워드로 선언되었으므로 [선언 단계와 초기화 단계가 분리되어 진행](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/09-Scope/03-variable-indentifiers.md#const와-let-키워드)된다. 즉 현 시점의 코드 평가 단계에서는 일시적 사각지대(Temporal Dead Zone, TDZ)에 빠지게 되어 `<uninitialized>`로 표현되어 있다
 
-실험 실험
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/61cebbd7-b7fa-4b78-bcb0-3456eb7a7bcf" width="100%">
+
+또한 `let`, `const` 키워드로 선언한 변수는 전역 객체 `window`의 프로퍼티가 되지 않으므로 `window.y`와 같이 전역 객체의 프로퍼티로서 참조할 수 없게 된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/75441ee0-0012-43bf-957e-91c09f76fc33" width="100%">
 
 #### this 바인딩
 
