@@ -16,7 +16,7 @@
 
 - [Git module, submodule, subtree](https://github.com/jacenam/WIL-archive/blob/main/Productivity/Version-Control-System/Git-Intermediate/git-module-submodule-subtree.md)
 - [.gitignore](https://www.toptal.com/developers/gitignore/)
-- [git mv: 커밋한 파일명, 폴더명 변경하기]()
+- [Git Move: 커밋한 파일명, 폴더명 변경하기]()
 
 ## Git Error Handling
 
