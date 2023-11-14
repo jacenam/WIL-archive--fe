@@ -64,7 +64,8 @@
 - 실행 컨텍스트
   - [실행 컨텍스트란](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/01-execution-context.md)
   - [실행 컨텍스트 스택과 렉시컬 환경](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/02-stack-lexical.md)
-  - [실행 컨텍스트의 생성과 식별자 검색 과정](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/03-execution-context-identifier.md)
+  - [실행 컨텍스트의 생성과 식별자 검색 과정](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/03-execution-context--identifier.md)
+  - [실행 컨텍스트와 블록 레벨 스코프]()
 - 클로저
   - [클로저란(in progress)](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/13-Closure/closure.md)
 - 클래스
