@@ -131,7 +131,11 @@ outerFunc(20);
 
 ## 전역 코드 실행
 
-전역 코드의 평가가 종료되면 전역 코드가 순차적으로 실행되는 런타임에 진입한다. JS 엔진은 식별자에 값을 할당하고 함수를 호출한다
+전역 코드의 평가가 종료되면 전역 코드가 순차적으로 실행되는 런타임에 진입한다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/7446c3bc-cc98-4157-84da-6f36c2f409a6" width="100%">
+
+JS 엔진은 식별자에 값을 할당하고 함수를 호출한다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/ade7ceaa-aa40-4339-9667-ab847c62d8df" width="100%">
 
