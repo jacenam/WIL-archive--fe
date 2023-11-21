@@ -139,7 +139,27 @@ JS 엔진은 식별자에 값을 할당하고 함수를 호출한다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/ade7ceaa-aa40-4339-9667-ab847c62d8df" width="100%">
 
+선언되어 렉시컬 환경에 등록되지 않은 식별자는 참조할 수 없으므로 할당이나 호출이 불가능하다. 따라서 식별자에 값을 할당하는 할당문, 함수 호출문이 실행되려면 JS 엔진은 먼저 식별자(변수, 함수 이름)가 선언된 식별자인지 확인해야 한다. 이 과정에서 식별자는 스코프가 다르면 동일한 이름의 식별자가 다른 스코프에 여러 개 존재할 수 있다. 선언된 식별자인지, 어느 스코프의 식별자인지 JS 엔진이 결정하는 이러한 과정을 식별자 결정(Identifier Resolution)이라 한다
 
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/3ad7e40d-b2c7-4ebc-8964-b8f8ba9a2ada" width="100%">
+
+JS 엔진은 식별자 결정은 위한 식별자를 검색할 때 현재 실행 중인 실행 컨텍스트에서부터 식별자를 검색하기 시작한다. 앞서 [실행 컨텍스트 스택](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/02-stack-lexical.md#실행-컨텍스트-스택) 파트에서 언급했듯이, 실행 컨텍스트 스택에서 최상위에 쌓인 실행 컨텍스트가 현재 실행되는 코드의 실행 컨텍스트라고 했다. 현재는 전역 코드를 실행 중이므로 전역 실행 컨텍스트가 스택의 최상위에 위치한다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/f9c24c0c-43d0-416f-a0a6-71f14ed6b9c8" width="100%">
+
+선언된 식별자는 현재 실행 중인 실행 컨텍스트의 렉시컬 환경의 환경 레코드에 등록되어 있다. 따라서 전역 실행 컨텍스트의 전역 렉시컬 환경에서 환경 레코드에 등록된 식별자 `x`, `y`, `outerFunc`를 검색한다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/4df050cb-c2db-49c9-a7dc-bd1819114ca3" width="100%">
+
+실행 중인 실행 컨텍스트의 렉시컬 환경에서 식별자를 검색할 수 없는 상태면 외부 렉시컬 환경에 대한 참조가 가리키는 렉시컬 환경인 상위 스코프로 이동하여 실행이  필요한 식별자를 검색한다. 식별자를 검색하는데 찾는 식별자가 존재하지 않으면 계속해서 상위 스코프로 검색이 이동하며, 스코프 체인의 종점인 전역 렉시컬 환경에서 식별자를 검색할 수 없는 경우 참조 에러(`ReferenceError`)가 발생한다. 즉 식별자 결정에 실패했다는 의미다. 이것이 바로 스코프 체인의 동작 원리다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/216e945f-8b40-4d80-a8fa-23cdf93041df" width="100%"> 
+
+<br>
+
+## 함수 코드 평가
+
+전역 코드에서 
 
 <br>
 
