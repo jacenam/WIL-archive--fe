@@ -177,6 +177,37 @@ JS 엔진은 식별자 결정은 위한 식별자를 검색할 때 현재 실행
 
 ### 함수 렉시컬 환경 생성
 
+`outerFunc` 실행 컨텍스트의 `LexicalEnvironment` 컴포넌트는 `outerFunc` 렉시컬 환경을 참조한다. 그리고 `outerFunc` 렉시컬 환경은 환경 레코드(함수 환경 레코드)와 외부 렉시컬 환경에 대한 참조 컴포넌트로 구성된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/e4b7126e-7955-4846-9433-06e73ab4a28d" width="100%">
+
+### 함수 환경 레코드 생성
+
+함수 환경 레코드는 매개변수, `arguments` 객체, 함수 내부의 지역 변수, 중첩 함수를 등록하고 관리한다
+
+```javascript
+var x = 1;
+const y = 2; 
+
+function outerFunc(a) {
+  	console.log(arguments[0]); // → 20
+  	console.log(arguments.length); // → 1
+  	console.log(arguments.callee); // → outerFunc { ƒ }
+    var x = 3; 
+    const y = 4; 
+
+    function innerFunc(b) {
+        var x = 5; 
+        const z = 6; 
+
+        console.log(a + b + x + y + z); 
+    }
+    innerFunc(10); 
+} 
+
+outerFunc(20);
+```
+
 
 
 <br>
