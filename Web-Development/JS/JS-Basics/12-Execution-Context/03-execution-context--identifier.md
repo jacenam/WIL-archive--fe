@@ -185,28 +185,22 @@ JS 엔진은 식별자 결정은 위한 식별자를 검색할 때 현재 실행
 
 함수 환경 레코드는 매개변수, `arguments` 객체, 함수 내부의 지역 변수, 중첩 함수를 등록하고 관리한다
 
-```javascript
-var x = 1;
-const y = 2; 
+> [`arguments` 객체]()는 매개변수로 전달되는 인수를 [배열]() 형태로 객체화 하여 함수 호출 시 필요에 따라 전달되는 인수의 동작을 다르게 제어할 수 있게 된다. 아래 예제와 같이 `arguments` 객체는 배열의 메서드를 사용하여 객체의 상태를 확인할 수 있다
+>
+> ```javascript
+> function sum(a, b) {
+>   console.dir(arguments); // → Arguments(2)
+>   console.log(arguments[0], arguments.length); // → 1 2
+>   console.log(arguments.callee); // → funciton { ƒ }
+>   return a + b;
+> }
+> 
+> sum(1, 2);
+> ```
 
-function outerFunc(a) {
-  	console.log(arguments[0]); // → 20
-  	console.log(arguments.length); // → 1
-  	console.log(arguments.callee); // → outerFunc { ƒ }
-    var x = 3; 
-    const y = 4; 
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/72130476-f606-4432-9a0b-bfca1758932b" width="100%">
 
-    function innerFunc(b) {
-        var x = 5; 
-        const z = 6; 
-
-        console.log(a + b + x + y + z); 
-    }
-    innerFunc(10); 
-} 
-
-outerFunc(20);
-```
+### this 바인딩
 
 
 
