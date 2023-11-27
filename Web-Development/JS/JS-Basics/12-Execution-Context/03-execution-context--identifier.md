@@ -157,7 +157,7 @@ JS 엔진은 식별자 결정은 위한 식별자를 검색할 때 현재 실행
 
 <br>
 
-## 함수 코드 평가
+## outerFunc 함수 코드 평가
 
 전역 코드에서 함수 호출문이 실행되면 전역 코드의 실행이 중단되고 `outerFunc` 함수 내부로 코드의 흐름이 이동한다. 그리고 함수 코드의 평가가 시작된다. 함수 코드 평가는 아래와 같은 순서로 진행된다:
 
@@ -198,13 +198,65 @@ JS 엔진은 식별자 결정은 위한 식별자를 검색할 때 현재 실행
 > sum(1, 2);
 > ```
 
-<img src="https://github.com/jacenam/WIL-archive/assets/92138751/72130476-f606-4432-9a0b-bfca1758932b" width="100%">
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/49fd0e58-5518-42e2-90f1-55a7d19b0394" width="100%">
 
 ### this 바인딩
 
+[함수 환경 레코드 생성](#함수-환경-레코드-생성) 파트에서는 언급하진 않았지만, `outerFunc` 렉시컬 환경의 함수 환경 레코드에는 `[[ThisValue]]` 내부 슬롯도 존재한다
 
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/e3d008e1-2cb8-41e5-a94a-f5ae6c598b81" width="100%">
+
+함수 환경 레코드가 생성되고 난 후 해당 `[[ThisValue]]` 내부 슬롯에 `this`가 바인딩된다. 앞서 [함수 호출과 this 바인딩 결정 방식](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/11-This/02-function-invoke-this-binding.md#함수-호출-방식과-this-바인딩-결정-방식)에서 살펴봤듯이, `outerFunc` 함수는 일반적인 함수 호출 방식으로 호출되었으므로 `this`는 전역 객체에 바인딩된다. 전역 객체 `window`는 위에 [전역 코드 실행](#전역-코드-실행)에서 식별자에 값의 할당이 모두 완료된 상태다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/87a46e81-cc05-4cae-9bf7-f0abd16bf4a1" width="100%">
+
+### 외부 렉시컬 환경에 대한 참조 결정
+
+외부 렉시컬 환경에 대한 참조는 특정 코드가 평가된 시점에 실행 중인 실행 컨텍스트의 렉시컬 환경을 가리킨다. 다시 말해, `outerFunc` 함수는 전역에서 정의된 전역 함수로 전역 코드 평가 시점에서 평가되었기 때문에 전역 실행 컨텍스트의 렉시컬 환경을 가리키게 되는 것이다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/ddc2439b-091c-4766-97e5-ef3f7f5840ff" width="100%">
+
+뒤에서 언급하지만, `innerFunc` 함수 렉시컬 환경의 외부 렉시컬 환경에 대한 참조는 `outerFunc` 렉시컬 환경을 가리키게 된다. `innerFunc` 함수는 `outerFunc` 함수 내부에서 정의된 지역 함수로 `outerFunc` 함수 코드 평가 시점에서 평가되기 때문에 `outerFunc` 렉시컬 환경을 가리키게 되는 것이다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/00560860-e9cd-4235-a902-6814ced20849" width="100%">
+
+이렇듯, 함수는 자신이 정의된 스코프, 즉 상위 스코프에 대한 참조 정보를 저장하고 있다. JS 엔진은 함수를 평가하여 함수 객체를 생성하는(함수의 평가 시점 = 함수 객체의 생성 시점) 시점에 실행 중인 실행 컨텍스트의 렉시컬 환경 정보를 함수 객체의 내부 슬롯인 `[[Environment]]`에 저장한다. 이러한 방식을 통해 렉시컬 스코프가 구현되는 것이다. `[[Environment]]` 내부 슬롯은 [클로저]()에서 매우 중요한 개념이므로 기억해두는 것이 좋다
 
 <br>
+
+## outerFunc 함수 코드 실행
+
+`outerFunc` 함수의 내부 코드가 순차적으로 실행되는 시점이다
+
+```javascript
+// var x = 1;
+// const y = 2; 
+
+// function outerFunc(a) {
+    var x = 3; 
+    const y = 4; 
+
+    function innerFunc(b) {
+        // var x = 5; 
+        // const z = 6; 
+
+        // console.log(a + b + x + y + z); 
+    }
+    innerFunc(10); 
+// } 
+
+// outerFunc(20);
+```
+
+함수 호출 시 지정된 인수가 매개변수에 전달되고 지역 변수 `x`, `y`에 값이 할당된다. 이때 앞서 [전역 코드 평가](#전역-코드-평가)에서 언급한 "식별자 결정"이 이뤄져야 하기 때문에 JS 엔진은 현재 실행 중인 `outerFunc` 실행 컨텍스트의 `outerFunc` 렉시컬 환경에서 식별자를 검색하기 시작한다. 식별자 결정이 모두 완료되면 적합한 식별자에 값을 바인딩(할당)하고 `innerFunc` 호출문을 실행한다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/5671c578-57b2-48f2-8e79-b2cff84cb6da" widht="100%">
+
+<br>
+
+## innerFunc 함수 코드 평가
+
+
 
 ## 참고
 
