@@ -37,31 +37,37 @@ console.log(x, y, z); // → 1 2 30
 ### 전역 코드 평가
 
 **1 전역 실행 컨텍스트 생성**
+
 전역 코드가 평가되는 것이기 때문에 가장 먼저 전역 실행 컨텍스트가 생성되고 이는 실행 컨텍스트 스택에 추가된다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/a4884c3a-4119-4193-85c2-f022c1794e01" width="100%">
 
 **2 전역 렉시컬 환경 생성**
+
 전역 실행 컨텍스트의 전역 렉시컬 환경이 생성되며, 전역 렉시컬 환경은 전역 환경 레코드와 외부 렉시컬 환경에 대한 참조로 구성된다. 이때 전역 렉시컬 환경은 스코프 체인 최상위에 위치하기 때문에 외부 렉시컬 환경에 대한 참조는 `null`이다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/6a3e84da-00d2-421a-acdb-721642674d2e" width="100%">
 
 **2.1 전역 환경 레코드 생성**
+
 스코프와 스코프 내에서 선언된 변수의 관리를 위해 전역 환경 레코드가 생성되며, 전역 환경 레코드는 객체 환경 레코드와 선언적 환경 레코드로 구성된다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/b3212dc3-a5ed-44ec-8375-7521401bb9d5" width="100%">
 
 **2.1.1 객체 환경 레코드 생성**
+
 객체 환경 레코드가 생성되며 이는 `var` 키워드로 선언한 전역 변수를 객체 환경 레코드의 속한 `BindingObject`라는 객체를 통해 관리한다. 현 시점은 코드 평가 단계이기 때문에 `var` 키워드로 선언된 `z` 전역 변수는 `undefined`를 할당받게 된다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/f0d04aa1-c565-4e99-ad7b-2a9e8cbe30da" width="100%">
 
 **2.1.2 선언적 환경 레코드 생성**
+
 선언적 환경 레코드가 생성되며 이는 `var` 키워드로 선언한 전역 변수와 함수 선언문으로 정의한 전역 함수 이외의 모든 선언들을 관리한다. `x`, `y` 변수는 `let`, `const` 키워드로 선언되었으므로 선언 단계와 초기화 단계가 분리되어 진행되어 `<unintialized>`로 표현된다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/8792c842-d379-495d-bb94-075db427f027" width="100%">
 
 **2.2 this 바인딩**
+
 전역 환경 레코드에 원래 포함되어 있는 `[[GlobalThisValue]]` 내부 슬롯은 전역 객체를 가리키므로, `this`는 전역 객체 `window`에 바인딩된다
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/55eb38dd-750b-4635-913f-4eb892db08d6" width="100%">
@@ -69,6 +75,7 @@ console.log(x, y, z); // → 1 2 30
 **2.2 this 바인딩**
 
 **2.3 외부 렉시컬 환경에 대한 참조 결정**
+
 현 시점은 전역 코드의 평가 시점으로 전역 코드를 포함하는 상위 스코프가 존재하지 않는다. 따라서 전역 렉시컬 환경의 외부 렉시컬 환경에 대한 참조는 `null`로 할당된다 
 
 ### 전역 코드 실행
