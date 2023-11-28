@@ -14,6 +14,21 @@
     - [this 바인딩](#this-바인딩)
     - [외부 렉시컬 환경에 대한 참조 결정](#외부-렉시컬-환경에-대한-참조-결정)
 - [전역 코드 실행](#전역-코드-실행)
+- [outerFunc 함수 코드 평가](#outerFunc-함수-코드-평가)
+  - [함수 실행 컨텍스트 생성](#함수-실행-컨텍스트-생성)
+  - [함수 렉시컬 환경 생성](#함수-렉시컬-환경-생성)
+    - [함수 환경 레코드 생성](#함수-환경-레코드-생성)
+    - [함수 this 바인딩](#함수-this-바인딩)
+    - [함수 외부 렉시컬 환경에 대한 참조 결정](#함수-외부-렉시컬-환경에-대한-참조-결정)
+
+- [outerFunc 함수 코드 실행](#outerFunc-함수-코드-실행)
+- [innerFunc 함수 코드 평가](#innerFunc-함수-코드-평가)
+- [innerFunc 함수 코드 실행](#innerFunc-함수-코드-실행)
+- [코드 실행 종료](#코드-실행-종료)
+  - [innerFunc 함수 코드 실행 종료](#innerFunc-함수-코드-실행-종료)
+  - [outerFunc 함수 코드 실행 종료](#outerFunc-함수-코드-실행-종료)
+  - [전역 코드 실행 종료](#전역-코드-실행-종료)
+
 
 <br>
 
@@ -161,10 +176,9 @@ JS 엔진은 식별자 결정은 위한 식별자를 검색할 때 현재 실행
 
 전역 코드에서 함수 호출문이 실행되면 전역 코드의 실행이 중단되고 `outerFunc` 함수 내부로 코드의 흐름이 이동한다. 그리고 함수 코드의 평가가 시작된다. 함수 코드 평가는 아래와 같은 순서로 진행된다:
 
-- 1. 함수 실행 컨텍스트 생성
+- 1 함수 실행 컨텍스트 생성시
 
-- 2. 함수 렉시컬 환경 생성
-
+- 2 함수 렉시컬 환경 생성
   - 2.1 함수 환경 레코드 생성
   - 2.2 this 바인딩
   - 2.3 외부 렉시컬 환경에 대한 참조 결정
@@ -200,7 +214,7 @@ JS 엔진은 식별자 결정은 위한 식별자를 검색할 때 현재 실행
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/49fd0e58-5518-42e2-90f1-55a7d19b0394" width="100%">
 
-### this 바인딩
+### 함수 this 바인딩
 
 [함수 환경 레코드 생성](#함수-환경-레코드-생성) 파트에서는 언급하진 않았지만, `outerFunc` 렉시컬 환경의 함수 환경 레코드에는 `[[ThisValue]]` 내부 슬롯도 존재한다
 
@@ -210,7 +224,7 @@ JS 엔진은 식별자 결정은 위한 식별자를 검색할 때 현재 실행
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/87a46e81-cc05-4cae-9bf7-f0abd16bf4a1" width="100%">
 
-### 외부 렉시컬 환경에 대한 참조 결정
+### 함수 외부 렉시컬 환경에 대한 참조 결정
 
 외부 렉시컬 환경에 대한 참조는 특정 코드가 평가된 시점에 실행 중인 실행 컨텍스트의 렉시컬 환경을 가리킨다. 다시 말해, `outerFunc` 함수는 전역에서 정의된 전역 함수로 전역 코드 평가 시점에서 평가되었기 때문에 전역 실행 컨텍스트의 렉시컬 환경을 가리키게 되는 것이다
 
@@ -256,7 +270,87 @@ JS 엔진은 식별자 결정은 위한 식별자를 검색할 때 현재 실행
 
 ## innerFunc 함수 코드 평가
 
+`innerFunc` 함수가 호출되면 `innerFunc` 함수 내부로 코드의 흐름이 이동한다. 그리고 여느때와 마찬가지로 `innerFunc` 함수 내부의 코드에 대한 평가가 시작된다. `outerFunc` 함수 코드의 평가 과정과 동일하게 진행된다:
 
+- 1 함수 실행 컨텍스트 생성
+
+  <img src="https://github.com/jacenam/WIL-archive/assets/92138751/2b71a008-786a-417a-8acf-ec86938e06c2" width="100%">
+
+- 2 함수 렉시컬 환경 생성
+
+  <img src="https://github.com/jacenam/WIL-archive/assets/92138751/ad6e09d7-9f78-466f-8fc7-1c1f8fc587cd" width="100%">
+
+  - 2.1 함수 환경 레코드 생성
+
+    <img src="https://github.com/jacenam/WIL-archive/assets/92138751/54d642f8-3c2b-4a11-a936-f850eca5c772" width="100%">
+
+  - 2.2 this 바인딩
+
+    <img src="https://github.com/jacenam/WIL-archive/assets/92138751/690fae0f-fa0a-4658-9b4c-8ba9d612b7d4" width="100%">
+
+  - 2.3 외부 렉시컬 환경에 대한 참조 결정
+
+    <img src="https://github.com/jacenam/WIL-archive/assets/92138751/6ceaea6f-c07c-41fd-8cc6-8dbed325a440" width="100%">
+
+<br>
+
+## innerFunc 함수 코드 실행
+
+`innerFunc` 함수 내부의 코드를 실행하는 런타임 시점이 되면 매개변수, 변수에 값이 할당된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/17a22e25-2a0c-45e5-a614-63342640b467" width="100%">
+
+그리고 JS 엔진은 `console.log(a + b + x + y + z)` 참조문을 실행하기 위해 `console` 프로퍼티를 스코프 체인을 따라 탐색하기 시작한다. 스코프 체인의 시작점은 현재 실행 중인 실행 컨텍스트의 렉시컬 환경이므로 `innerFunc` 함수 실행 컨텍스트의 `innerFunc` 렉시컬 환경에서부터 탐색이 시작되는 것이다
+
+`innerFunc` 렉시컬 환경에는 `console`이라는 이름을 가진 프로퍼티(식별자)가 없다 
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/26c9c7c8-8d01-4c3e-806f-e333ee933005" width="100%">
+
+따라서 `innerFunc` 렉시컬 환경의 외부 렉시컬 환경에 대한 참조가 가리키는 스코프 체인의 상위 스코프 `outerFunc` 렉시컬 환경으로 이동하여 `console` 식별자를 검색한다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/ae93e26b-0a45-459a-8216-2695102e666d" width="100%">
+
+그러나 `outerFunc` 렉시컬 환경에도 `console` 프로퍼티(식별자)가 존재하지 않는다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/52535de6-72d5-46ff-a4be-7b08529a382f" width="100%">
+
+따라서 `outerFunc` 렉시컬 환경의 외부 렉시컬 환경에 대한 참조가 가리키는 상위 스코프 전역 렉시컬 환경으로 이동하여 `console` 식별자를 검색한다. 그리고 `console` 식별자는 전역 렉시컬 환경의 객체 환경 레코드에서 `BindingObject`를 통해 전역 객체의 프로퍼티로서 존재한다는 것을 확인할 수 있게 된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/4a050eeb-af23-4cee-a95e-c3cb2918bb4c" width="100%">
+
+브라우저에서 전역 객체 `window`를 참조하면 전역 객체의 프로퍼티로서 `console` 프로퍼티(식별자)가 존재하는 것을 확인할 수 있다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/61d2eb0e-6045-4d73-ab14-1aafc4d3614b" width="100%">
+
+그리고 `console` 프로퍼티는 객체로서 여러 개의 메서드를 가지는데 그 중 하나가 바로 `log` 메서드다. `log` 메서드가 실행되고 `log` 메서드에 전달된 인수 `a + b + x + y + z` 표현식을 평가하기 위해 JS 엔진은 각각의 식별자를 스코프별로 탐색한다. `console.log` 메서드가 호출된 곳은 `innerFunc` 지역 스코프이므로, 전체 스코프에서 동일한 식별자가 선언된 경우 `innerFunc` 지역 스코프가 식별자에 대한 우선권을 갖게 된다
+
+`a + b + x + y + z` 표현식이 평가되어 생성된 값 `45`를 `console.log` 메서드에 전달하여 호출하고, 콘솔에 `45`를 출력한다
+
+<br>
+
+## 코드 실행 종료
+
+### innerFunc 함수 코드 실행 종료
+
+`console.log` 메서드가 호출된 후 `innerFunc` 함수 코드 내부에는 더 이상 실행할 코드가 없으므로 `innerFunc` 함수 코드의 실행이 종료된다. 따라서 실행 컨텍스트 스택에서 `innerFunc` 함수 실행 컨텍스트는 제거(Pop)되고 `outerFunc` 함수 실행 컨텍스트가 실행 중인 컨텍스트가 된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/c29323de-a9bb-4368-a203-b58f42b4b544" width="100%">
+
+### outerFunc 함수 코드 실행 종료
+
+`innerFunc` 함수가 종료되면 `outerFunc` 함수도 더 이상 실행될 코드가 없으므로 종료된다. 마찬가지로 실행 컨텍스트 스택에서 `outerFunc` 함수 실행 컨텍스트도 제거된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/ac106470-bce4-47fd-a80d-7beea7f28c7b" width="100%">
+
+여기서 기억해야 할 것으로, 실행 컨텍스트 스택에서 `innerFunc`, `outerFunc` 함수 실행 컨텍스트들이 제거되었다고 해서 각각의 함수 렉시컬 환경까지 소멸되는 것은 아니다. 렉시컬 환경은 독립적인 객체이므로, 메모리의 일정 공간을 차지하고 있다가 누구에게라도 참조되지 않을 때 비로소 메모리 가비지 컬렉터(Memory Garbage Collector)에 의해 메모리 공간에서 해제되는 것이다
+
+### 전역 코드 실행 종료
+
+`outerFunc` 함수가 종료되면 전역 코드 또한 더 이상 실행될 코드가 없으므로 종료된다. 실행 컨텍스트 스택에서 전역 실행 컨텍스트가 제거되고 스택에는 아무것도 남아있지 않게 되며, 이는 코드의 종료를 의미한다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/e781f786-38be-4848-8671-80441bcdf98c" width="100%">
+
+<br>
 
 ## 참고
 
