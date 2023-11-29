@@ -72,8 +72,6 @@ console.log(x, y, z); // → 1 2 30
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/55eb38dd-750b-4635-913f-4eb892db08d6" width="100%">
 
-**2.2 this 바인딩**
-
 **2.3 외부 렉시컬 환경에 대한 참조 결정**
 
 현 시점은 전역 코드의 평가 시점으로 전역 코드를 포함하는 상위 스코프가 존재하지 않는다. 따라서 전역 렉시컬 환경의 외부 렉시컬 환경에 대한 참조는 `null`로 할당된다 
