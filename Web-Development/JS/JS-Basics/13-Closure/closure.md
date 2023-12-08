@@ -6,7 +6,9 @@
 - [클로저란](#클로저란)
 - [렉시컬 스코프](#렉시컬-스코프)
 - [함수 객체의 내부 슬롯 Environment](#함수-객체의-내부-슬롯-Environment)
+
 <br>
+
 ## 클로저란
 
 ["클로저는 함수와 그 함수가 선언된 렉시컬 환경과의 조합이다"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
@@ -48,7 +50,9 @@ foo(); // → 1
 ```
 
 이는 [렉시컬 스코프](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/09-Scope/01-scope-intro.md#렉시컬-스코프) 파트에서 살펴보았듯이, JS는 함수를 어디서 호출했는지가 아니라 함수를 어디에 정의했는지에 따라 상위 스코프가 결정되는 렉시컬 스코프(정적 스코프) 방식을 따르기 때문이다. 다시 말해 함수가 호출된 위치는 상위 스코프를 가리는데에 어떠한 영향도 없다는 의미다
+
 <br>
+
 ## 렉시컬 스코프
 
 아래는 렉시컬 스코프 파트에서 살펴본 예제다. 아래 두 함수가 모두 실행되었을 때 참조문의 결과는 어떠할까?
@@ -132,11 +136,14 @@ foo(); // → 10
 ```
 
 정리하자면 [실행 컨텍스트](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/01-execution-context.md) 파트에서 살펴보았듯이 소스코드 타입별로 실행 컨텍스트가 생성이 되고, 각각의 실행 컨텍스트는 렉시컬 환경을 가진다. 또한, 렉시컬 환경마다 외부 렉시컬 환경에 대한 참조를 통해 상위 스코프에 대한 참조 정보를 갖게된다. 함수의 경우 함수가 어디서 정의되었는지에 따라 함수가 평가되어 함수 실행 컨텍스트와 함수 렉시컬 환경이 생성되는 시점에 외부 렉시컬 환경에 대한 참조 정보가 결정된다. 이는 다시 말해 함수가 정의된 환경(위치)에 따라 상위 스코프가 결정된다는 것을 의미한다
+
 <br>
+
 ## 함수 객체의 내부 슬롯 Environment
 
 
 <br>
+
 ## 참고 
 
 - [JavaScript MDN - 클로저](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures)
