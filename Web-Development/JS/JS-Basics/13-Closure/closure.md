@@ -4,6 +4,8 @@
 
 **Table of Contents**
 - [클로저란](#클로저란)
+- [렉시컬 스코프](#렉시컬-스코프)
+- [함수 객체의 내부 슬롯 Environment](#함수-객체의-내부-슬롯-Environment)
 <br>
 ## 클로저란
 
@@ -43,10 +45,97 @@ function bar() {
 }
 
 foo(); // → 1
-bar(); // → 1
 ```
 
 이는 [렉시컬 스코프](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/09-Scope/01-scope-intro.md#렉시컬-스코프) 파트에서 살펴보았듯이, JS는 함수를 어디서 호출했는지가 아니라 함수를 어디에 정의했는지에 따라 상위 스코프가 결정되는 렉시컬 스코프(정적 스코프) 방식을 따르기 때문이다. 다시 말해 함수가 호출된 위치는 상위 스코프를 가리는데에 어떠한 영향도 없다는 의미다
+<br>
+## 렉시컬 스코프
+
+아래는 렉시컬 스코프 파트에서 살펴본 예제다. 아래 두 함수가 모두 실행되었을 때 참조문의 결과는 어떠할까?
+
+```javascript
+const x = 1; 
+
+function foo() {
+	const x = 10; 
+	bar();
+}
+
+function bar() {
+	console.log(x);
+}
+
+foo(); // ? 
+bar(); // ?
+```
+
+위 예제의 `foo` 함수와 `bar` 함수는 모두 전역에서 정의되었다. 앞서 언급했듯이, 함수를 어디서 호출했는지가 아닌 어디에서 정의했는지에 따라 상위 스코프의 관계가 결정된다. 따라서 `foo` 함수와 `bar` 함수의 상위 스코프는 모두 전역 스코프다
+
+```javascript
+// 전역에서 선언된 전역 변수는 전역 스코프를 가진다
+// 전역 스코프는 스코프 체인상 종점에 위치한다 
+const x = 1; 
+
+// 전역에서 정의된 foo 전역 함수는 전역 스코프를 가진다
+// 따라서 전역 함수의 상위 스코프는 존재하지 않는다
+function foo() {
+	const x = 10; 
+	bar();
+}
+
+// 전역에서 정의된 bar 함수도 마찬가지로 전역 스코프를 가진다
+function bar() {
+	console.log(x);
+}
+
+foo();
+bar();
+```
+
+그리고 앞서 [실행 컨텍스트와 식별자 검색 과정 파트](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/03-execution-context--identifier.md#innerfunc-함수-코드-실행)에서 살펴보았듯이 `bar` 함수 내부의 `console.log(x)` 참조문을 실행하기 위해 `console.log` 메서드에 인수로 전달된 `x`를 평가하기 위해 `x` 변수(식별자)를 스코별로 검색하게 된다. 이때 `bar` 함수는 `foo` 함수 내부에서 호출되었지만 전역에서 정의되었기 때문에 전역 스코프를 가진다. 그리고 `bar` 함수의 렉시컬 환경의 외부 렉시켤 환경에 대한 참조 값은 `null`(없음)이다. 즉, `bar` 함수는 스코프 종점에 위치하기 때문에 상위 스코프가 존재하지 않는다는 것을 의미한다
+
+[실행 컨텍스트 스택과 렉시컬 환경](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/02-stack-lexical.md#렉시컬-환경) 파트에서 살펴보았듯이, 스코프 체인은 상위 방향으로만 이루어진 단방향 [린크드 리스트인]() 자료구조의 형태를 띄고 있어 하위 스코프의 방향으로 식별자 검색 과정이 이뤄지지 않는다. 따라서 `bar` 함수 내부의 `console.log(x)` 참조문의 `x` 변수(식별자)는 전역 스코프에서만 참조가 가능하다. 그렇게 `x` 변수에 대한 참조문은 전역 변수 `x`의 값인 `1`을 참조하게 된다
+
+```javascript
+const x = 1; 
+
+function foo() {
+	const x = 10; 
+	bar();
+}
+
+function bar() {
+	console.log(x);
+}
+
+foo(); // → 1 
+bar(); // → 1
+```
+
+만약 `foo` 함수 내부에서 선언된 지역 변수 `x`의 값 `10`을 `bar` 함수에서 참조하려면 지금까지 살펴보았던대로 `foo` 함수 내부에 `bar` 함수가 지역 함수로서 정의되어야 한다
+
+```javascript
+const x = 1;
+
+function foo() {
+	const x = 10;
+
+	function bar() {
+		// bar 함수의 상위 스코프를 가진 것은 foo 함수다
+		// 따라서 상위 스코프 체인의 방향에 따라 아래 참조문의 x 식별자는 foo 함수의 지역 변수를 참조할 수 있게 된다
+		console.log(x);
+	}
+	bar();
+}
+
+foo(); // → 10
+```
+
+정리하자면 [실행 컨텍스트](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/01-execution-context.md) 파트에서 살펴보았듯이 소스코드 타입별로 실행 컨텍스트가 생성이 되고, 각각의 실행 컨텍스트는 렉시컬 환경을 가진다. 또한, 렉시컬 환경마다 외부 렉시컬 환경에 대한 참조를 통해 상위 스코프에 대한 참조 정보를 갖게된다. 함수의 경우 함수가 어디서 정의되었는지에 따라 함수가 평가되어 함수 실행 컨텍스트와 함수 렉시컬 환경이 생성되는 시점에 외부 렉시컬 환경에 대한 참조 정보가 결정된다. 이는 다시 말해 함수가 정의된 환경(위치)에 따라 상위 스코프가 결정된다는 것을 의미한다
+<br>
+## 함수 객체의 내부 슬롯 Environment
+
+
 <br>
 ## 참고 
 
