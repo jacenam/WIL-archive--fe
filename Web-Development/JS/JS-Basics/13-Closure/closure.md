@@ -141,6 +141,24 @@ foo(); // → 10
 
 ## 함수 객체의 내부 슬롯 Environment
 
+앞서 함수는 자신이 정의된 위치에 따라 스코프가 결정된다고 했다. 함수는 자신의 내부 슬롯 `[[Environment]]`에 함수 자신이 정의된 환경(위치), 즉 상위 스코프의 참조 정보를 저장한다. 앞서 살펴본 함수 예제를 그림으로 나타내면 아래와 같다
+
+```javascript
+const x = 1; 
+
+function foo() {
+	const x = 10; 
+	bar();
+}
+
+function bar() {
+	console.log(x);
+}
+
+foo(); // → 1 
+bar(); // → 1
+```
+
 
 <br>
 
