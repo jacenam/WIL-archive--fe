@@ -170,7 +170,7 @@ bar(); // → 1
 
 ## 클로저
 
-아래 예제를 살펴보자. 
+아래 예제를 살펴보자 
 
 ```javascript
 const x = 1; 
@@ -183,8 +183,38 @@ function outer() {
 
 const innerFunc = outer();
 
-innerFunc();
+// 결과는 어떠할까
+innerFunc(); // ?
 ```
+
+전역에서 `outer` 함수가 정의된 것을 확인할 수 있다. 따라서 `outer` 함수의 내부 코드들을 제외한 함수 객체의 관리를 위해 전역 실행 컨텍스트가 생성된다. `outer` 함수가 호출되면 `outer` 함수의 내부 코드들이 실행되며 반환문(`return`)에 따라 `outer` 함수의 실행이 종료되면 `outer` 함수의 전역 실행 컨텍스트는 스택에서 제거(Pop)된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/a59810b9-4e58-42d4-abc5-acc30239485e" width="100%">
+
+다시말해 `outer` 함수의 생명주기가 종료되는 것을 의미하며, `outer` 함수 내부에서 선언된 지역 변수 `x`와 변수 값 `10`을 관리하던 실행 컨텍스트가 제거되었으므로 지역 변수는 모두 유효하지 않게 되어 `x` 지역 변수에 접근할 방법이 없어 보인다. 그러나 코드의 실행 결과는 `outer` 함수 내부에서 선언된 `x` 지역 변수의 값 `10`이다. 즉, 이미 종료된 `outer` 함수의 `x` 지역 변수가 다시 동작하고 있다는 의미다. 이런 현상이 어떻게 가능한 것일까?
+
+- (앞서 [실행 컨텍스트와 식별자 검색 과정](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/03-execution-context--identifier.md#outerFunc-함수-코드-실행-종료) 파트에서 언급했듯이) 코드의 실행이 종료되어 실행 컨텍스트가 실행 컨텍스트 스택에서 제거되었다고 해도 렉시컬 환경은 독립적인 객체로서 누군가에게 참조되고 있다면 제거되지 않는다
+	```javascript
+	const x = 1; 
+
+	function outer() {
+		// x 지역 변수, inner 함수는 outer 함수의 렉시컬 환경에 등록된다
+		const x = 10;
+		const inner = function() { console.log(x) };
+		// outer 함수 외부에서 inner를 참조할 수 있도록 함수 밖으로 반환한다
+		return inner;
+	}
+
+	// outer 함수 내부에서 정의된 inner 함수를 참조하여 inner 함수의 실행 결과를 innerFunc 변수에 할당한다
+	// 즉, outer 함수의 렉시컬 환경에 등록된 식별자를 계속해서 참조 중이므로 outer 함수가 종료되어도 렉시컬 환경이 당장 사라지지 않는다
+	const innerFunc = outer();
+
+	innerFunc(); // ?
+	```
+- 따라서 외부 함수보다 중첩 함수가 더 오래 유지되는 경우 이미 생명 주기가 종료된 외부 함수의 변수를 참조할 수 있게 된다
+	<img src="https://github.com/jacenam/WIL-archive/assets/92138751/4776d510-c7b7-4602-a312-9bb8363eaf7c" width="100%">
+
+
 
 
 <br>
