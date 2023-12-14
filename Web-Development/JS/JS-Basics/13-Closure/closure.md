@@ -176,6 +176,14 @@ bar(); // → 1
 const x = 1;
 
 function outer() {
+  const x = 10;
+  const y = 20; 
+
+  funciton inner() {
+    console.log(x);
+  }
+}
+
 	const x = 10;
 
 	function inner() {
