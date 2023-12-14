@@ -172,95 +172,14 @@ bar(); // → 1
 ## 클로저
 
 아래 예제를 살펴보자 
-```javascript
-const x = 1;
-
-function outer() {
-  const x = 10;
-  const y = 20; 
-
-  funciton inner() {
-    console.log(x);
-  }
-}
-
-	const x = 10;
-
-	function inner() {
-		console.log(x);
-	}
-}
-
-foo();
-bar();
-```
-
-```javascript
-const x = 1;
-
-function outer() {
-	const x = 10;
-
-	function inner() {
-		console.log(x)
-	}
-}
-
-foo();
-bar();
-```
-
-```javascript
-const x = 1;
-
-function outer() {
-	const x = 10;
-
-	function inner() {
-		console.log(x);
-	}
-}
-
-foo();
-bar();
-```
-
-```javascript
-const x = 1;
-
-function outer() {
-	const x = 10;
-
-	function inner() {
-		console.log(x);
-	}
-}
-
-foo();
-bar();
-```
-
-```javascript
-const x = 1;
-function outer() {
-	const x = 10; 
-	
-	function inner() { 
-		console.log(x);
-	}
-	
-}
-
-
-```
 
 ```javascript
 const x = 1; 
 
 function outer() {
-	const x = 10;
-	const inner = function() { console.log(x) };
-	return inner;
+  const x = 10;
+  const inner = function() { console.log(x) };
+  return inner;
 }
 
 const innerFunc = outer();
