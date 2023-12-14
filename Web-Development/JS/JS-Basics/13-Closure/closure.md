@@ -172,6 +172,20 @@ bar(); // → 1
 ## 클로저
 
 아래 예제를 살펴보자 
+```javascript
+const x = 1;
+
+function outer() {
+	const x = 10;
+
+	function inner() {
+		console.log(x);
+	}
+}
+
+foo();
+bar();
+```
 
 ```javascript
 const x = 1;
