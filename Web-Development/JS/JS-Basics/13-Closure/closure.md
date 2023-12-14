@@ -27,8 +27,9 @@ function outerFunc() {
   
   function innerFunc() {
     console.log(x); // → 10
-  }
-  innerFunc();
+	}
+	
+	innerFunc();
 }
 
 outerFunc();
@@ -63,12 +64,12 @@ foo(); // → 1
 const x = 1; 
 
 function foo() {
-	const x = 10; 
-	bar();
+  const x = 10; 
+  bar();
 }
 
 function bar() {
-	console.log(x);
+  console.log(x);
 }
 
 foo(); // ? 
@@ -85,13 +86,13 @@ const x = 1;
 // 전역에서 정의된 foo 전역 함수는 전역 스코프를 가진다
 // 따라서 전역 함수의 상위 스코프는 존재하지 않는다
 function foo() {
-	const x = 10; 
-	bar();
+  const x = 10; 
+  bar();
 }
 
 // 전역에서 정의된 bar 함수도 마찬가지로 전역 스코프를 가진다
 function bar() {
-	console.log(x);
+  console.log(x);
 }
 
 foo();
@@ -106,12 +107,12 @@ bar();
 const x = 1; 
 
 function foo() {
-	const x = 10; 
-	bar();
+  const x = 10; 
+  bar();
 }
 
 function bar() {
-	console.log(x);
+  console.log(x);
 }
 
 foo(); // → 1 
@@ -124,14 +125,14 @@ bar(); // → 1
 const x = 1;
 
 function foo() {
-	const x = 10;
+  const x = 10;
 
-	function bar() {
-		// bar 함수의 상위 스코프를 가진 것은 foo 함수다
-		// 따라서 상위 스코프 체인의 방향에 따라 아래 참조문의 x 식별자는 foo 함수의 지역 변수를 참조할 수 있게 된다
-		console.log(x);
-	}
-	bar();
+  function bar() {
+    // bar 함수의 상위 스코프를 가진 것은 foo 함수다
+    // 따라서 상위 스코프 체인의 방향에 따라 아래 참조문의 x 식별자는 foo 함수의 지역 변수를 참조할 수 있게 된다
+    console.log(x);
+  }
+  bar();
 }
 
 foo(); // → 10
@@ -149,12 +150,12 @@ foo(); // → 10
 const x = 1; 
 
 function foo() {
-	const x = 10; 
-	bar();
+  const x = 10; 
+  bar();
 }
 
 function bar() {
-	console.log(x);
+  console.log(x);
 }
 
 foo(); // → 1 
@@ -199,11 +200,11 @@ innerFunc(); // ?
 	const x = 1; 
 
 	function outer() {
-		// x 지역 변수, inner 함수는 outer 함수의 렉시컬 환경에 등록된다
-		const x = 10;
-		const inner = function() { console.log(x) };
-		// outer 함수 외부에서 inner를 참조할 수 있도록 함수 밖으로 반환한다
-		return inner;
+	  // x 지역 변수, inner 함수는 outer 함수의 렉시컬 환경에 등록된다
+	  const x = 10;
+	  const inner = function() { console.log(x) };
+	  // outer 함수 외부에서 inner를 참조할 수 있도록 함수 밖으로 반환한다
+	  return inner;
 	}
 
 	// outer 함수 내부에서 정의된 inner 함수를 참조하여 inner 함수의 실행 결과를 innerFunc 변수에 할당한다
@@ -231,16 +232,16 @@ innerFunc(); // ?
 
 ```javascript
 function foo() {
-	const x = 1;
-	const y = 2;
+  const x = 1;
+  const y = 2;
 
-    function bar() {
-        const z = 3;
-        
-        console.log(z);
+  function bar() {
+    const z = 3;
+
+    console.log(z);
     }
-
-    return bar; 
+  
+  return bar; 
 }
 
 const bar = foo(); 
