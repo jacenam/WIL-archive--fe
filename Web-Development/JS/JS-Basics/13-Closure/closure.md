@@ -174,6 +174,20 @@ bar(); // → 1
 아래 예제를 살펴보자 
 
 ```javascript
+const x = 1;
+function outer() {
+	const x = 10; 
+	
+	function inner() { 
+		console.log(x);
+	}
+	
+}
+
+
+```
+
+```javascript
 const x = 1; 
 
 function outer() {
@@ -221,23 +235,22 @@ innerFunc(); // ?
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/afb80cc4-4ae9-4780-ad04-0538a25b86c5" width="100%">
 
-이처럼 외부 함수(`outer` 함수)보다 중첩 함수(`inner` 함수)가 더 오래 생존하는 중첩 함수를 클로저(Closure)라 부른다. 모든 함수는 자신이 정의된 환경(위치)에 따른 정보를 `[[Environment]]` 내부 슬롯에 저장하며, 이는 각 함수 렉시컬 환경의 외부 렉시컬 환경에 대한 참조에 할당된다. 따라서 특정 함수의 상위 스코프(실행 컨텍스트)가 종료되어 실행 컨텍스트 스택에서 제거되어도, 여전히 스코프 체인상에 존재하는 렉시컬 환경의 식별자들을 참조할 수 있는 메커니즘 가능해진다
+이처럼 외부 함수(`outer` 함수)보다 중첩 함수(`inner` 함수)가 더 오래 생존하는 중첩 함수를 클로저(Closure)라 부른다. 모든 함수는 자신이 정의된 환경(위치)에 따른 정보를 `[[Environment]]` 내부 슬롯에 저장하며, 이는 각 함수 렉시컬 환경의 외부 렉시컬 환경에 대한 참조에 할당된다. 따라서 특정 함수의 상위 스코프(실행 컨텍스트)가 종료되어 실행 컨텍스트 스택에서 제거되어도, 여전히 스코프 체인상에 존재하는 렉시컬 환경의 식별자들을 참조할 수 있는 메커니즘이 가능해진다
 
 <br>
 
 ## 클로저의 조건
 
+앞서 외부 함수보다 외부 함수 내부에서 선언된 중첩 함수가 더 오래 생존하는 경우, 해당 중첩 함수를 클로저라고 부른다고 했다. 그러나 모든 중첩 함수를 클로저라고 하지는 않는다. 아럐 예제를 살펴보자
 
-
+```javascript
 function foo() {
-    const x = 1;
-    const y = 2;
+	const x = 1;
+	const y = 2;
 
     function bar() {
         const z = 3;
-
-        debugger;
-
+        
         console.log(z);
     }
 
@@ -246,6 +259,8 @@ function foo() {
 
 const bar = foo(); 
 bar();
+```
+
 
 <br>
 
