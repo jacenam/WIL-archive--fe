@@ -326,7 +326,7 @@ console.log(increase()); // → 1
 console.log(increase()); // → 1
 ```
 
-이런 상황에서 클로저를 활용해볼 수 있다
+이런 상황에서 클로저를 활용해볼 수 있다. `increase` 함수 호출되었을 때 실행 결과로 `num` 지역 변수를 선언하고 `closure` 함수를 반환한다. 그리고 `increase` 함수의 호출 결과를 `result` 변수에 할당한다. 이에 `result` 변수를 함수로 호출할 때마다 증가 연산자가 실행되어 `num` 지역 변수 값을 `1`씩 증가시키는 것이다
 
 ```javascript
 function increase() {
@@ -342,8 +342,52 @@ function increase() {
 const result = increase();
 
 console.log(result()); // → 1
-console.log(result()); // → 1
-console.log(result()); // → 1
+console.log(result()); // → 2
+console.log(result()); // → 3
+```
+
+위 예제는 아래와 같이 즉시 실행 함수를 활용하여 다듬을 수 있다. `increase` 변수에 할당될 즉시 실행 함수는 JS 엔진에 의해 평가되어 바로 실행된다. 그리고 실행 결과로 즉시 실행 함수의 내부 코드인 `num` 지역 변수 선언과 클로저(중첩 함수)를 반환이 이뤄진다. 그리고 즉시 실행 함수는 소멸되고 `increase` 변수에 클로저가 할당된다. 즉, `increase()` 호출문이 호출되었을 때 `increase` 변수에 할당된 클로저가 실행되는 것이다. 클로저가 호출될 때 자신이 정의된 위치(즉시 실행 함수 내부)의 렉시컬 환경을 기억한다. 따라서 이미 소멸된 즉시 실행 함수의 `num` 지역 변수를 언제든지 참조할 수 있다. `num` 지역 변수는 `let` 키워드로 선언된 변수이므로 값의 재할당이 가능하기 때문에 클로저를 통해 가장 적합한 카운트 함수를 만들 수 있는 것이다 
+
+>[즉시 실행 함수](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/08-Function/Function-Types/01-immediately-invoked-function.md)는 값으로 평가가 가능한 표현식이므로 변수에 할당할 수 있다. 그리고 즉시 실행 함수는 이름 그대로 평가되는 즉시 실행되는 함수다
+
+```javascript
+const increase = (function() {
+  let num = 0;
+
+  return function() {
+    return ++num
+  }
+}());
+
+console.log(increase()); // → 1
+console.log(increase()); // → 2
+console.log(increase()); // → 3
+```
+
+앞서 언급했듯이, 이처럼 클로저는 상태가 의도치 않게 변경되지 않도록 은닉하고 특정 함수만이 상태 변경이 가능하도록 사용된다. `num` 변수는 외부에서 접근(참조)이 불가능하기 때문에 은닉된 변수로서 의도치 않은 상태 변경에 대한 걱정할 필요가 없다
+
+이러한 클로저의 특성을 활용하면 증감 카운트가 가능한 함수를 아래와 같이 구현할 수 있다
+
+```javascript
+const counter = (function() {
+  let num = 0;
+
+  return {
+    increase() {
+      return ++num;
+    },
+    decrease() {
+      return --num;
+    },
+  };
+}());
+
+console.log(counter.increase()); // → 1
+console.log(counter.increase()); // → 2
+
+console.log(counter.decrease()); // → 1
+console.log(counter.decrease()); // → 0
+console.log(counter.decrease()); // → -1
 ```
 
 ---
