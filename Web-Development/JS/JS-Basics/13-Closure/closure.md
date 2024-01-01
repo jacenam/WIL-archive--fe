@@ -391,13 +391,42 @@ console.log(counter.decrease()); // → 0
 console.log(counter.decrease()); // → -1
 ```
 
-아래 즉시 실행 함수는 JS 엔진에 의해 런타임에 실행되어 `num` 지역 변수를 선언하고 객체를 반환한다. 이때 반환되어 `counter` 변수에 할당되는 객체는 메서드다. 그리고 객체 리터럴의 중괄호(`{}`)는 코드 블록(함수 코드 블록 혹은 제어문의 코드 블록)이 아니므로 별도의 스코프를 따로 생성하지 않는다. 즉, 객체 리터럴이 평가되어 생성되는 객체에 대해서는 별도의 렉시컬 환경이 생성되지 않는다는 의미다. 전역 실행 컨텍스트 → 전역 렉시컬 환경 → 선언적 환경 레코드에 `counter` 식별자가 등록되며, 이는 `counter` 식별자가 전역 스코프를 갖는다는 의미다
+위 예제의 즉시 실행 함수는 JS 엔진에 의해 런타임에 실행되어 `num` 지역 변수를 선언하고 객체를 반환한다. 이때 반환되어 `counter` 변수에 할당되는 객체는 메서드다. 그리고 객체 리터럴의 중괄호(`{}`)는 코드 블록(함수 코드 블록 혹은 제어문의 코드 블록)이 아니므로 별도의 스코프를 따로 생성하지 않는다. 즉, 객체 리터럴이 평가되어 생성되는 객체에 대해서는 별도의 렉시컬 환경이 생성되지 않는다는 의미다. 전역 실행 컨텍스트 → 전역 렉시컬 환경 → 선언적 환경 레코드에 `counter` 식별자가 등록되며, 이는 `counter` 식별자가 전역 스코프를 갖는다는 의미다
 
 >[실행 컨텍스트와 블록 레벨 스코프](https://github.com/jacenam/WIL-archive/blob/main/Web-Development/JS/JS-Basics/12-Execution-Context/04-execution-context--block-level-scope.md) 파트에서 살펴보았듯이, 코드 블록 내에 블록 레벨 스코프를 따르는  `let`, `const` 키워드로 선언된 지역 변수가 존재한다면 지역 변수의 관리를 위해 임시적으로 "블록 레벨 렉시컬 환경"이 따로 생성되어 실행 컨텍스트와 연결되는 렉시컬 환경을 임시적으로 교체한다. 위 예제의 `counter` 변수에는 객체가 할당되므로 블록 레벨 렉시컬 환경이 따로 생성되지는 않는다
 
-<img src="https://github.com/jacenam/WIL-archive/assets/92138751/6e2abecf-d5bd-4570-8025-43d0c155d283" width="100%">
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/9b4849a3-8d3f-4722-8d53-b1ef702cc393" width="100%">
 
-그리고 위 예제의 `increase`, `decrease` 메서드는 함수 객체이므로 함수 객체와 동일한 방식으로 렉시컬 환경이 생성된다. 함수 객체는 JS 엔진에 의해 런타임 이전에 함수 객체가 평가되는 시점에 실행 중인 실행 컨텍스트의 렉시컬 환경에 등록되어 관리된다. 따라서 전역 코드인 즉시 실행 함수가 실행되는 시점에 실행 컨텍스트인 전역 실행 컨텍스트의 렉시컬 환경에 등록된다. 
+그리고 위 예제의 `increase`, `decrease` 메서드는 함수 객체이므로 함수 객체와 동일한 방식으로 렉시컬 환경이 생성된다. 함수 객체는 JS 엔진에 의해 런타임 이전에 함수 객체가 평가되는 시점에 실행 중인 실행 컨텍스트의 렉시컬 환경에 등록되어 관리된다. 따라서 `increase`, `decrease` 메서드는 즉시 실행 함수 실행 컨텍스트의 렉시컬 환경을 상위 스코프로 가리키게 된다. 그리고 이 때문에 `increase`, `decrease` 메서드가 언제 어디서 호출되든 즉시 실행 함수의 등록된 `num` 식별자를 참조할 수 있게 되는 클로저가 된다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/38e9c46a-f804-4467-9dc5-9e85bf04ea57" width="100%">
+
+위 클로저의 예제는 아래와 같이 생성자 함수로 표현할 수도 있다
+
+```javascript
+const Counter = (function() {
+  let num = 0;
+
+  function Counter() {}
+
+  Counter.prototype.increase = function() {
+    return ++num;
+  }
+
+  Counter.prototype.decrease = function() {
+    return --num;
+  }
+
+  return Counter;
+}());
+
+const counter = new Counter(); 
+
+console.log(counter.increase()); // → 1
+console.log(counter.increase()); // → 2
+console.log(counter.decrease()); // → 1
+console.log(counter.decrease()); // → 0
+```
 <br>
 
 ## 참고 
