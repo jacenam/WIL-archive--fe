@@ -401,31 +401,32 @@ console.log(counter.decrease()); // → -1
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/38e9c46a-f804-4467-9dc5-9e85bf04ea57" width="100%">
 
-위 클로저의 예제는 아래와 같이 생성자 함수로 표현할 수도 있다
+위 클로저의 예제는 아래와 같이 생성자 함수로 표현할 수도 있다. `Counter` 생성자 함수 정의에서 `num` 변수를 지역 변수로 선언했고 프로토타입 객체`increase`, `decrease` 메서드를 추가했다. 
 
 ```javascript
-const Counter = (function() {
+function Counter() {
   let num = 0;
-
-  function Counter() {}
-
+  
   Counter.prototype.increase = function() {
     return ++num;
   }
-
+  
   Counter.prototype.decrease = function() {
     return --num;
   }
-
-  return Counter;
-}());
+}
 
 const counter = new Counter(); 
+const counter2 = new Counter();
 
 console.log(counter.increase()); // → 1
 console.log(counter.increase()); // → 2
 console.log(counter.decrease()); // → 1
 console.log(counter.decrease()); // → 0
+
+console.log(counter2.decrease()); // → -1
+console.log(counter2.decrease()); // → -2
+console.log(counter2.decrease()); // → -3
 ```
 <br>
 
