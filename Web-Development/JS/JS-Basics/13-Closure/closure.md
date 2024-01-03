@@ -401,7 +401,7 @@ console.log(counter.decrease()); // → -1
 
 <img src="https://github.com/jacenam/WIL-archive/assets/92138751/38e9c46a-f804-4467-9dc5-9e85bf04ea57" width="100%">
 
-위 클로저의 예제는 아래와 같이 생성자 함수로 표현할 수도 있다. `Counter` 생성자 함수 정의에서 `num` 변수를 지역 변수로 선언했고 프로토타입 객체`increase`, `decrease` 메서드를 추가했다. 
+위 클로저의 예제는 아래와 같이 생성자 함수로 표현할 수도 있다. `Counter` 생성자 함수 정의에서 `num` 변수를 지역 변수로 선언했고 프로토타입 객체`increase`, `decrease` 메서드를 추가했다
 
 ```javascript
 function Counter() {
@@ -409,11 +409,11 @@ function Counter() {
   
   Counter.prototype.increase = function() {
     return ++num;
-  }
+  };
   
   Counter.prototype.decrease = function() {
     return --num;
-  }
+  };
 }
 
 const counter = new Counter(); 
@@ -428,6 +428,84 @@ console.log(counter2.decrease()); // → -1
 console.log(counter2.decrease()); // → -2
 console.log(counter2.decrease()); // → -3
 ```
+
+그리고 `Counter` 생성자 함수에 의해 생성되는 인스턴스는 `Counter.prototype` 객체를 통해 `increase`, `decrease` 메서드를 상속받게 된다. `increase`, `decrease` 메서드 모두 평가되어 함수 객체가 생성된다. 이때 `increase`, `decrease`의 `[[Environment]]` 내부 슬롯의 참조 값은 실행 중인 실행 컨텍스트인 `Counter` 생성자 함수 → 함수 실행 컨텍스트 → `Counter` 렉시컬 환경을 가리키게 된다. 즉 `Counter` 생성자 함수에 의해 생성된 `counter`, `counter2` 인스턴스는 `Counter` 생성자 함수의 프로토타입으로부터 상속 받은 메서드로 `Counter` 생성자 함수의 지역 변수인 `num`을 참조할 수 있게된다. 그리고 위 코드 예제에서 `increase`, `decrease` 메서드만이 `num` 변수의 값을 변경할 수 있기 때문에 `increase`, `decrease` 메서드는 클로저다
+
+<img src="https://github.com/jacenam/WIL-archive/assets/92138751/03d31125-cd47-4a4e-b23d-71f53b561598" width="100%">
+
+위 생성자 함수의 클로저 예제는 한 가지 문제가 있다. 작동하는데에는 문제가 없지만, `Counter` 생성자 함수를 호출해 `counter` 변수에 인스턴스를 담을 때마다 `Counter` 생성자 함수 내부의 `num` 지역 변수 선언문이 반복해서 실행된다. 이러한 불필요한 변수 반복 선언을 방지하기 위해 즉시 실행 함수와 결합한 예제를 확인해보자
+
+```javascript
+const Counter = (function() {
+  let num = 0;
+
+  function Counter() {}
+
+  Counter.prototype.increase = function() {
+    return ++num;
+  };
+
+  Counter.prototype.decrease = function() {
+    return --num;
+  };
+
+  return Counter;
+}());
+
+const counter = new Counter();
+const counter2 = new Counter();
+
+console.log(counter.increase()); // → 1
+console.log(counter.increase()); // → 2
+console.log(counter.decrease()); // → 1
+console.log(counter.decrease()); // → 0
+
+console.log(counter2.decrease()); // → -1
+console.log(counter2.decrease()); // → -2
+console.log(counter2.decrease()); // → -3
+```
+
+위 즉시 실행 함수와 클로저의 예제는 불필요한 지역 변수의 선언을 방지한다. 즉시 실행 함수는 런타임 즉시 JS 엔진에 의해 평가되어 즉시 실행 함수를 실행한다. `num` 지역 변수는 단 한번만 선언되고 `Counter` 생성자 함수를 반환하여 `Counter` 변수에 할당하게 된다. 따라서 `Counter` 생성자 함수가 호출되어 `counter`, `counter2` 인스턴스를 생성하더라도 `num` 지역 변수는 중복되어 선언되지 않기 때문에 위 생성자 함수만을 이용한 클로저 예제보다는 완전하다
+
+<br>
+
+## 함수형 프로그래밍과 클로저
+
+[함수형 프로그래밍]()은 외부 상태 변경이나 변경 가능한 데이터를 피하고 불변성을 통해 코드의 부수 효과를 최대한 억제하는 프로그래밍 패러다임이다. 여기서 변경 가능한 가변 데이터는 변수 값의 변경처럼 흔히 일어나는 일이다. 따라서 함수형 프로그래밍에서는 프로그램의 안정성을 높이기 위해 클로저를 적극 활용한다. 함수형 프로그래밍에서의 간단한 클로저 예제를 살펴보자
+
+```javascript
+function makeCounter(aux) {
+  let counter = 0;
+
+  return function() {
+    counter = aux(counter);
+    return counter;
+  };
+}
+
+function increase(n) {
+  return ++n;
+}
+
+function decrease(n) {
+  return --n;
+}
+
+const increaser = makeCounter(increase);
+console.log(increaser());
+console.log(increaser());
+
+const decreaser = makeCounter(decrease);
+console.log(decreaser());
+console.log(decreaser());
+```
+
+<br>
+
+## 캡슐화와 정보 은닉
+
+
+
 <br>
 
 ## 참고 
