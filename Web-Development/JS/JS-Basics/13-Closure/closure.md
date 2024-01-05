@@ -500,6 +500,7 @@ console.log(decreaser());
 console.log(decreaser());
 ```
 
+
 <br>
 
 ## 캡슐화와 정보 은닉
