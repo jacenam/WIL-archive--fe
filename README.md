@@ -6,8 +6,8 @@
 
 ## Foundations
 
-- [CS](https://github.com/jacenam/WIL-archive/tree/main/Foundations/CS)
-- [Data Structure](https://github.com/jacenam/WIL-archive/tree/main/Foundations/Data%20Structure)
+- [CS]()
+- [Data Structure]()
 - [Algorithm]()
 
 ## Web Development
