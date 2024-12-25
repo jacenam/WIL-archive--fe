@@ -12,8 +12,8 @@
 
 ## Web Development
 
-- [HTML](https://github.com/jacenam/WIL-archive/tree/main/Web-Development/HTML)
-- [CSS](https://github.com/jacenam/WIL-archive/tree/main/Web-Development/CSS)
+- [HTML]()
+- [CSS]()
 - [JS](https://github.com/jacenam/WIL-archive/tree/main/Web-Development/JS)
 - [Package Manager]()
 - [Framework/Library]()
