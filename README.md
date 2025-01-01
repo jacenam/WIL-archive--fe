@@ -20,6 +20,6 @@
 
 ## Productivity
 
-- [Tools for Code](https://github.com/jacenam/WIL-archive/tree/main/Productivity/Tools-for-Code)
-- [Version Control System](https://github.com/jacenam/WIL-archive/tree/main/Productivity/Version-Control-System)
+- [Tools for Code]()
+- [Version Control System]()
 
